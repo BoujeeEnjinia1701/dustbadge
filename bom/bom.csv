@@ -1,7 +1,13 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-Optical particle sensor,,,,,,
-Low-power microcontroller with Bluetooth,,,,,,
-Vibration motor and LED alert,,,,,,
-"Rechargeable cell, full-shift capacity",,,,,,
-Clip-on enclosure near the breathing zone,,,,,,
-Phone app for shift log,,,,,,
+1 Front shell with bottom inlet,1,"3D-printed PETG, high-visibility yellow, about 64 x 52 x 16 mm",Self,1.50,make,Material cost only
+2 Inlet dust screen,1,"Stainless mesh, about 1 mm aperture, 30 x 8 mm",Hardware store,1.00,buy,Indicative price
+3 Optical particle sensor,1,"Sensirion SPS30 class, PM1 to PM10 including PM4, 0 to 1000 ug/m3, 5 V",Electronics distributor,48.00,buy,Indicative price; proposed choice awaiting Amish
+4 Controller and BLE module,1,"nRF52840 with 2 MB flash and LiPo charger (Seeed XIAO nRF52840 class)",Seeed Studio or distributor,10.00,buy,Indicative price
+5 Vibration motor,1,"10 mm coin, 3 V",Online retailer,1.50,buy,Indicative price
+6 Alert LED and light pipe,1,"Red 3 mm LED, clear PETG or acrylic light pipe",Electronics distributor,0.50,buy,Indicative price
+7 Carrier board,1,"Perfboard with 5 V boost module, 500 mA charger module, polyfuse, USB-C socket",Electronics distributor,6.00,buy,Indicative price; no custom PCB for the first build
+8 LiPo cell,1,"1500 mAh 3.7 V protected, about 50 x 34 x 10 mm",Hobby electronics distributor,10.00,buy,Indicative price
+9 Rear shell,1,"3D-printed PETG with TPU gasket, about 64 x 52 x 14 mm",Self,1.50,make,Material cost only
+10 Spring clip and strap loop,1,"Stainless spring clip, about 40 mm",Online retailer,2.00,buy,Indicative price
+11 Hardware and consumables,1,"M2 screws, wire, heat shrink, adhesive",Self,3.00,buy,Indicative price; not modeled
+12 Phone app for shift log,1,Open-source web Bluetooth page or app (software),Self,0.00,make,Software; no parts cost

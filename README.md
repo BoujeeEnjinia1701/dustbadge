@@ -6,13 +6,21 @@
 
 A low-cost wearable dust monitor for workers in quarries, mines, stone fabrication and construction that estimates respirable dust exposure through the shift and warns before limits are reached.
 
+![DustBadge concept](media/hero.png)
+
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+
 ## Concept rationale
 
-Real-time feedback lets workers and supervisors change practice during the shift, which a lab result days later cannot do.
+A worker can only change what they can see. Filter sampling tells a site, days later, what one worker breathed on one day; a badge that vibrates when the shift average is heading over the limit tells the worker during the task, while there is still time to wet the cut, move upwind, put on a respirator or stop. An optical particle sensor cannot identify silica, so DustBadge measures respirable dust, corrects it with a site filter sample, and shows silica only as a labeled estimate. The result is a screening tool, not a compliance instrument.
+
+It is open and garage-buildable because the workers most exposed, in informal quarries, small stone workshops and artisanal mines, are the least likely to be covered by an employer's sampling program or to afford commercial personal dust monitors. One sensor module, one Bluetooth board, a phone-charger-sized cell and a 3D-printed case keep the parts near $85, and worker organizations, clinics and universities can build, audit and adapt it under CERN-OHL-S-2.0.
 
 ## Burning platform
 
-Silicosis is resurging among engineered stone workers in several countries, and millions of miners and quarry workers are exposed without monitoring.
+Silicosis killed more than 12,900 people worldwide in 2019 ([Chen, Liu and Xie, BMC Pulmonary Medicine, 2022](https://link.springer.com/article/10.1186/s12890-022-02040-9)), and it cannot be cured, only prevented. In the United States about 2.3 million workers are exposed to respirable crystalline silica, and OSHA estimated its 50 µg/m³ limit would prevent more than 600 deaths a year once fully effective ([US Department of Labor, 2016](https://www.dol.gov/newsroom/releases/osha/osha20160324)).
+
+The burden is heaviest where monitoring is thinnest. An estimated 44 million people work in artisanal and small-scale mining, and a 2023 systematic review found a pooled silicosis prevalence of 23.9 % among those studied, with disease appearing after fewer than 6 years of work ([Howlett et al., PLOS Global Public Health, 2023](https://journals.plos.org/globalpublichealth/article?id=10.1371%2Fjournal.pgph.0002085)). Engineered stone has brought the disease back among young benchtop fabricators in high-income countries too: California's electronic case reporting found stone fabrication workers with silicosis in 2022 and 2023, one of whom died and two of whom needed lung transplants ([CDC MMWR, 2023](https://www.cdc.gov/mmwr/volumes/72/wr/mm7246a4.htm)).
 
 ## Where it could be used
 
@@ -20,17 +28,27 @@ Silicosis is resurging among engineered stone workers in several countries, and 
 
 | Industry | Use |
 | --- | --- |
-| _To be developed_ | |
+| Quarrying and aggregates | Drillers, crusher and screen operators, and loader drivers checking exposure by task and location |
+| Surface metal and non-metal mining | In-shift screening between regulatory samples (not underground coal or explosive atmospheres) |
+| Stone benchtop fabrication | Warning when dry cutting, grinding or polishing pushes exposure up |
+| Construction | Feedback when cutting concrete, brick, block or tile, and during demolition |
+| Artisanal and small-scale mining | Low-cost exposure awareness for crews with no sampling at all, through NGOs and health programs |
+| Occupational health research and training | A cheap, open screening tool for surveys, worker education and hygiene courses |
 
 ### By country or region
 
 | Country or region | Why it matters there |
 | --- | --- |
-| _To be developed_ | |
+| India | A scoping review of Indian studies found a pooled silicosis prevalence of about 26 %, with 52 % radiological evidence among Rajasthan mine workers studied ([scoping review, PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC11776177/)). |
+| South Africa | Among 14,221 employed gold miners surveyed, 3.8 % had silicosis, almost all more than 15 years after first exposure ([BMC Public Health, 2020](https://link.springer.com/article/10.1186/s12889-020-08876-2)). |
+| Artisanal mining regions of Africa, Latin America and Asia | About 44 million artisanal and small-scale miners, with average respirable silica exposures reported from 0.19 to 89.5 mg/m³ in studies ([Howlett et al., 2023](https://journals.plos.org/globalpublichealth/article?id=10.1371%2Fjournal.pgph.0002085)). |
+| United States | About 2.3 million exposed workers ([US Department of Labor, 2016](https://www.dol.gov/newsroom/releases/osha/osha20160324)); MSHA's 2024 rule applies a 50 µg/m³ limit and 25 µg/m³ action level to miners ([MSHA](https://www.msha.gov/regulations/rulemaking/silica)). |
+| European Union | About 5.5 million workers are regularly exposed, mostly in construction, under a binding limit of 0.1 mg/m³ ([EU-OSHA OSHwiki](https://oshwiki.osha.europa.eu/en/themes/respirable-crystalline-silica)). |
+| Australia | Banned the use, supply and manufacture of engineered stone benchtops, panels and slabs from 1 July 2024 after silicosis rose among fabricators ([SafeWork NSW](https://www.safework.nsw.gov.au/news/safework-public-notice/engineered-stone-prohibition-to-commence-1-july-2024)); removal and repair of installed stone still exposes workers. |
 
 ## What sparked the idea
 
-It came out of a September 2026 review of Design Molecule's applied research areas against the open projects already in the lab. Health and safety in mining was the second gap identified in the mining research area.
+It came out of a September 2026 review of Design Molecule's applied research areas against the open projects already in the lab. Health and safety in mining was the second gap identified in the mining research area. The wider trigger is the tightening of silica limits for miners in the United States, where MSHA's 2024 rule gave metal and non-metal mine operators 24 months to comply ([MSHA](https://www.msha.gov/regulations/rulemaking/silica)), alongside Australia's engineered stone ban: both raise the value of knowing exposure during the shift rather than after it.
 
 ## Problem
 
@@ -38,24 +56,30 @@ Respirable crystalline silica causes silicosis, which is incurable. Personal exp
 
 ## Concept
 
-A low-cost wearable dust monitor for workers in quarries, mines, stone fabrication and construction that estimates respirable dust exposure through the shift and warns before limits are reached.
+A chest-worn badge samples respirable dust (PM4) every second with an optical particle sensor, corrects it with a site filter sample, estimates silica from the site's silica fraction, keeps a running 8 h average and vibrates when the projected shift average is heading over the action level. The log goes to the worker's phone over Bluetooth, and the worker decides who sees it.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 ## Key components
 
-- Optical particle sensor
-- Low-power microcontroller with Bluetooth
-- Vibration motor and LED alert
-- Rechargeable cell, full-shift capacity
-- Clip-on enclosure near the breathing zone
-- Phone app for shift log
+- Optical particle sensor with a PM4 output (Sensirion SPS30 class, proposed)
+- nRF52840 Bluetooth Low Energy module with flash for the shift log
+- Vibration motor and red alert LED
+- 1,500 mAh protected LiPo cell, about 13 h of continuous sampling (estimate)
+- 3D-printed high-visibility case with a downward, screened inlet and a spring clip, worn within 30 cm of the nose and mouth
+- Phone app (web Bluetooth page or app) for the shift log
+
+First-order estimates (to be checked at TRL 3): about 64 x 52 x 30 mm, about 110 g, about 13 h per charge and about $85 in parts. The concept does not meet the 5 mg/m³ working range (the sensor is specified to 1 mg/m³) and is not intrinsically safe. See the [design precis](docs/02-concept.md) and [requirements](docs/03-requirements.md).
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
 ## Safety
 
-> A research and educational prototype, not certified personal protective or monitoring equipment. It does not replace approved sampling or respirators. Lithium cells can overheat, vent and burn. Use protected cells or LiFePO4, fuse every pack, charge only within the cell maker's limits and never leave a first build charging unattended.
+> A research and educational prototype, not certified monitoring or personal protective equipment. It does not replace regulatory sampling, dust controls or respirators, and a low reading does not mean the air is safe. It cannot measure silica directly; silica values are estimates.
+>
+> Not intrinsically safe: never use it in underground coal mines or anywhere flammable gas or combustible dust may be present.
+>
+> Lithium cells can overheat, vent and burn. Use a protected, fused cell, never charge the badge while it is worn, charge only between 0 and 45 °C, and never leave a first build charging unattended.
 
 ## Repository layout
 

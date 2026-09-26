@@ -3,7 +3,7 @@ doc_id: DBG-REQ-001
 title: DustBadge requirements
 project: DustBadge
 doc_type: Requirements
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -21,36 +21,41 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: "TRL 3, status from DBG-CAL-001 for every requirement; R8 restated for the inlet; R6 defaults follow DBG-DDR-001 D3; R11 and R3 now not met, R10 not verifiable at TRL 3"
+- version: "0.4"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: "Recommendations accepted by Amish (DDR-002): R2 restated to 1 mg/m³ with over-range flag, R3 reference rule, R11 sun use rule; statuses from DBG-CAL-001 v0.2 with the 2,000 mAh cell"
 ---
 
 # DustBadge requirements
 
-These are the requirements for the concept, with their status from the TRL 3 calculations in DBG-CAL-001. On paper four are not met (R2 range, R3 accuracy, R11 full sun at 45 °C and R14 intrinsic safety), one is at risk (R7 run time), one cannot be verified at TRL 3 (R10), and nine are met, five by calculation and four by design. No target was relaxed or redefined by the TRL 2 review decisions (DBG-DDR-001); options for R3 and R7 are proposed in `docs/REVIEW.md`, awaiting Amish.
+These are the requirements for the concept, with their status from the TRL 3 calculations in DBG-CAL-001 v0.2. On 2026-09-25 Amish accepted the review recommendations (DBG-DDR-002): R2 is restated to the sensor's 1 mg/m³ range with an over-range flag, R3 keeps ±25 % but requires a larger reference sample at low-dust, high-silica sites, R11 adds a use rule for full sun, and the cell grows to 2,000 mAh. On paper two requirements are not met (R14 intrinsic safety, out of scope, and R15 cost, $91.00 against $90), two are at risk (R3 accuracy and R11 site conditions), one cannot be verified at TRL 3 (R10), and ten are met, six by calculation and four by design. The budget figure for the larger cell is still open, awaiting Amish (DBG-DDR-002, O3).
 
 Table 1. Requirements and concept status.
 
 | ID | Requirement | Target | Status at TRL 3 (DBG-CAL-001) | Verification (TRL 3 or later) |
 | --- | --- | --- | --- | --- |
 | R1 | Measure the respirable dust fraction | Mass concentration of particles up to 4 µm (PM4), a proxy for the ISO 7708 respirable convention | Met by design. PM4 is a proxy: for quartz, optical PM4 would include grains up to about 6.5 µm aerodynamic, while the sensor under-sees coarse grains (CAL-001, D) | Datasheet review; later comparison with a cyclone sampler |
-| R2 | Cover the working range | 0 to 5 mg/m³ respirable dust without saturating | **Not met.** 0 to 1,000 µg/m³; the RCS limit lies in range only for silica fractions of 5 % or more; over-range minutes are flagged and counted at the range limit (CAL-001, E) | Calculation of expected site ranges; chamber test on CalRig |
-| R3 | Accuracy after site calibration | Shift average within ±25 % of a co-located gravimetric sample | **Not met on paper.** About ±34 % for quartz-rich stone at the action level (8 h filter collects 0.037 mg), ±21 to ±29 % for a quarry; ±22 % with a 4.2 L/min, two-shift reference (CAL-001, F). Error terms assumed | Error budget at TRL 3; later co-located field samples |
+| R2 | Cover the working range | 0 to 1 mg/m³ respirable dust; minutes above the range flagged, logged at the range limit and counted toward the projection. Restated from 0 to 5 mg/m³ for the first sectors in D6 (DBG-DDR-002 D11) | Met on paper. The RCS limit lies in range only for silica fractions of 5 % or more; above the range the badge reports only that dust was over range (CAL-001, E) | Calculation of expected site ranges; chamber test on CalRig |
+| R3 | Accuracy after site calibration | Shift average within ±25 % of a co-located gravimetric sample. Where respirable dust at the action level is below about 100 µg/m³ (low-dust, high-silica sites such as quartz-rich stone), the reference is a 4.2 L/min cyclone over two shifts (DBG-DDR-002 D9) | **At risk.** Met on paper with a factor per task on the same badge: ±21 % (quarry), ±22 % (quartz-rich stone with the D9 reference). Not met with one factor shared across badges per site: ±29 to ±30 % (CAL-001, F). Error terms assumed | Error budget at TRL 3; later co-located field samples |
 | R4 | Estimate silica exposure | RCS estimate = calibrated PM4 mass x site silica fraction, always labeled as an estimate; dust shown alone when no fraction is entered | Met by design | Firmware sketch review |
 | R5 | Update often enough to catch tasks | 1 s readings, 1 min logged averages, running 8 h time-weighted average (TWA) updated every minute | Met by design; the sensor gives new readings every second | Firmware sketch review |
 | R6 | Warn before a limit is reached | Vibration and LED when the projected 8 h RCS TWA exceeds the action level (default 25 µg/m³) and a repeated alert at the limit (default 50 µg/m³); both configurable | Met by design and on paper: five scenarios alert as intended, one early warning after a single heavy cut (CAL-001, G). Defaults per DBG-DDR-001 D3 | Firmware sketch review |
-| R7 | Last a full shift | 12 h of continuous sampling per charge | **At risk.** 13.3 h at the typical 55 mA and 25 °C; 11.3 h at the 65 mA maximum or at 0 °C (CAL-001, A) | Power budget calculation |
+| R7 | Last a full shift | 12 h of continuous sampling per charge | Met on paper with the 2,000 mAh cell (DBG-DDR-002 D8): 17.7 h at the typical 55 mA and 25 °C; 12.8 h at the 65 mA maximum and 0 °C (CAL-001, A) | Power budget calculation |
 | R8 | Wearable in the breathing zone | Inlet worn within 30 cm of the nose and mouth; clip or harness loop | Met on paper: inlet 242 mm from the nose and mouth at a collar or upper-strap mount; a mount more than 269 mm below them fails (CAL-001, I) | Massing model |
-| R9 | Light and small | Mass 120 g or less; no larger than 75 x 55 x 35 mm | Met on paper: 111.8 g; 64 x 52 x 33 mm with the clip (CAL-001, J) | Massing model, then weighing |
+| R9 | Light and small | Mass 120 g or less; no larger than 75 x 55 x 35 mm | Met on paper: 119.8 g, a 0.2 g margin with the 2,000 mAh cell; 64 x 52 x 33 mm with the clip (CAL-001, J) | Massing model, then weighing |
 | R10 | Survive the site | Electronics splash and dust protected (IP54 target except the sensor air path); inlet facing down; survives a 1.5 m drop onto concrete | Not verifiable at TRL 3: 750 to 1,500 g deceleration on a 1.5 m drop; gasketed joint untested (CAL-001, K) | Design review; later drop and spray tests |
-| R11 | Work in site conditions | 0 to 45 °C, 10 to 90 % RH non-condensing; readings flagged when humidity or spray may bias them | **Not met** in full sun above about 42 °C ambient: shell about 63 °C at 45 °C against the sensor's 60 °C limit; sensor best performance only to 40 °C and 80 % RH; humidity flag now possible with the added RH sensor (CAL-001, C) | Literature and datasheet review |
+| R11 | Work in site conditions | 0 to 45 °C, 10 to 90 % RH non-condensing; readings flagged when humidity or spray may bias them. Use rule: worn shaded when the ambient is above 40 °C in full sun (DBG-DDR-002 D10) | **At risk.** Under the use rule the shell stays at or below 57.8 °C, 2.2 K under the sensor's 60 °C limit; without it, about 63 °C in full sun at 45 °C. Sensor best performance only to 40 °C and 80 % RH; humidity flag possible with the RH sensor (CAL-001, C) | Literature and datasheet review |
 | R12 | Keep a shift log | At least 30 shifts of 1 min records on the badge; export over Bluetooth Low Energy to the worker's phone | Met on paper: 11.5 kB per 12 h shift, about 182 shifts in 2 MB (CAL-001, H) | Storage calculation |
 | R13 | Protect the worker's data | Stored on the badge and the worker's phone; shared with an employer only by the worker's choice | Met by design (DBG-DDR-001 D5) | Design review |
 | R14 | Safe in hazardous atmospheres | Certified intrinsically safe for gassy mines and explosive atmospheres | **Not met and out of scope** for this prototype; it must be labeled not for such use | Design review |
-| R15 | Low cost and buildable | Parts $90 or less; no custom PCB required for the first build | Met on paper: $88.00 against $90 (CAL-001, L) | Priced BOM |
+| R15 | Low cost and buildable | Parts $90 or less; no custom PCB required for the first build | **Not met.** $91.00 against $90 with the 2,000 mAh cell; the budget figure is open (DBG-DDR-002 O3) (CAL-001, L) | Priced BOM |
 
 ## Assumptions
 
 - The respirable convention in ISO 7708 has a 50 % cut near 4 µm aerodynamic diameter; PM4 from an optical sensor is used as a proxy.
-- A site silica fraction (the quartz share of respirable dust) is available for each site and task from at least one filter sample analyzed by a laboratory or a field infrared method.
-- Default limits follow US OSHA and MSHA (50 µg/m³ limit and 25 µg/m³ action level, 8 h TWA), adopted for TRL 3 pending Amish's review (DBG-DDR-001, D3). Other jurisdictions can be configured, for example the EU binding limit of 100 µg/m³.
+- A site silica fraction (the quartz share of respirable dust) is available for each site and task from at least one filter sample analyzed by a laboratory or a field infrared method. How it is obtained where no laboratory is near is still open (DBG-DDR-001, O2).
+- The wearer follows the sun use rule in R11; the badge cannot enforce it.
+- Default limits follow US OSHA and MSHA (50 µg/m³ limit and 25 µg/m³ action level, 8 h TWA), decided by Amish on 2026-09-25 (DBG-DDR-001 D3, DBG-DDR-002). Other jurisdictions can be configured, for example the EU binding limit of 100 µg/m³.
 - The calculation assumptions (sensor figures, cell, error terms, thermal coefficients) are listed in DBG-CAL-001, Table 1.
 - Shifts are up to 12 h; the projected TWA is normalized to 8 h as the regulations define it.

@@ -1,4 +1,5 @@
 """DustBadge parametric model (build123d), TRL 3, massing-plus level of detail.
+Revised 2026-09-25 for DBG-DDR-002 (2,000 mAh cell, 11.5 mm thick).
 
 Run from the repo root:  python cad/src/model.py
 Exports STEP and STL into cad/step and cad/stl:
@@ -43,8 +44,8 @@ PARAMS = {
     "pcb": (56.0, 1.6, 44.0), "pcb_y": -15.0,
     "usb": (9.0, 3.2), "usb_x": 16.0,        # USB-C opening in the bottom face (X, Y size)
     "rh_vent_x": 8.0,                        # humidity sensor vent in the bottom face, X position
-    # 8 cell, 1,500 mAh protected LiPo
-    "cell": (50.0, 10.0, 34.0), "cell_y": -8.5,
+    # 8 cell, 2,000 mAh protected LiPo (DBG-DDR-002 D8; was 1,500 mAh, 10 mm thick)
+    "cell": (50.0, 11.5, 34.0), "cell_y": -8.25, "cell_mah": 2000.0,
     # 10 spring clip with strap loop, on the rear face
     "clip": (22.0, 3.0, 40.0), "clip_z": 4.0,
     # wearer interface (for R8): badge center relative to the midpoint of nose and mouth
@@ -52,7 +53,7 @@ PARAMS = {
     "mount_lateral": 70.0,                   # to one side of the midline
     "mount_forward": 10.0,                   # inlet forward of the face plane (badge proud of the chest)
     # masses of bought-in parts (g), for R9; shells from volume
-    "m_sensor": 26.3, "m_cell": 30.0, "m_module": 3.0, "m_board": 9.0, "m_motor": 1.0,
+    "m_sensor": 26.3, "m_cell": 38.0, "m_module": 3.0, "m_board": 9.0, "m_motor": 1.0,
     "m_led": 0.5, "m_screen": 0.4, "m_clip": 6.0, "m_hardware": 3.0, "m_gasket": 1.0,
     "rho_petg": 1.27,                        # g/cm3
 }
@@ -159,7 +160,7 @@ def build_parts(p=PARAMS):
     parts["pcb"] = ("Carrier board (boost, charger, fuse, RH sensor)", pcb, "#15803D", 7)
 
     # 8 cell behind the board
-    parts["cell"] = ("LiPo cell, 1,500 mAh, protected", box(0, p["cell_y"], 0, *p["cell"]), "#C2410C", 8)
+    parts["cell"] = (f"LiPo cell, {p['cell_mah']:,.0f} mAh, protected", box(0, p["cell_y"], 0, *p["cell"]), "#C2410C", 8)
 
     # 9 rear shell: from split to Y = 0, closed at the back
     rd = -sy_

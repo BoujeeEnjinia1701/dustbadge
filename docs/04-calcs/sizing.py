@@ -1,4 +1,4 @@
-"""DustBadge sizing calculations, DBG-CAL-001 v0.1 (TRL 3).
+"""DustBadge sizing calculations, DBG-CAL-001 v0.2 (TRL 3, revised for DBG-DDR-002).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md. Each line carries a tag such as
@@ -49,7 +49,7 @@ ALERTS = 20                # alerts per shift (assumed busy shift)
 P_MOTOR = 0.080 * 3.0      # W while vibrating
 T_ALERT = 2.0              # s per alert
 # Cell
-CELL_MAH, CELL_V = 1500.0, 3.7
+CELL_MAH, CELL_V = P["cell_mah"], 3.7   # 2,000 mAh from the model (DBG-DDR-002 D8; was 1,500 mAh)
 USABLE = 0.80              # usable fraction (protection cut-off, ageing allowance)
 COLD = 0.85                # capacity factor at 0 degC
 SHIFT_H = 12.0
@@ -57,7 +57,7 @@ CHARGE_MA = 500.0
 # Exposure limits (US OSHA and MSHA defaults, decision D3)
 AL, PEL = 25.0, 50.0       # ug/m3 RCS, 8 h TWA
 
-print("DustBadge sizing, DBG-CAL-001 v0.1")
+print("DustBadge sizing, DBG-CAL-001 v0.2")
 print(f"Geometry from cad/src/model.py: envelope {P['W']:.0f} x {P['D']:.0f} x {P['H']:.0f} mm, sensor {P['sensor']} mm")
 
 # ------------------------------------------------------------------ A. Power and run time (R7)
@@ -80,7 +80,8 @@ tag("A4", f"12 h at the maximum current and 0 degC needs {need_wh:.2f} Wh usable
 need_mah_25 = need_wh / (CELL_V * USABLE) * 1000
 tag("A5", f"12 h at the maximum current and 25 degC needs about {need_mah_25:.0f} mAh")
 space_y = -P["wall"] - (P["cell_y"] + P["cell"][1] / 2)
-tag("A6", f"Space behind the cell to the rear wall {space_y:.1f} mm; a {P['cell'][1] + space_y:.1f} mm thick cell fits without changing the shell")
+tag("A6", f"Cell {CELL_MAH:,.0f} mAh, {P['cell'][1]:.1f} mm thick; space behind it to the rear wall {space_y:.1f} mm; "
+          f"worst-case need {need_mah:.0f} mAh, margin {CELL_MAH - need_mah:.0f} mAh ({CELL_MAH / need_mah - 1:.0%})")
 
 # ------------------------------------------------------------------ B. Charging
 t_cc = 0.8 * CELL_MAH / CHARGE_MA
@@ -102,6 +103,12 @@ dt_sun = (p_el + q_sun) / (H_COMB * A_exp)
 tag("C2", f"Highest ambient in full sun that keeps the shell at or below the sensor's 40 degC best-performance limit: {T_BEST[1] - dt_sun:.1f} degC; "
           f"at or below its {T_OPER_MAX:.0f} degC operating limit: {T_OPER_MAX - dt_sun:.1f} degC")
 
+RULE_T = 40.0             # degC, use rule (DBG-DDR-002 D10): wear shaded when ambient exceeds this in full sun
+dt_shade = p_el / (H_COMB * A_exp)
+tag("C3", f"Use rule, wear shaded above {RULE_T:.0f} degC ambient in full sun: worst shell {RULE_T + dt_sun:.1f} degC in full sun at {RULE_T:.0f} degC, "
+          f"{45 + dt_shade:.1f} degC shaded at 45 degC; both under the {T_OPER_MAX:.0f} degC operating limit (margin {T_OPER_MAX - max(RULE_T + dt_sun, 45 + dt_shade):.1f} K); "
+          f"above the {T_BEST[1]:.0f} degC best-performance limit in full sun above {T_BEST[1] - dt_sun:.1f} degC ambient")
+
 # ------------------------------------------------------------------ D. PM4 against the respirable convention (R1)
 RHO_Q = 2.65              # g/cm3, quartz
 
@@ -120,7 +127,8 @@ tag("D3", "So an ideal PM4 channel sized optically would include quartz up to 6.
           " while the SPS30 infers PM4 from its fine-particle distribution and under-sees coarse grains; the site factor must absorb both")
 
 # ------------------------------------------------------------------ E. Working range (R2)
-tag("E1", f"Sensor mass range 0 to {RANGE_MAX:.0f} ug/m3; R2 target 0 to 5,000 ug/m3; covered {RANGE_MAX / 5000:.0%} of the target span")
+tag("E1", f"Sensor mass range 0 to {RANGE_MAX:.0f} ug/m3; R2 as restated (DBG-DDR-002 D11) 0 to 1,000 ug/m3 with over-range flag; "
+          f"the TRL 2 target of 5,000 ug/m3 was {RANGE_MAX / 5000:.0%} covered")
 for f in (0.025, 0.05, 0.10, 0.30, 0.80):
     tag("E2", f"Silica fraction {f:.1%}: respirable dust at the action level {AL / f:,.0f} ug/m3, at the limit {PEL / f:,.0f} ug/m3"
               f" ({'in range' if PEL / f <= RANGE_MAX else 'limit beyond range'})")
@@ -153,8 +161,9 @@ q2, n2 = 4.2, 2
 mass2 = (AL / 0.8) / 1000 * q2 * T_SAMP / 1000 * n2
 u_w2 = W_UNC / mass2
 tot2 = math.sqrt(0.10 ** 2 + 0.10 ** 2 + 0.10 ** 2 + 0.05 ** 2 + 0.10 ** 2 + u_w2 ** 2 + (0.25 * DRIFT_ABS / (AL / 0.8)) ** 2)
-tag("F3", f"Mitigation for quartz-rich stone: a {q2} L/min cyclone over {n2} shifts collects {mass2:.3f} mg, weighing {u_w2:.0%}; "
-          f"combined +/-{tot2:.0%} for the same badge co-located with a factor per task")
+tot2s = math.sqrt(tot2 ** 2 - 0.10 ** 2 + 0.20 ** 2 + 0.10 ** 2)
+tag("F3", f"Reference rule for low-dust, high-silica sites (DBG-DDR-002 D9): a {q2} L/min cyclone over {n2} shifts collects {mass2:.3f} mg, weighing {u_w2:.0%}; "
+          f"combined +/-{tot2:.0%} for the same badge co-located with a factor per task, +/-{tot2s:.0%} with a factor shared across badges per site")
 tag("F4", f"Before a site factor the PM4 precision alone is +/-{PREC_PM4_ABS:.0f} ug/m3 below 100 ug/m3: "
           f"{PREC_PM4_ABS / (AL / 0.8):.0%} of the dust level at the action level for 80 % silica stone")
 
@@ -225,7 +234,7 @@ ov = D["overall"]
 tag("J1", "Mass: " + ", ".join(f"{k} {v:.1f} g" for k, v in m.items()))
 tag("J2", f"Total mass {tot_m:.1f} g (target 120 g, margin {120 - tot_m:.1f} g); envelope {ov[0]:.0f} x {ov[2]:.0f} x {ov[1]:.0f} mm "
           f"including the clip (target 75 x 55 x 35 mm)")
-tag("J3", f"A cell 8 g heavier (about 2,000 mAh) would give {tot_m + 8:.1f} g")
+tag("J3", f"The {CELL_MAH:,.0f} mAh cell ({P['m_cell']:.0f} g) adds {P['m_cell'] - 30.0:.0f} g over the 1,500 mAh cell of CAL-001 v0.1 (30 g); margin to 120 g {120 - tot_m:.1f} g")
 
 # ------------------------------------------------------------------ K. Drop (R10)
 g = 9.81
@@ -240,5 +249,6 @@ rows = list(csv.DictReader((ROOT / "bom" / "bom.csv").open()))
 cost = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows)
 budget = float(yaml.safe_load((ROOT / "project.yaml").read_text())["budget_usd"])
 sensor_cost = next(float(r["unit_cost_usd"]) for r in rows if r["item"].startswith("3 "))
-tag("L1", f"BOM {len(rows)} lines, total ${cost:.2f} against budget_usd ${budget:.0f}; margin ${budget - cost:.2f}; "
+m_txt = f"margin ${budget - cost:.2f}" if cost <= budget else f"over budget by ${cost - budget:.2f}"
+tag("L1", f"BOM {len(rows)} lines, total ${cost:.2f} against budget_usd ${budget:.0f}; {m_txt}; "
           f"particle sensor {sensor_cost / cost:.0%} of the total")

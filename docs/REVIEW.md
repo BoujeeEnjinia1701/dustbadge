@@ -36,6 +36,8 @@ Requirements not met or unverified:
 
 ### Proposed, awaiting Amish
 
+Status update: items 1 to 7 are now "Decided by Amish, 2026-09-25: go with recommendation" (DBG-DDR-002); the partner in item 6 had no recommendation and stays "Proposed, awaiting Amish".
+
 1. **Particle sensor.** Options: (a) Sensirion SPS30 class with a PM4 output, about $48; (b) Plantower PMS5003, about $15 to $20, no PM4 bin and larger; (c) a wider-range sensor to meet R2, likely over budget. Recommendation: (a), and characterize it above 1 mg/m³ on CalRig at TRL 3.
 2. **How silica is shown.** Options: (a) respirable dust always, RCS only as a labeled estimate once a site silica fraction is entered; (b) respirable dust only. Recommendation: (a).
 3. **Default limits and alerts.** Options: US OSHA and MSHA values (25 µg/m³ action level, 50 µg/m³ limit) by default, configurable for other jurisdictions such as the EU 100 µg/m³; or a stricter default. Recommendation: US values by default, configurable.
@@ -94,9 +96,11 @@ Design changes found necessary by the calculations: an SHT4x-class humidity and 
 
 ### Decisions recorded (DBG-DDR-001)
 
-Adopted as recommended for TRL 3 under Amish's 2026-09-25 instruction, open for his review: D1 SPS30-class sensor; D2 respirable dust always, RCS only as a labeled estimate; D3 US OSHA and MSHA defaults, configurable; D4 continuous sampling; D5 worker-owned data, never used for discipline; D6 surface quarries and stone fabrication first, underground coal and explosive atmospheres excluded; D7 downward screened inlet, yellow front shell, spring clip with strap loop. No budget change, pitch or problem rewording was recommended, so `budget_usd` stays at $90 and the pitch and problem lines are unchanged.
+Adopted as recommended for TRL 3 under Amish's 2026-09-25 instruction, open for his review (now "Decided by Amish, 2026-09-25: go with recommendation", DBG-DDR-002): D1 SPS30-class sensor; D2 respirable dust always, RCS only as a labeled estimate; D3 US OSHA and MSHA defaults, configurable; D4 continuous sampling; D5 worker-owned data, never used for discipline; D6 surface quarries and stone fabrication first, underground coal and explosive atmospheres excluded; D7 downward screened inlet, yellow front shell, spring clip with strap loop. No budget change, pitch or problem rewording was recommended, so `budget_usd` stays at $90 and the pitch and problem lines are unchanged.
 
 ### Still awaiting Amish
+
+Status update: items 3 to 6 are now "Decided by Amish, 2026-09-25: go with recommendation" (DBG-DDR-002, D8 to D11). Items 1 and 2 had no recommendation and stay "Proposed, awaiting Amish"; the budget figure in item 3 is a new open item (O3).
 
 1. **O1, first co-design partner.** No recommendation was made.
 2. **O2, how a site silica fraction is obtained.** DBG-PRB-001 proposed one filter sample per site and task analyzed by a partner laboratory; it was not in the TRL 2 review list, so it was not adopted.
@@ -128,3 +132,52 @@ The TRL 2 recommendation for D1 said to characterize the SPS30 above 1 mg/m³ on
 ### Recommended next step
 
 TRL 4 is on hold by Amish's instruction; this repo stops at TRL 3. Amish's review is needed on D1 to D7 and on items 1 to 6 above, especially the cell size and budget. For the record only, TRL 4 would need: a bench build of the badge; a lab test report (TST, `environment: lab`) of run time at temperature, sensor response to mineral dust against a gravimetric reference including above 1 mg/m³, humidity and spray bias, shell temperature under a solar lamp, and drop and splash; and build log entries. None of this has been started.
+
+## Session 2026-09-25: recommendations accepted
+
+On 2026-09-25 Amish wrote: "i accept all your recommendations, go with them across all repos." Every item with a recommendation is now "Decided by Amish, 2026-09-25: go with recommendation", recorded in `docs/decisions/0002-recommendations-accepted.md` (DBG-DDR-002 v0.1). TRL stays at 3.
+
+### Decisions applied and what changed
+
+- **D1 to D7** (DBG-DDR-001 and the TRL 2 list): SPS30-class sensor, silica as a labeled estimate, US defaults, continuous sampling, worker-owned data, surface quarries and stone fabrication first, downward screened inlet with yellow shell and clip. Wording only; DBG-DDR-001 v0.1 to v0.2.
+- **D8, cell size (R7):** option (b). Cell 1,500 mAh, 10 mm, 30 g to 2,000 mAh, 11.5 mm, 38 g in `cad/src/model.py` (STEP and STL re-exported, no interferences). Worst-case run time 9.6 h to 12.8 h; typical 13.3 h to 17.7 h; charge 3.4 h to 4.2 h; mass 111.8 g to 119.8 g; BOM line 8 $10.00 to $13.00, total $88.00 to $91.00 against $90.
+- **D9, R3 accuracy:** option (a). ±25 % kept; a 4.2 L/min cyclone over two shifts required at low-dust, high-silica sites. Quartz-rich stone ±34 % to ±22 % (factor per task); shared-factor case ±39 % to ±30 %; quarry unchanged at ±21 to ±29 %.
+- **D10, sun (R11):** use rule, wear shaded above 40 °C ambient in full sun. Worst shell temperature 62.8 °C to 57.8 °C, 2.2 K under the 60 °C limit. Added to R11, the precis safety note, the README and the GA notes. The lighter shell test is TRL 4, on hold.
+- **D11, range (R2):** accepted. R2 restated from 0 to 5 mg/m³ to 0 to 1 mg/m³ with over-range minutes flagged and counted.
+- `budget_usd` unchanged at $90; no pitch or problem rewording was recommended, so `project.yaml` only gains DBG-DDR-002 in `trl_evidence`.
+- Documents: DBG-PRB-001 v0.4, DBG-PRC-001 v0.4, DBG-REQ-001 v0.4, DBG-CAL-001 v0.2 (script rerun, every table updated), DBG-DDR-001 v0.2, new DBG-DDR-002 v0.1; DBG-DWG-001 Rev P1 to P2 (cell note and sun rule); `bom/bom.csv` and `bom/bom-notes.md`; media regenerated from the model (key figures updated; the LED's exploded offset moved so its callout clears the front shell); all PDFs rebuilt.
+- README: new "What sparked the idea" (MSHA's 2014 coal dust rule and the continuous personal dust monitor, required from February 1, 2016, which gives coal miners in-shift feedback that silica-exposed workers lack), replacing the text about a portfolio review. DBG-PRB-001 had no such attribution.
+- Job 2: all generated files re-rendered so they show designmolecule.com; superseded PDFs removed from `docs/pdf/`.
+
+### Requirement status (DBG-CAL-001 v0.2)
+
+2 not met, 2 at risk, 1 not verifiable at TRL 3, 6 met on paper, 4 met by design (was 4, 1, 1, 5, 4).
+
+| ID | Status | Key number |
+| --- | --- | --- |
+| R14 Hazardous atmospheres | **Not met**, out of scope | Not intrinsically safe |
+| R15 Cost | **Not met** (was met) | $91.00 against $90 (O3) |
+| R3 Accuracy | At risk (was not met) | ±21 to ±22 % with a factor per task; ±29 to ±30 % with a shared factor |
+| R11 Site conditions | At risk (was not met) | Shell at most 57.8 °C under the use rule; relies on the wearer |
+| R10 Drop and ingress | Not verifiable at TRL 3 | Cell now needs 280 to 559 N of retention |
+| R2, R6, R7, R8, R9, R12 | Met on paper | 1 mg/m³ with flag; five alert scenarios; 12.8 h worst case; 242 mm; 119.8 g (0.2 g margin); 182 shifts |
+| R1, R4, R5, R13 | Met by design | Unchanged |
+
+### Still awaiting Amish
+
+1. **O1, first co-design partner.** No recommendation.
+2. **O2, how a site silica fraction is obtained where no laboratory is near.** No recommendation.
+3. **O3, budget figure for the larger cell.** $91.00 against $90; no recommended figure, so `budget_usd` stays at $90 and R15 is not met.
+
+### Cross-repo actions
+
+- **CalRig:** D1's recommendation to characterize the SPS30 above 1 mg/m³ on CalRig cannot be done with CalRig's incense-smoke chamber (5 to 300 µg/m³). CalRig's documents should say it serves DustBadge only for badge-to-badge and drift checks at low levels; mineral dust above 1 mg/m³ needs a dust generator or partner laboratory. CalRig was not edited from this repo.
+
+### Safety
+
+Unchanged hazards (false reassurance, heat, lithium cell, not intrinsically safe, personal data). The sun use rule lowers the heat risk only if the wearer follows it; the badge cannot enforce it. The heavier cell raises the retention load in a drop.
+
+### TRL 4
+
+TRL 4 remains on hold by Amish's instruction. Sensor characterization with mineral dust, the lighter shell under a solar lamp, drop and spray tests, a bench build, buying parts and firmware beyond a sketch are recorded as decided where recommended but not started.
+

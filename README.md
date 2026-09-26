@@ -14,7 +14,7 @@ A low-cost wearable dust monitor for workers in quarries, mines, stone fabricati
 
 A worker can only change what they can see. Filter sampling tells a site, days later, what one worker breathed on one day; a badge that vibrates when the shift average is heading over the limit tells the worker during the task, while there is still time to wet the cut, move upwind, put on a respirator or stop. An optical particle sensor cannot identify silica, so DustBadge measures respirable dust, corrects it with a site filter sample, and shows silica only as a labeled estimate. The result is a screening tool, not a compliance instrument.
 
-It is open and garage-buildable because the workers most exposed, in informal quarries, small stone workshops and artisanal mines, are the least likely to be covered by an employer's sampling program or to afford commercial personal dust monitors. One sensor module, one Bluetooth board, a phone-charger-sized cell and a 3D-printed case keep the parts at about $88, and worker organizations, clinics and universities can build, audit and adapt it under CERN-OHL-S-2.0.
+It is open and garage-buildable because the workers most exposed, in informal quarries, small stone workshops and artisanal mines, are the least likely to be covered by an employer's sampling program or to afford commercial personal dust monitors. One sensor module, one Bluetooth board, a phone-charger-sized cell and a 3D-printed case keep the parts at about $91, and worker organizations, clinics and universities can build, audit and adapt it under CERN-OHL-S-2.0.
 
 ## Burning platform
 
@@ -48,7 +48,7 @@ The burden is heaviest where monitoring is thinnest. An estimated 44 million peo
 
 ## What sparked the idea
 
-It came out of a September 2026 review of Design Molecule's applied research areas against the open projects already in the lab. Health and safety in mining was the second gap identified in the mining research area. The wider trigger is the tightening of silica limits for miners in the United States, where MSHA's 2024 rule gave metal and non-metal mine operators 24 months to comply ([MSHA](https://www.msha.gov/regulations/rulemaking/silica)), alongside Australia's engineered stone ban: both raise the value of knowing exposure during the shift rather than after it.
+The starting point was an instrument that already proves in-shift feedback works, and the narrow group it serves. Under MSHA's 2014 respirable coal mine dust rule, US underground coal operators have had to use the continuous personal dust monitor since February 1, 2016 for the miners in the dustiest occupations; the rule describes it as a device that "measures continuously, and in real-time, the concentration of respirable coal mine dust" and reports results during and at the end of the shift ([Federal Register, 79 FR 24814, 2014](https://www.federalregister.gov/documents/2014/05/01/2014-09084/lowering-miners-exposure-to-respirable-coal-mine-dust-including-continuous-personal-dust-monitors)). Quarry workers, stone fabricators and artisanal miners exposed to silica have no equivalent. DustBadge asks how much of that in-shift feedback an open, low-cost badge can deliver for silica, as a labeled estimate rather than a compliance measurement.
 
 ## Problem
 
@@ -65,12 +65,12 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - Optical particle sensor with a PM4 output (Sensirion SPS30 class, proposed)
 - nRF52840 Bluetooth Low Energy module with flash for the shift log
 - Vibration motor and red alert LED
-- 1,500 mAh protected LiPo cell: 13.3 h of continuous sampling at the sensor's typical current, 11.3 h at its maximum current or at 0 °C (DBG-CAL-001)
+- 2,000 mAh protected LiPo cell: 17.7 h of continuous sampling at the sensor's typical current, 12.8 h at its maximum current and 0 °C (DBG-CAL-001)
 - Humidity and temperature sensor to flag readings that humidity or spray may bias
 - 3D-printed high-visibility case with a downward, screened inlet and a spring clip, worn within 30 cm of the nose and mouth
 - Phone app (web Bluetooth page or app) for the shift log
 
-TRL 3 calculations ([DBG-CAL-001](docs/04-calcs/01-sizing.md)): 64 x 52 x 30 mm (33 mm with the clip), about 112 g, 13.3 h per charge typical and $88 in parts against the $90 budget. On paper the design does not meet the 5 mg/m³ working range (the sensor is specified to 1 mg/m³), misses the ±25 % accuracy target at low dust levels, overheats in full sun above about 42 °C, and is not intrinsically safe; run time is at risk in the cold or at the sensor's maximum current. See the [design precis](docs/02-concept.md) and [requirements](docs/03-requirements.md).
+TRL 3 calculations ([DBG-CAL-001](docs/04-calcs/01-sizing.md)), updated for the recommendations Amish accepted on 2026-09-25 ([DBG-DDR-002](docs/decisions/0002-recommendations-accepted.md)): 64 x 52 x 30 mm (33 mm with the clip), about 120 g, 17.7 h per charge typical and 12.8 h in the worst case, and $91 in parts against the $90 budget; the budget figure for the larger cell is still open. On paper the design is $1 over budget and is not intrinsically safe. The working range is accepted as the sensor's 1 mg/m³ with over-range minutes flagged; accuracy at low dust levels depends on a larger reference sample and a per-task site factor; and in hot sun the badge must be worn shaded above 40 °C. See the [design precis](docs/02-concept.md) and [requirements](docs/03-requirements.md).
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
@@ -80,7 +80,7 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 >
 > Not intrinsically safe: never use it in underground coal mines or anywhere flammable gas or combustible dust may be present.
 >
-> Lithium cells can overheat, vent and burn. Use a protected, fused cell, never charge the badge while it is worn, charge only between 0 and 45 °C, and never leave a first build charging unattended. In full sun above about 42 °C the badge can pass 60 °C; keep it shaded.
+> Lithium cells can overheat, vent and burn. Use a protected, fused cell, never charge the badge while it is worn, charge only between 0 and 45 °C, and never leave a first build charging unattended. In full sun above about 42 °C the badge can pass 60 °C; wear it shaded whenever the ambient is above 40 °C in full sun.
 
 ## Repository layout
 

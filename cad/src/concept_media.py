@@ -28,7 +28,7 @@ def ex(t, dz=0.0, dx=0.0):
 
 
 EXPLODE = {"front": ex(175), "screen": ex(175, -25, -20), "sensor": ex(105, 0, -12), "module": ex(105, 20, 22),
-           "motor": ex(105, -15, 22), "led": ex(240, 70, 45), "pcb": ex(50), "cell": ex(0), "rear": ex(-50),
+           "motor": ex(105, -15, 22), "led": ex(240, 40, 95), "pcb": ex(50), "cell": ex(0), "rear": ex(-50),
            "clip": ex(-100)}
 parts = [Part(name, shape, color, bom, EXPLODE[k]) for k, (name, shape, color, bom) in build_parts().items()]
 
@@ -47,10 +47,10 @@ render_all(
     key_figures=["Respirable dust (PM4) every 1 s, logged per minute",
                  "RCS estimate = dust x site silica fraction",
                  "Alerts at projected 8 h TWA over action level",
-                 "13.3 h per charge typical, 11.3 h worst case (DBG-CAL-001)",
-                 "64 x 52 x 30 mm (33 with clip), 112 g (DBG-CAL-001)",
+                 "17.7 h per charge typical, 12.8 h worst case (DBG-CAL-001)",
+                 "64 x 52 x 30 mm (33 with clip), 120 g (DBG-CAL-001)",
                  "Inlet 242 mm from nose and mouth",
-                 "$88 in parts against $90 (indicative prices)"],
+                 "$91 in parts against $90 (indicative prices)"],
     scale_figure=False, context=context, cut=False,
     flow={"title": "data flow (estimated values)", "unit": "",
           "stages": [("Dust at collar", "PM4, 1 s readings"),

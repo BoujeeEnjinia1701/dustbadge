@@ -1,4 +1,4 @@
-"""DustBadge general arrangement sheet DBG-DWG-001, Rev P1 (TRL 3).
+"""DustBadge general arrangement sheet DBG-DWG-001, Rev P2 (TRL 3).
 
 Run from the repo root:  python cad/src/sheets.py
 Writes cad/drawings/DBG-DWG-001.svg, .pdf and .png from the parametric model in
@@ -94,10 +94,11 @@ def main():
     asm = assembly()
     views = safe_project_views(asm, work)
     bb = asm.bounding_box()
-    s = Sheet(project="DustBadge", title="General arrangement", dwg_no="DBG-DWG-001", rev="P1",
+    s = Sheet(project="DustBadge", title="General arrangement", dwg_no="DBG-DWG-001", rev="P2",
               author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="PETG shells; bought-in parts per bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
-              revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC")])
+              revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
+                         ("P2", "2,000 mAh cell, 11.5 thick; sun use rule (DBG-DDR-002)", DATE, "AC")])
     s.add_ortho(views)
     k = s.scale
     c = ortho_cells(s, views)
@@ -151,10 +152,11 @@ def main():
         f"Sensor SPS30 class {P['sensor'][0]:.0f} x {P['sensor'][2]:.0f} x {P['sensor'][1]:.0f}, ports down onto two slots",
         f"Slots {P['slot'][0]:.0f} x {P['slot'][1]:.0f}: inlet (screened) at X {D['inlet_x']:.0f}, outlet at X {D['outlet_x']:.0f}",
         f"USB-C opening at X {P['usb_x']:.0f}; humidity vent at X {P['rh_vent_x']:.0f}; all in the bottom face",
-        f"Cell {P['cell'][0]:.0f} x {P['cell'][2]:.0f} x {P['cell'][1]:.0f}, 1,500 mAh; up to 11.5 thick fits",
+        f"Cell {P['cell'][0]:.0f} x {P['cell'][2]:.0f} x {P['cell'][1]:.1f}, {P['cell_mah']:,.0f} mAh, protected, with thermistor",
         f"Three M2 bosses; carrier board {P['pcb'][0]:.0f} x {P['pcb'][2]:.0f} rests on them",
-        f"Mass {m:.0f} g (DBG-CAL-001); inlet {D['inlet_to_face_mm']:.0f} from nose and mouth when worn",
+        f"Mass {m:.1f} g (DBG-CAL-001); inlet {D['inlet_to_face_mm']:.0f} from nose and mouth when worn",
         "Not intrinsically safe; not for gassy mines or explosive atmospheres",
+        "Wear shaded when ambient is above 40 °C in full sun",
         "Third-angle; front view from -Y; origin at the badge center, rear face Y = 0",
     ], x=276, y=158, width=146)
     out = s.save(ROOT / "cad" / "drawings" / "DBG-DWG-001")

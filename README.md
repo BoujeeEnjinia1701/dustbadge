@@ -2,7 +2,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** Mining · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $90 USD · **Difficulty:** 3 of 5
+**Area:** Mining · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** $91 USD · **Difficulty:** 3 of 5
 
 A low-cost wearable dust monitor for workers in quarries, mines, stone fabrication and construction that estimates respirable dust exposure through the shift and warns before limits are reached.
 
@@ -70,7 +70,7 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - 3D-printed high-visibility case with a downward, screened inlet and a spring clip, worn within 30 cm of the nose and mouth
 - Phone app (web Bluetooth page or app) for the shift log
 
-TRL 3 calculations ([DBG-CAL-001](docs/04-calcs/01-sizing.md)), updated for the recommendations Amish accepted on 2026-09-25 ([DBG-DDR-002](docs/decisions/0002-recommendations-accepted.md)): 64 x 52 x 30 mm (33 mm with the clip), about 120 g, 17.7 h per charge typical and 12.8 h in the worst case, and $91 in parts against the $90 budget; the budget figure for the larger cell is still open. On paper the design is $1 over budget and is not intrinsically safe. The working range is accepted as the sensor's 1 mg/m³ with over-range minutes flagged; accuracy at low dust levels depends on a larger reference sample and a per-task site factor; and in hot sun the badge must be worn shaded above 40 °C. See the [design precis](docs/02-concept.md) and [requirements](docs/03-requirements.md).
+TRL 3 calculations ([DBG-CAL-001](docs/04-calcs/01-sizing.md)), updated for the recommendations Amish accepted on 2026-09-25 ([DBG-DDR-002](docs/decisions/0002-recommendations-accepted.md)): 64 x 52 x 30 mm (33 mm with the clip), about 120 g, 17.7 h per charge typical and 12.8 h in the worst case, and $91 in parts, within the $91 budget Amish approved on 2026-09-26. On paper the design is not intrinsically safe. The working range is accepted as the sensor's 1 mg/m³ with over-range minutes flagged; accuracy at low dust levels depends on a larger reference sample and a per-task site factor; and in hot sun the badge must be worn shaded above 40 °C. See the [design precis](docs/02-concept.md) and [requirements](docs/03-requirements.md).
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
@@ -99,6 +99,12 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 ## Documentation
 
 Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (DBG-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `DBG-PRC-001/v1.0`.
+
+## Credits
+
+Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+
+AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 
 ## Licenses
 

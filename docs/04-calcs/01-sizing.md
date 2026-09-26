@@ -3,9 +3,9 @@ doc_id: DBG-CAL-001
 title: DustBadge sizing calculations
 project: DustBadge
 doc_type: Calculation
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,11 +17,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: "Recommendations accepted by Amish (DDR-002): 2,000 mAh cell, R2 restated, R3 reference rule, R11 sun use rule; results table updated"
+- version: "0.3"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: Budget approved by Amish; budget $91 covers the priced BOM, so R15 is met (DBG-DDR-002 v0.2)
 ---
 
 # DustBadge sizing calculations
 
-On paper, DustBadge meets ten of its fifteen requirements (six by calculation, four by design), has two at risk, cannot verify one at TRL 3 and misses two. This version applies the recommendations Amish accepted on 2026-09-25 (DBG-DDR-002). The 2,000 mAh cell (was 1,500 mAh) runs 12.8 h at the sensor's maximum current and 0 °C (was 9.6 h), so R7 moves from at risk to met, at the cost of 8 g (119.8 g against 120 g) and $3. That takes the parts to $91.00 against the $90 budget, so R15 moves from met to not met by $1; the budget figure is still open. R2 is restated to the sensor's 0 to 1 mg/m³ range with over-range minutes flagged and counted, and is met on paper. R3 keeps ±25 % with a 4.2 L/min, two-shift reference at low-dust, high-silica sites: ±21 to ±22 % with a factor per task on the same badge, but ±29 to ±30 % with one factor shared across badges, so it is at risk. R11 now carries the use rule to wear the badge shaded above 40 °C in full sun, which keeps the shell at or below 57.8 °C, under the sensor's 60 °C limit; it is at risk because the rule depends on the wearer and the sensor is outside its best-performance range in sun above about 22 °C. Intrinsic safety (R14) remains not met and out of scope. The TRL 3 calculations had already added a humidity and temperature sensor and a thermistor charger to the TRL 2 concept. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [A3], is the line of that script's output that carries it.
+On paper, DustBadge meets eleven of its fifteen requirements (seven by calculation, four by design), has two at risk, cannot verify one at TRL 3 and misses one. This version applies the recommendations Amish accepted on 2026-09-25 (DBG-DDR-002). The 2,000 mAh cell (was 1,500 mAh) runs 12.8 h at the sensor's maximum current and 0 °C (was 9.6 h), so R7 moves from at risk to met, at the cost of 8 g (119.8 g against 120 g) and $3. That took the parts to $91.00, $1 over the $90 budget; on 2026-09-26 Amish approved a $91 budget to cover the priced BOM (DBG-DDR-002), so R15 is met. R2 is restated to the sensor's 0 to 1 mg/m³ range with over-range minutes flagged and counted, and is met on paper. R3 keeps ±25 % with a 4.2 L/min, two-shift reference at low-dust, high-silica sites: ±21 to ±22 % with a factor per task on the same badge, but ±29 to ±30 % with one factor shared across badges, so it is at risk. R11 now carries the use rule to wear the badge shaded above 40 °C in full sun, which keeps the shell at or below 57.8 °C, under the sensor's 60 °C limit; it is at risk because the rule depends on the wearer and the sensor is outside its best-performance range in sun above about 22 °C. Intrinsic safety (R14) remains not met and out of scope. The TRL 3 calculations had already added a humidity and temperature sensor and a thermistor charger to the TRL 2 concept. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [A3], is the line of that script's output that carries it.
 
 > **Safety:** These are first-principles estimates for a paper proof of concept. They do not show that a worker's air is safe, and they are not a substitute for co-located filter sampling, chamber checks or electrical safety checks on the lithium cell. See DBG-PRC-001, Safety.
 
@@ -135,7 +139,7 @@ A 1.5 m drop reaches 5.42 m/s with 1.76 J. If the shell corner crushes 1 to 2 mm
 
 ## L. Cost (R15)
 
-The BOM has 12 lines totaling $91.00 against `budget_usd` of $90, $1.00 over; the particle sensor is 53 % of the cost [L1]. The 2,000 mAh cell added $3 (was $88.00). R15 is not met. The budget figure for the larger cell had no recommendation and remains open for Amish (DBG-DDR-002, O3).
+The BOM has 12 lines totaling $91.00 against `budget_usd` of $91, with no margin; the particle sensor is 53 % of the cost [L1]. The 2,000 mAh cell added $3 (was $88.00). Budget approved by Amish on 2026-09-26: $91 to cover the priced BOM (DBG-DDR-002, O3; it was $90). R15 is met.
 
 ## M. Results against every requirement
 
@@ -144,7 +148,6 @@ The BOM has 12 lines totaling $91.00 against `budget_usd` of $90, $1.00 over; th
 | ID | Requirement | Value | Target | Status |
 | --- | --- | --- | --- | --- |
 | R14 | Safe in hazardous atmospheres | Not intrinsically safe | Certified intrinsically safe | **Not met**, out of scope |
-| R15 | Low cost and buildable | $91.00; perfboard carrier | $90; no custom PCB | **Not met** by $1 (was met at $88.00) |
 | R3 | Accuracy after site calibration | ±21 % (quarry), ±22 % (quartz-rich stone, D9 reference) with a factor per task; ±29 to ±30 % with a shared factor | ±25 % of a gravimetric shift average; D9 reference at low-dust, high-silica sites | **At risk** (was not met; assumed terms) |
 | R11 | Work in site conditions | Shell at most 57.8 °C under the use rule; best performance only to 40 °C and 80 % RH; humidity flag | 0 to 45 °C, 10 to 90 % RH, readings flagged; worn shaded above 40 °C in full sun | **At risk** (was not met) |
 | R10 | Survive the site | 750 to 1,500 g on a 1.5 m drop; IP54 by gasket, untested | IP54 electronics; 1.5 m drop | Not verifiable at TRL 3 |
@@ -154,6 +157,7 @@ The BOM has 12 lines totaling $91.00 against `budget_usd` of $90, $1.00 over; th
 | R8 | Wearable in the breathing zone | Inlet 242 mm from nose and mouth | 300 mm or less | Met on paper |
 | R9 | Light and small | 119.8 g; 64 x 52 x 33 mm | 120 g; 75 x 55 x 35 mm | Met on paper, 0.2 g margin |
 | R12 | Keep a shift log | 11.5 kB per shift; 182 shifts; 6 s transfer | 30 shifts; BLE export | Met on paper |
+| R15 | Low cost and buildable | $91.00; perfboard carrier | $91; no custom PCB | Met on paper (not met by $1 in v0.2; budget raised to $91) |
 | R1 | Measure the respirable fraction | PM4 as proxy; size cut offset in both directions (section D) | PM4 as ISO 7708 proxy | Met by design |
 | R4 | Estimate silica exposure | Calibrated PM4 x site fraction, labeled | As stated | Met by design |
 | R5 | Update often enough | 1 s readings, 1 min log, TWA every minute | As stated | Met by design |

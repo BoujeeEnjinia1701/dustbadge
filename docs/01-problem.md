@@ -3,9 +3,9 @@ doc_id: DBG-PRB-001
 title: DustBadge problem statement
 project: DustBadge
 doc_type: Problem statement
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,6 +25,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: "Recommendations accepted by Amish (DDR-002): D3 and D6 decided; low-dust reference rule noted; partner and silica fraction method stay open"
+- version: "0.5"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: Budget approved by Amish; constraint now $91
 ---
 
 # DustBadge problem statement
@@ -58,7 +62,7 @@ The gap is an open, low-cost, wearable reference design that estimates respirabl
 
 ## Constraints
 
-- Garage-buildable prototype, about $90 USD in parts, from off-the-shelf modules and 3D-printed parts.
+- Garage-buildable prototype, $91 USD in parts (`budget_usd`, raised from $90 by Amish on 2026-09-26, DBG-DDR-002), from off-the-shelf modules and 3D-printed parts.
 - Small and light enough to wear on the chest within 30 cm of the nose and mouth for a full shift.
 - Must work in heat, dust and wet spray without clogging or false alarms dominating.
 - Exposure data belongs to the worker. Sharing with an employer is by consent, and the device must not become a tool for discipline.

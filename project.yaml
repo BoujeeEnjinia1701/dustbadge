@@ -23,7 +23,7 @@ pitch: >-
   A low-cost wearable dust monitor for workers in quarries, mines, stone fabrication and construction that estimates respirable dust exposure through the shift and warns before limits are reached.
 problem: >-
   Respirable crystalline silica causes silicosis, which is incurable. Personal exposure sampling is expensive and results arrive days later, so most workers never know their exposure.
-budget_usd: 90
+budget_usd: 91
 difficulty: 3  # 1 easiest, 5 hardest
 hero_image: media/hero.png
 licenses:

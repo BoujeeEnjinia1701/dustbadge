@@ -3,9 +3,9 @@ doc_id: DBG-DDR-002
 title: DustBadge recommendations accepted
 project: DustBadge
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record the recommendations accepted by Amish on 2026-09-25, what changed in the repo, and the items still open
+- version: "0.2"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: "Budget set to $91 to cover the priced BOM: decided by Amish, 2026-09-26 (O3 closed)"
 ---
 
 # 0002: Recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted. Every item below marked "Decided by Amish, 2026-09-25: go with recommendation" is accepted; items without a recommendation remain open.
+- **Status:** accepted. Every item below marked "Decided by Amish, 2026-09-25: go with recommendation" is accepted; items without a recommendation remain open, except O3 (budget), decided by Amish on 2026-09-26.
 
 ## Context
 
@@ -52,11 +56,18 @@ The options for each item are those listed in `docs/REVIEW.md` (sessions 2026-09
 | --- | --- | --- |
 | O1 | First co-design partner (worker organization, NGO or university hygiene group). No recommendation was made. | Proposed, awaiting Amish |
 | O2 | How a site silica fraction is obtained where no laboratory is near. DBG-PRB-001 proposed one filter sample per site and task analyzed by a partner laboratory, but the item was not in the review list and carried no recommendation. | Proposed, awaiting Amish |
-| O3 | Budget figure for the larger cell. The parts now cost $91.00 against `budget_usd` of $90. The TRL 3 note left "the budget question for Amish" without a recommended figure, so `budget_usd` stays at $90. | Proposed, awaiting Amish |
+| O3 | Budget figure for the larger cell. The parts now cost $91.00 against `budget_usd` of $90. The TRL 3 note left "the budget question for Amish" without a recommended figure, so `budget_usd` stays at $90. | Decided by Amish, 2026-09-26: budget set to $91 (see below) |
+
+### Budget approved, 2026-09-26
+
+On 2026-09-26 Amish wrote: "i approve all the budget items."
+
+- Budget set to $91 to cover the priced BOM: decided by Amish, 2026-09-26. This closes O3. `project.yaml` `budget_usd` 90 to 91; DBG-REQ-001 R15 target $91, status Not met to Met on paper; DBG-CAL-001 v0.3 (`sizing.py` rerun); DBG-PRB-001, DBG-PRC-001, README, `bom/bom-notes.md` and the blueprint key figures updated. The BOM and geometry are unchanged.
 
 ## Consequences
 
 - Requirement status (DBG-CAL-001 v0.2): not met 2 (was 4), at risk 2 (was 1), not verifiable at TRL 3 1, met on paper 6 (was 5), met by design 4. Not met: R14 (intrinsic safety, out of scope) and R15 ($91.00 against $90, O3).
+- After the 2026-09-26 budget approval (DBG-CAL-001 v0.3): not met 1 (R14), at risk 2, not verifiable at TRL 3 1, met on paper 7, met by design 4.
 - `project.yaml`: no change. `budget_usd` stays at $90 (O3), and no pitch or problem rewording was recommended.
 - Documents bumped: DBG-PRB-001 v0.4, DBG-PRC-001 v0.4, DBG-REQ-001 v0.4, DBG-CAL-001 v0.2, DBG-DDR-001 v0.2; drawing DBG-DWG-001 Rev P2.
 - Cross-repo action: CalRig's smoke chamber (5 to 300 µg/m³) cannot characterize the SPS30 above 1 mg/m³ with mineral dust, so D1's characterization needs a dust generator or partner laboratory; DustBadge uses CalRig only for badge-to-badge and drift checks. Listed in `docs/REVIEW.md`; CalRig is not edited from this repo.

@@ -50,7 +50,7 @@ render_all(
                  "17.7 h per charge typical, 12.8 h worst case (DBG-CAL-001)",
                  "64 x 52 x 30 mm (33 with clip), 120 g (DBG-CAL-001)",
                  "Inlet 242 mm from nose and mouth",
-                 "$91 in parts against $90 (indicative prices)"],
+                 "$91 in parts, budget $91 (indicative prices)"],
     scale_figure=False, context=context, cut=False,
     flow={"title": "data flow (estimated values)", "unit": "",
           "stages": [("Dust at collar", "PM4, 1 s readings"),

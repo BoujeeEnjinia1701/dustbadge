@@ -3,9 +3,9 @@ doc_id: DBG-PRC-001
 title: DustBadge design precis
 project: DustBadge
 doc_type: Design precis
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,13 +25,17 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: "Recommendations accepted by Amish (DDR-002): 2,000 mAh cell, R2 range accepted with over-range flag, R3 reference rule, sun use rule; numbers from DBG-CAL-001 v0.2; DBG-DWG-001 Rev P2"
+- version: "0.5"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: Budget approved by Amish; parts within the $91 budget
 ---
 
 # DustBadge design precis
 
 ## Summary
 
-DustBadge is a chest-worn badge, 64 x 52 x 30 mm (33 mm with the clip) and about 120 g, that samples respirable dust continuously with an optical particle sensor, converts it to an estimate of respirable crystalline silica using a site calibration, keeps a running 8 h time-weighted average, and vibrates when the projected shift average is heading over the action level. The TRL 3 calculations (DBG-CAL-001 v0.2) show one off-the-shelf sensor, a Bluetooth module and a 2,000 mAh cell run a 12 h shift even at the sensor's maximum current and 0 °C (12.8 h; 17.7 h typical), for $91 in parts against a $90 budget; the budget figure for the larger cell is open for Amish. It cannot identify silica or replace compliance sampling. On paper it misses the budget by $1 (R15) and the hazardous-atmosphere requirement (R14); accuracy at low dust levels (R3) and operation in hot sun (R11) are at risk. The design choices below were decided by Amish on 2026-09-25 (DBG-DDR-002).
+DustBadge is a chest-worn badge, 64 x 52 x 30 mm (33 mm with the clip) and about 120 g, that samples respirable dust continuously with an optical particle sensor, converts it to an estimate of respirable crystalline silica using a site calibration, keeps a running 8 h time-weighted average, and vibrates when the projected shift average is heading over the action level. The TRL 3 calculations (DBG-CAL-001 v0.2) show one off-the-shelf sensor, a Bluetooth module and a 2,000 mAh cell run a 12 h shift even at the sensor's maximum current and 0 °C (12.8 h; 17.7 h typical), for $91 in parts, within the $91 budget Amish approved on 2026-09-26 (DBG-DDR-002). It cannot identify silica or replace compliance sampling. On paper it misses the hazardous-atmosphere requirement (R14); accuracy at low dust levels (R3) and operation in hot sun (R11) are at risk. The design choices below were decided by Amish on 2026-09-25 (DBG-DDR-002).
 
 ![Figure 1. DustBadge worn on the upper chest, within the breathing zone. Grey is the wearer, for scale.](../media/hero.png)
 
@@ -89,7 +93,7 @@ Table 2. Key numbers.
 | Inlet to nose and mouth | 242 mm | Model, collar or upper-strap mount [I1] | R8 met |
 | Mass | 119.8 g | Shells from model volume, parts from datasheets [J2] | R9 met, 0.2 g margin |
 | Size | 64 x 52 x 30 mm; 33 mm deep with the clip | Model | R9 met |
-| Parts cost | $91.00 | bom/bom.csv [L1] | R15 not met, $1 over; budget figure open |
+| Parts cost | $91.00 | bom/bom.csv [L1] | R15 met ($91 budget) |
 
 ![Figure 5. General arrangement DBG-DWG-001, Rev P2, from the parametric model.](../cad/drawings/DBG-DWG-001.png)
 
@@ -128,7 +132,6 @@ Table 2. Key numbers.
 - Accuracy (R3): the error terms in DBG-CAL-001 section F are assumed, and a factor shared across badges misses ±25 % even with the larger reference. Measuring them is TRL 4 work, on hold.
 - Range (R2): the sensor's response above 1 mg/m³ to mineral dust is unknown and cannot be checked on CalRig as designed.
 - Humidity and water spray (R11): the size of the bias from wet cutting and dust suppression sprays is unknown; the badge can flag high humidity.
-- Budget (R15): the parts cost $91 against $90 with the larger cell. The budget figure is open, awaiting Amish (DBG-DDR-002, O3).
 - Inlet: does the screened downward inlet change sampling efficiency for respirable particles when the worker moves?
 - First co-design partner (DBG-DDR-001, O1) and how a site silica fraction is obtained where no laboratory is near (O2). Proposed, awaiting Amish.
 

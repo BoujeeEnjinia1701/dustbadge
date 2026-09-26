@@ -167,7 +167,7 @@ On 2026-09-25 Amish wrote: "i accept all your recommendations, go with them acro
 
 1. **O1, first co-design partner.** No recommendation.
 2. **O2, how a site silica fraction is obtained where no laboratory is near.** No recommendation.
-3. **O3, budget figure for the larger cell.** $91.00 against $90; no recommended figure, so `budget_usd` stays at $90 and R15 is not met.
+3. **O3, budget figure for the larger cell.** $91.00 against $90; no recommended figure, so `budget_usd` stays at $90 and R15 is not met. **Decided by Amish, 2026-09-26: budget set to $91** (DBG-DDR-002).
 
 ### Cross-repo actions
 
@@ -181,3 +181,11 @@ Unchanged hazards (false reassurance, heat, lithium cell, not intrinsically safe
 
 TRL 4 remains on hold by Amish's instruction. Sensor characterization with mineral dust, the lighter shell under a solar lamp, drop and spray tests, a bench build, buying parts and firmware beyond a sketch are recorded as decided where recommended but not started.
 
+## Session 2026-09-26: budget approved
+
+Amish wrote on 2026-09-26: "i approve all the budget items." Budget set to $91 to cover the priced BOM: decided by Amish, 2026-09-26. This closes O3.
+
+- `project.yaml` `budget_usd` $90 to **$91**. The priced BOM is unchanged at $91.00 (12 lines).
+- R15 (cost): target $90 to $91; status **Not met to Met on paper**. Requirement status is now 1 not met (R14, out of scope), 2 at risk (R3, R11), 1 not verifiable at TRL 3 (R10), 7 met on paper, 4 met by design.
+- Files changed: `project.yaml`, `README.md`, DBG-PRB-001 v0.5, DBG-PRC-001 v0.5, DBG-REQ-001 v0.5, DBG-CAL-001 v0.3 (`sizing.py` rerun), DBG-DDR-002 v0.2, `bom/bom-notes.md`, `cad/src/concept_media.py` (blueprint key figure); media and PDFs regenerated, temporary `media/_views*` folders deleted.
+- Still awaiting Amish: O1 (co-design partner) and O2 (site silica fraction without a nearby laboratory). `trl: 3` and `trl_target: 3` are unchanged; TRL 4 remains on hold.

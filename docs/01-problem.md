@@ -3,7 +3,7 @@ doc_id: DBG-PRB-001
 title: DustBadge problem statement
 project: DustBadge
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Populate to TRL 2 (problem, users, context, constraints, prior work with sources)
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: "TRL 3, record decisions D3 and D6 from DBG-DDR-001 (adopted for TRL 3 pending Amish's review); partner and silica fraction method stay open"
 ---
 
 # DustBadge problem statement
@@ -65,9 +69,10 @@ The gap is an open, low-cost, wearable reference design that estimates respirabl
 
 ## Open questions
 
-- First users and partner: quarry workers through a worker organization or NGO, stone fabricators, or a university occupational hygiene group. Proposed, awaiting Amish.
-- Which exposure limits to use by default, given that they differ by country (for example 50 µg/m³ in the US and 100 µg/m³ as the EU binding limit). Proposed: configurable, US values as default, awaiting Amish.
-- How a site silica fraction is obtained where no laboratory is near. Proposed: one filter sample per site and task analyzed by a partner laboratory, awaiting Amish.
+- First sector: surface quarries and stone fabrication first, with underground coal and explosive atmospheres excluded. Adopted as recommended for TRL 3 under Amish's 2026-09-25 instruction, open for his review (DBG-DDR-001, D6).
+- First co-design partner: a worker organization, NGO or university occupational hygiene group. Proposed, awaiting Amish (DBG-DDR-001, O1).
+- Default exposure limits, which differ by country (for example 50 µg/m³ in the US and 100 µg/m³ as the EU binding limit): US values by default, configurable. Adopted as recommended for TRL 3 under Amish's 2026-09-25 instruction, open for his review (DBG-DDR-001, D3).
+- How a site silica fraction is obtained where no laboratory is near. Proposed: one filter sample per site and task analyzed by a partner laboratory; DBG-CAL-001 shows that at low dust levels the sample needs a higher flow or two shifts to weigh accurately. Proposed, awaiting Amish (DBG-DDR-001, O2).
 
 ## User research and co-design
 

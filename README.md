@@ -1,20 +1,20 @@
 # DustBadge
 
-![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** Mining · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $90 USD · **Difficulty:** 3 of 5
+**Area:** Mining · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $90 USD · **Difficulty:** 3 of 5
 
 A low-cost wearable dust monitor for workers in quarries, mines, stone fabrication and construction that estimates respirable dust exposure through the shift and warns before limits are reached.
 
 ![DustBadge concept](media/hero.png)
 
-[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement (PDF)](cad/drawings/DBG-DWG-001.pdf) · [Calculations](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
 A worker can only change what they can see. Filter sampling tells a site, days later, what one worker breathed on one day; a badge that vibrates when the shift average is heading over the limit tells the worker during the task, while there is still time to wet the cut, move upwind, put on a respirator or stop. An optical particle sensor cannot identify silica, so DustBadge measures respirable dust, corrects it with a site filter sample, and shows silica only as a labeled estimate. The result is a screening tool, not a compliance instrument.
 
-It is open and garage-buildable because the workers most exposed, in informal quarries, small stone workshops and artisanal mines, are the least likely to be covered by an employer's sampling program or to afford commercial personal dust monitors. One sensor module, one Bluetooth board, a phone-charger-sized cell and a 3D-printed case keep the parts near $85, and worker organizations, clinics and universities can build, audit and adapt it under CERN-OHL-S-2.0.
+It is open and garage-buildable because the workers most exposed, in informal quarries, small stone workshops and artisanal mines, are the least likely to be covered by an employer's sampling program or to afford commercial personal dust monitors. One sensor module, one Bluetooth board, a phone-charger-sized cell and a 3D-printed case keep the parts at about $88, and worker organizations, clinics and universities can build, audit and adapt it under CERN-OHL-S-2.0.
 
 ## Burning platform
 
@@ -65,11 +65,12 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - Optical particle sensor with a PM4 output (Sensirion SPS30 class, proposed)
 - nRF52840 Bluetooth Low Energy module with flash for the shift log
 - Vibration motor and red alert LED
-- 1,500 mAh protected LiPo cell, about 13 h of continuous sampling (estimate)
+- 1,500 mAh protected LiPo cell: 13.3 h of continuous sampling at the sensor's typical current, 11.3 h at its maximum current or at 0 °C (DBG-CAL-001)
+- Humidity and temperature sensor to flag readings that humidity or spray may bias
 - 3D-printed high-visibility case with a downward, screened inlet and a spring clip, worn within 30 cm of the nose and mouth
 - Phone app (web Bluetooth page or app) for the shift log
 
-First-order estimates (to be checked at TRL 3): about 64 x 52 x 30 mm, about 110 g, about 13 h per charge and about $85 in parts. The concept does not meet the 5 mg/m³ working range (the sensor is specified to 1 mg/m³) and is not intrinsically safe. See the [design precis](docs/02-concept.md) and [requirements](docs/03-requirements.md).
+TRL 3 calculations ([DBG-CAL-001](docs/04-calcs/01-sizing.md)): 64 x 52 x 30 mm (33 mm with the clip), about 112 g, 13.3 h per charge typical and $88 in parts against the $90 budget. On paper the design does not meet the 5 mg/m³ working range (the sensor is specified to 1 mg/m³), misses the ±25 % accuracy target at low dust levels, overheats in full sun above about 42 °C, and is not intrinsically safe; run time is at risk in the cold or at the sensor's maximum current. See the [design precis](docs/02-concept.md) and [requirements](docs/03-requirements.md).
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
@@ -79,7 +80,7 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 >
 > Not intrinsically safe: never use it in underground coal mines or anywhere flammable gas or combustible dust may be present.
 >
-> Lithium cells can overheat, vent and burn. Use a protected, fused cell, never charge the badge while it is worn, charge only between 0 and 45 °C, and never leave a first build charging unattended.
+> Lithium cells can overheat, vent and burn. Use a protected, fused cell, never charge the badge while it is worn, charge only between 0 and 45 °C, and never leave a first build charging unattended. In full sun above about 42 °C the badge can pass 60 °C; keep it shaded.
 
 ## Repository layout
 

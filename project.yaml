@@ -1,6 +1,7 @@
 # Card metadata consumed by https://designmolecule.com
 name: DustBadge
 slug: dustbadge
+repo: BoujeeEnjinia1701/dustbadge         # GitHub repository, shown on every drawing and render
 area: Mining
 trl: 3                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
 trl_target: 3

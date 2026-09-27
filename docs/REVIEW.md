@@ -189,3 +189,34 @@ Amish wrote on 2026-09-26: "i approve all the budget items." Budget set to $91 t
 - R15 (cost): target $90 to $91; status **Not met to Met on paper**. Requirement status is now 1 not met (R14, out of scope), 2 at risk (R3, R11), 1 not verifiable at TRL 3 (R10), 7 met on paper, 4 met by design.
 - Files changed: `project.yaml`, `README.md`, DBG-PRB-001 v0.5, DBG-PRC-001 v0.5, DBG-REQ-001 v0.5, DBG-CAL-001 v0.3 (`sizing.py` rerun), DBG-DDR-002 v0.2, `bom/bom-notes.md`, `cad/src/concept_media.py` (blueprint key figure); media and PDFs regenerated, temporary `media/_views*` folders deleted.
 - Still awaiting Amish: O1 (co-design partner) and O2 (site silica fraction without a nearby laboratory). `trl: 3` and `trl_target: 3` are unchanged; TRL 4 remains on hold.
+
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose this repo for the first batch of product renders on 2026-09-26. This session adds an appearance model for photoreal renders. It does not change the design, the BOM, the calculations or `cad/src/model.py`.
+
+### What was added
+
+- `cad/src/product_model.py`: `product_parts()` (28 parts: 11 shell, 10 internal, 3 accessory, 4 context), `TITLE` and `RENDER_VIEWS` (hero, exploded and worn). All main dimensions and interfaces come from `PARAMS`, `derived()` and `build_parts()` in `model.py`.
+  - Filleted hi-vis yellow front shell (3 mm front perimeter) and dark rear shell (2.5 mm rear perimeter), with 0.6 mm fillets either side of the shell joint and a TPU gasket band showing in the parting line.
+  - Ribbed grip texture on both side faces of the front shell.
+  - Clear acrylic front window over the particle sensor, showing a sensor fan and a printed label on the sensor face.
+  - Lit red alert light pipe (emissive) in a dark bezel; printed status label with three level bars.
+  - Three M2 screws in the rear face; stainless inlet screen in the bottom inlet slot.
+  - Internals rendered as finished parts: controller module with shield can, vibration motor, carrier board with components, 2,000 mAh pouch cell with label.
+  - Stainless spring clip (riveted base leaf, hinge barrel, tongue with the strap-loop slot) inside the `model.py` clip envelope.
+  - Accessory: webbing lanyard through the strap loop with a crimp and a teal breakaway buckle.
+  - Context for the worn view: curved fabric chest panel with a harness strap, stitching and reflective tape.
+- `README.md`: hero image now points to `media/render-hero.png`, with a link to `media/render-exploded.png`. The render files are produced separately.
+
+### Differences from model.py (each Proposed, awaiting Amish)
+
+1. **Front window over the sensor (30 x 24 mm).** `model.py` has a solid front face. The window shows the sensor for the renders but adds a sealing joint that bears on R10 (drop and ingress). Recommendation: keep it in the renders only; decide at TRL 4 whether to adopt it, and if so, add it to BOM line 1 and the drawing.
+2. **Visible sensor fan.** An SPS30-class sensor encloses its fan; the recess and fan on the sensor face are illustrative. Recommendation: keep, and describe it as illustrative in any caption that calls out the fan.
+3. **Rear screws at the three boss positions.** `model.py` has the bosses but no shell closure fasteners. Recommendation: adopt three M2 screws through the rear shell into the front bosses (BOM line 11 already covers M2 screws).
+4. **Side grip ribs stand 0.6 mm proud**, so the rendered width is about 65.2 mm against 64 mm. Recommendation: accept for appearance; if adopted, recess the ribs so the 64 mm envelope holds.
+5. **Lanyard and breakaway buckle** have no BOM line. A breakaway is the safer choice near rotating machinery. Recommendation: add an optional BOM line (about $1) at TRL 4, subject to the budget Amish approved.
+6. **TPU gasket shown as a visible band.** BOM line 9 lists the gasket; `model.py` does not model it. Recommendation: accept as shown.
+
+### Status
+
+Appearance only: no tolerances, no fabrication detail, no PCB layout. `trl` and `trl_target` stay at 3, and TRL 4 remains on hold.

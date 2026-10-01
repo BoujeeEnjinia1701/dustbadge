@@ -52,8 +52,9 @@ def ortho_cells(sheet, views, names=("front", "top", "right")):
     dims = {n: _viewbox(Path(views[n]).read_text())[2:] for n in names}
     fw, fh = dims["front"]; tw, th = dims["top"]; rw, rh = dims["right"]
     k = sheet.scale
-    ax += (aw - (k * (max(fw, tw) + rw) + gap)) / 2
-    ay += (ah - (k * (th + max(fh, rh)) + gap + 2 * lab)) / 2
+    dl = 11  # room the kit leaves left of and above the views for overall dimensions
+    ax += (aw - (k * (max(fw, tw) + rw) + gap + dl)) / 2 + dl
+    ay += (ah - (k * (th + max(fh, rh)) + gap + 2 * lab + dl)) / 2 + dl
     colw = k * max(fw, tw)
     front_y = ay + k * th + lab + gap
     row_h = k * max(fh, rh)
@@ -94,11 +95,12 @@ def main():
     asm = assembly()
     views = safe_project_views(asm, work)
     bb = asm.bounding_box()
-    s = Sheet(project="DustBadge", title="General arrangement", dwg_no="DBG-DWG-001", rev="P2",
+    s = Sheet(project="DustBadge", title="General arrangement", dwg_no="DBG-DWG-001", rev="P3",
               author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="PETG shells; bought-in parts per bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
               revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
-                         ("P2", "2,000 mAh cell, 11.5 thick; sun use rule (DBG-DDR-002)", DATE, "AC")])
+                         ("P2", "2,000 mAh cell, 11.5 thick; sun use rule (DBG-DDR-002)", DATE, "AC"),
+                         ("P3", "Layout and labels tidied", DATE, "AC")])
     s.add_ortho(views)
     k = s.scale
     c = ortho_cells(s, views)
@@ -109,12 +111,7 @@ def main():
     x, y, w, h = c["front"]
     X = lambda mx: x + (mx - bb.min.X) * k
     Z = lambda mz: y + h - (mz - bb.min.Z) * k
-    yb = Z(H / 2) - 8
-    L += [ext(X(-W / 2), Z(H / 2) - 1, X(-W / 2), yb - 1), ext(X(W / 2), Z(H / 2) - 1, X(W / 2), yb - 1)]
-    L += dim_h(X(-W / 2), X(W / 2), yb, f"{W:.0f}")
-    xl = X(-W / 2) - 8
-    L += [ext(X(-W / 2) - 1, Z(H / 2), xl - 1, Z(H / 2)), ext(X(-W / 2) - 1, Z(-H / 2), xl - 1, Z(-H / 2))]
-    L += dim_v(xl, Z(H / 2), Z(-H / 2), f"{H:.0f}")
+    # overall width and height come from the kit (top view and front view); not repeated here
     lx, lz = P["led_pos"]
     L += leader(X(lx), Z(lz), X(-W / 2) - 16, Z(H / 2) + 8, "6 ALERT LED LIGHT PIPE", "end")
     L += leader(X(P["motor_pos"][0]), Z(P["motor_pos"][2]), X(-W / 2) - 16, Z(-H / 2) + 4, "5 MOTOR (HIDDEN)", "end")
@@ -127,7 +124,6 @@ def main():
     ya = Yt(bb.max.Y) - 5
     for xx, lab in ((D["inlet_x"], "INLET"), (D["outlet_x"], "OUTLET")):
         L.append(_t(Xt(xx), ya, lab, 1.9, 600, INK, "middle"))
-    L += dim_h(Xt(D["inlet_x"]), Xt(D["outlet_x"]), ya - 4, f"{D['outlet_x'] - D['inlet_x']:.0f}")
     L.append(_t(Xt(bb.max.X) + 3, Yt(bb.min.Y) - 1, "FRONT FACE (-Y), WORN FACING OUT", 1.9, 400, MUTED))
 
     # right view (from +X): -Y to the left? looking along -X, +Y appears to the right
@@ -137,12 +133,9 @@ def main():
     yd = Zr(H / 2) - 6
     L += [ext(Yr(-Dp), Zr(H / 2) - 1, Yr(-Dp), yd - 1), ext(Yr(0), Zr(H / 2) - 1, Yr(0), yd - 1)]
     L += dim_h(Yr(-Dp), Yr(0), yd, f"{Dp:.0f}")
-    yd2 = Zr(H / 2) - 14
-    L += [ext(Yr(bb.min.Y), Zr(H / 2) - 1, Yr(bb.min.Y), yd2 - 1), ext(Yr(bb.max.Y), Zr(H / 2) - 1, Yr(bb.max.Y), yd2 - 1)]
-    L += dim_h(Yr(bb.min.Y), Yr(bb.max.Y), yd2, f"{bb.size.Y:.0f} OVERALL")
     L += leader(Yr(P["split_y"]), Zr(H / 2 - 6), Yr(bb.max.Y) + 6, Zr(H / 2) - 4, "SHELL JOINT, GASKET")
     L += leader(Yr(P["clip"][1] / 2), Zr(P["clip_z"]), Yr(bb.max.Y) + 6, Zr(P["clip_z"]), "10 CLIP")
-    L += leader(Yr(P["sensor_y"]), Zr(-H / 2), Yr(P["sensor_y"]) - 4, Zr(-H / 2) + 14, "AIR IN (DOWN)", "end")
+    L += leader(Yr(P["sensor_y"]), Zr(-H / 2), Yr(bb.max.Y) + 6, Zr(-H / 2) - 6, "AIR IN (DOWN)")
 
     s._layers += L
     s.add_svg(views["iso"], 276, 32, 140, 100, label="Isometric view", sublabel="Not to scale")

@@ -5,6 +5,7 @@ DustBadge is designed by Amish Chadha at Design Molecule. The people below contr
 | Name | Role | Affiliation |
 | --- | --- | --- |
 | Amish Chadha | Author, lead designer | Design Molecule |
+| Dr. Geeti Chadha | Contributor | |
 
 ## AI assistance
 

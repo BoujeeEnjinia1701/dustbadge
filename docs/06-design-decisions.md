@@ -3,7 +3,7 @@ doc_id: DBG-DEC-001
 title: DustBadge design decisions register
 project: DustBadge
 doc_type: Design decisions register
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Budget treated as a value-engineering target
+  - version: "0.3"
+    date: '2026-10-01'
+    author: Amish Chadha
+    change: Dr. Geeti Chadha added as a contributor and the project moved to the BioMedical (healthcare) area (decided by Amish)
 ---
 
 # DustBadge design decisions register
@@ -66,3 +70,4 @@ Savings worth trying: confirming prices when parts are bought. A 1,500 mAh cell 
 | 2026-09-25 | TRL 2 review items D1 to D7: SPS30-class sensor, silica shown only as a labeled estimate, US OSHA and MSHA default limits, continuous sampling, worker-owned data, surface quarries and stone fabrication first, downward screened inlet with a yellow shell and clip | Amish: "i accept all your recommendations, go with them across all repos." | DBG-DDR-001, DBG-DDR-002 |
 | 2026-09-25 | D8 to D11: 2,000 mAh cell; R3 reference rule (4.2 L/min cyclone over two shifts at low-dust, high-silica sites); sun use rule; R2 restated to 1 mg/m³ with an over-range flag | Amish, same instruction | DBG-DDR-002 |
 | 2026-09-26 | Value-engineering target set to $91 to match the priced BOM (O3) | Amish: "i approve all the budget items." | DBG-DDR-002 v0.2 |
+| 2026-10-01 | Dr. Geeti Chadha added as a contributor (CONTRIBUTORS.md, README Credits) and the project moved to the BioMedical (healthcare) area, with soft, non-clinical wording: a research and educational prototype, not a medical device | Amish: "yes add Dr. Geeti Chadha to breathebox and dustbadge and make those both healthcare projects" | `project.yaml`, `CONTRIBUTORS.md`, `README.md`, DBG-PRB-001 v0.7, DBG-PRC-001 v0.8 |

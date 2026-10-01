@@ -3,7 +3,7 @@ doc_id: DBG-PRB-001
 title: DustBadge problem statement
 project: DustBadge
 doc_type: Problem statement
-version: "0.6"
+version: "0.7"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.7"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: BioMedical area (DBG-DEC-001 v0.3); constraints state a research and educational prototype, not a medical device
 ---
 
 # DustBadge problem statement
@@ -70,7 +74,7 @@ The gap is an open, low-cost, wearable reference design that estimates respirabl
 - Small and light enough to wear on the chest within 30 cm of the nose and mouth for a full shift.
 - Must work in heat, dust and wet spray without clogging or false alarms dominating.
 - Exposure data belongs to the worker. Sharing with an employer is by consent, and the device must not become a tool for discipline.
-- Research and educational prototype only. It is not certified monitoring or personal protective equipment, does not replace regulatory sampling or respirators, and is not certified for explosive atmospheres.
+- Research and educational prototype only. It is not a medical device, is not certified monitoring or personal protective equipment, does not replace regulatory sampling or respirators, and is not certified for explosive atmospheres.
 
 ## Out of scope
 

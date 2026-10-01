@@ -276,3 +276,33 @@ The lithium cell now has a located, swappable position with a 0.7 mm swelling al
 ### Recommended next step
 
 Amish reviews DBG-DDR-003 and the open decisions in DBG-DEC-001. TRL 4 (buying parts and building to DBG-BLD-001) stays on hold until he says otherwise.
+
+## Session 2026-10-01: Dr. Geeti Chadha added; BioMedical (healthcare) area
+
+Instruction from Amish, 2026-10-01: "yes add Dr. Geeti Chadha to breathebox and dustbadge and make those both healthcare projects". Matched to the TremorTrace worked example.
+
+### What was done
+
+- `project.yaml`: `area` changed from Mining to BioMedical, the portfolio's healthcare area; tags now lead with `biomedical`, keeping `mining` after it.
+- `CONTRIBUTORS.md`: row added for Dr. Geeti Chadha, Contributor.
+- `README.md`: area line now BioMedical; Credits name Dr. Geeti Chadha as contributors; the concept rationale and the Safety section state that DustBadge is a research and educational prototype, not a medical device.
+- `CITATION.cff`: `biomedical` keyword added. Dr. Geeti Chadha is not added to the authors, matching TremorTrace, where only Amish is listed.
+- `docs/01-problem.md` (DBG-PRB-001 v0.7) and `docs/02-concept.md` (DBG-PRC-001 v0.8): the not-a-medical-device statement added to the existing scope and safety wording.
+- `docs/06-design-decisions.md` (DBG-DEC-001 v0.3): the decision recorded under "Decisions made".
+- `docs/pdf/`: PDFs of the changed controlled documents rebuilt.
+
+### Wording
+
+No clinical claims were found that needed softening: the documents already call the badge a screening tool, not a compliance instrument, that estimates exposure and does not replace sampling, controls or respirators. The changes add the not-a-medical-device statement only. Design, requirements, numbers and safety content are unchanged.
+
+### Stale media (on Amish's Mac; not regenerated here)
+
+`media/card.png` and `media/social-preview.png` show the area (Mining) and must be regenerated on Amish's Mac with `python .kit/cards.py .`.
+
+### Proposed, awaiting Amish
+
+- None new. The `pitch` and `problem` lines in `project.yaml` are unchanged.
+
+### Recommended next step
+
+Regenerate the card and social preview on the Mac, then continue with the open items in DBG-DEC-001.

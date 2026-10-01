@@ -2,7 +2,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1388476226.svg)](https://zenodo.org/badge/latestdoi/1388476226) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/dustbadge/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/dustbadge/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/dustbadge/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/dustbadge)
 
-**Area:** Mining · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** $91 USD · **Difficulty:** 3 of 5
+**Area:** BioMedical · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** $91 USD · **Difficulty:** 3 of 5
 
 A low-cost wearable dust monitor for workers in quarries, mines, stone fabrication and construction that estimates respirable dust exposure through the shift and warns before limits are reached.
 
@@ -12,7 +12,7 @@ A low-cost wearable dust monitor for workers in quarries, mines, stone fabricati
 
 ## Concept rationale
 
-A worker can only change what they can see. Filter sampling tells a site, days later, what one worker breathed on one day; a badge that vibrates when the shift average is heading over the limit tells the worker during the task, while there is still time to wet the cut, move upwind, put on a respirator or stop. An optical particle sensor cannot identify silica, so DustBadge measures respirable dust, corrects it with a site filter sample, and shows silica only as a labeled estimate. The result is a screening tool, not a compliance instrument.
+A worker can only change what they can see. Filter sampling tells a site, days later, what one worker breathed on one day; a badge that vibrates when the shift average is heading over the limit tells the worker during the task, while there is still time to wet the cut, move upwind, put on a respirator or stop. An optical particle sensor cannot identify silica, so DustBadge measures respirable dust, corrects it with a site filter sample, and shows silica only as a labeled estimate. The result is a screening tool, not a compliance instrument. It is a research and educational prototype, not a medical device.
 
 It is open and garage-buildable because the workers most exposed, in informal quarries, small stone workshops and artisanal mines, are the least likely to be covered by an employer's sampling program or to afford commercial personal dust monitors. One sensor module, one Bluetooth board, a phone-charger-sized cell and a 3D-printed case keep the parts at about $91, and worker organizations, clinics and universities can build, audit and adapt it under CERN-OHL-S-2.0.
 
@@ -82,7 +82,7 @@ The [prototype build plan](docs/05-build-plan.md) (DBG-BLD-001) shows, in pictur
 
 ## Safety
 
-> A research and educational prototype, not certified monitoring or personal protective equipment. It does not replace regulatory sampling, dust controls or respirators, and a low reading does not mean the air is safe. It cannot measure silica directly; silica values are estimates.
+> A research and educational prototype, not a medical device and not certified monitoring or personal protective equipment. It does not replace regulatory sampling, dust controls or respirators, and a low reading does not mean the air is safe. It cannot measure silica directly; silica values are estimates.
 >
 > Not intrinsically safe: never use it in underground coal mines or anywhere flammable gas or combustible dust may be present.
 >
@@ -108,7 +108,7 @@ Controlled documents follow the portfolio [documentation standard](.kit/STANDARD
 
 ## Credits
 
-Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+Designed by Amish Chadha, with contributions from Dr. Geeti Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
 
 AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 

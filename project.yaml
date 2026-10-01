@@ -2,7 +2,7 @@
 name: DustBadge
 slug: dustbadge
 repo: BoujeeEnjinia1701/dustbadge         # GitHub repository, shown on every drawing and render
-area: Mining
+area: BioMedical
 trl: 3                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
 trl_target: 3
 design_state: constructable   # concept or constructable, see .kit/STANDARDS.md section 18
@@ -35,4 +35,4 @@ hero_image: media/hero.png
 licenses:
   hardware: CERN-OHL-S-2.0
   software: MIT
-tags: [mining, open-hardware, cern-ohl-s]
+tags: [biomedical, mining, open-hardware, cern-ohl-s]

@@ -3,7 +3,7 @@ doc_id: DBG-PRC-001
 title: DustBadge design precis
 project: DustBadge
 doc_type: Design precis
-version: "0.7"
+version: "0.8"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -37,6 +37,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.8"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: BioMedical area (DBG-DEC-001 v0.3); safety states a research and educational prototype, not a medical device
 ---
 
 # DustBadge design precis
@@ -127,7 +131,7 @@ Table 2. Key numbers.
 
 ## Safety
 
-> **Safety:** DustBadge is a research and educational prototype. It is not certified monitoring equipment or personal protective equipment, and it does not replace regulatory exposure sampling, engineering controls or respirators. A low reading does not mean the air is safe: the sensor cannot see silica directly, can drift, and can under-read outside its calibration.
+> **Safety:** DustBadge is a research and educational prototype, not a medical device. It is not certified monitoring equipment or personal protective equipment, and it does not replace regulatory exposure sampling, engineering controls or respirators. A low reading does not mean the air is safe: the sensor cannot see silica directly, can drift, and can under-read outside its calibration.
 >
 > **Safety:** It is not intrinsically safe. Do not use it in underground coal mines or in any place where flammable gas or combustible dust may be present.
 >

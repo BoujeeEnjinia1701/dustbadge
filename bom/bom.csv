@@ -1,13 +1,13 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
 1 Front shell with bottom inlet,1,"3D-printed PETG, high-visibility yellow, about 64 x 52 x 16 mm",Self,1.50,make,Material cost only
-2 Inlet dust screen,1,"Stainless mesh, about 1 mm aperture, 30 x 8 mm",Hardware store,1.00,buy,Indicative price
+2 Inlet dust screen,1,"Stainless mesh, about 1 mm aperture, cut to a 16 x 11 mm square",Hardware store,1.00,buy,Indicative price
 3 Optical particle sensor,1,"Sensirion SPS30 class, PM1 to PM10 including PM4, 0 to 1000 ug/m3, 5 V",Electronics distributor,48.00,buy,Indicative price; adopted for TRL 3 (DBG-DDR-001 D1)
-4 Controller and BLE module,1,"nRF52840 with 2 MB flash and LiPo charger (Seeed XIAO nRF52840 class)",Seeed Studio or distributor,10.00,buy,Indicative price
+4 Controller and BLE module,1,nRF52840 with 2 MB flash and LiPo charger (Seeed XIAO nRF52840 class),Seeed Studio or distributor,10.00,buy,Indicative price
 5 Vibration motor,1,"10 mm coin, 3 V",Online retailer,1.50,buy,Indicative price
-6 Alert LED and light pipe,1,"Red 3 mm LED, clear PETG or acrylic light pipe",Electronics distributor,0.50,buy,Indicative price
-7 Carrier board,1,"Perfboard with 5 V boost module, 500 mA charger module with cell thermistor input, polyfuse, USB-C socket, SHT4x-class humidity and temperature sensor",Electronics distributor,9.00,buy,Indicative price; humidity sensor and thermistor charger added at TRL 3 (DBG-CAL-001 sections B and C); no custom PCB for the first build
+6 Alert LED and light pipe,1,"Red 3 mm LED; light pipe printed in clear PETG, 4 mm rod with a 6 mm flange",Electronics distributor,0.50,buy,Indicative price
+7 Carrier board,1,"Perfboard 59 x 47 mm; 500 mA charger module with USB-C and cell thermistor input (about 11 x 19 mm); 5 V boost module with enable input (about 11 x 9 mm); polyfuse; small N-MOSFET, diode and resistors for the motor and LED; SHT4x-class humidity and temperature breakout (about 10 x 10 mm)",Electronics distributor,9.00,buy,Indicative price; humidity sensor and thermistor charger added at TRL 3 (DBG-CAL-001 sections B and C); no custom PCB for the first build; modules placed for construction (DBG-DDR-003)
 8 LiPo cell,1,"2000 mAh 3.7 V protected, about 50 x 34 x 11.5 mm, with 10 kohm thermistor lead",Hobby electronics distributor,13.00,buy,Indicative price; 2000 mAh adopted (DBG-DDR-002 D8; was 1500 mAh at $10.00)
-9 Rear shell,1,"3D-printed PETG with TPU gasket, about 64 x 52 x 14 mm",Self,1.50,make,Material cost only
-10 Spring clip and strap loop,1,"Stainless spring clip, about 40 mm",Online retailer,2.00,buy,Indicative price
-11 Hardware and consumables,1,"M2 screws, wire, heat shrink, adhesive",Self,3.00,buy,Indicative price; not modeled
+9 Rear shell,1,"3D-printed PETG, about 64 x 52 x 13 mm, with a printed TPU flat gasket (1 mm) and two printed TPU sensor port seals",Self,1.50,make,Material cost only
+10 Spring clip and strap loop,1,"Stainless spring clip, about 40 mm, base leaf drilled for two M2 screws 12 mm apart",Online retailer,2.00,buy,Indicative price
+11 Hardware and consumables,1,"Three M2 x 20 and two M2 x 8 thread-forming pan-head screws, wire, heat shrink, double-sided foam tape, adhesive",Self,3.00,buy,Indicative price; screws modeled from DBG-DDR-003
 12 Phone app for shift log,1,Open-source web Bluetooth page or app (software),Self,0.00,make,Software; no parts cost

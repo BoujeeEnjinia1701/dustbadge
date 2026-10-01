@@ -3,9 +3,9 @@ doc_id: DBG-PRC-001
 title: DustBadge design precis
 project: DustBadge
 doc_type: Design precis
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-09-26'
+date: '2026-09-30'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-09-26'
   author: Amish Chadha
   change: Budget approved by Amish; parts within the $91 budget
+- version: "0.6"
+  date: '2026-09-30'
+  author: Amish Chadha
+  change: "Design made constructable (DBG-DDR-003): fixings, gasket, seals and module positions; mass 119.9 g; build plan DBG-BLD-001 linked"
 ---
 
 # DustBadge design precis
@@ -56,16 +60,16 @@ Table 1. Main components, numbered to match the exploded view and bom/bom.csv.
 
 | # | Component | Proposed choice | Notes |
 | --- | --- | --- | --- |
-| 1 | Front shell | 3D-printed PETG, high-visibility yellow, with bottom inlet and outlet slots, USB-C opening and humidity vent; three M2 screw bosses | Decided by Amish, 2026-09-25 (DBG-DDR-001, D7) |
-| 2 | Inlet dust screen | Stainless mesh, about 1 mm aperture | Keeps grit and splash out; must not act as a size selector for respirable particles |
+| 1 | Front shell | 3D-printed PETG, high-visibility yellow, with bottom inlet and outlet slots, USB-C opening and humidity vent; three screw bosses and two sensor stop ribs | Decided by Amish, 2026-09-25 (DBG-DDR-001, D7) |
+| 2 | Inlet dust screen | Stainless mesh, about 1 mm aperture, a 16 x 11 mm square laid inside over the inlet slot and held by the inlet port seal | Keeps grit and splash out; must not act as a size selector for respirable particles |
 | 3 | Particle sensor | Sensirion SPS30 class: PM1, PM2.5, PM4 and PM10 mass; 0 to 1,000 µg/m³; 41 x 41 x 12 mm; 26 g; 45 to 55 mA typical, 65 mA maximum at 5 V; PM4 precision ±25 µg/m³ below 100 µg/m³ and ±25 % above ([datasheet v2.0](https://sensirion.com/media/documents/8600FF88/64A3B8D6/Sensirion_PM_Sensors_Datasheet_SPS30.pdf)) | Chosen for its PM4 output. Decided by Amish, 2026-09-25 (DBG-DDR-001, D1) |
 | 4 | Controller and BLE | nRF52840 module with 2 MB flash and LiPo charger (Seeed XIAO nRF52840 class) | Same module family as TremorTrace |
-| 5 | Vibration motor | 10 mm coin motor | Felt through clothing when noise makes a beep useless |
-| 6 | Alert LED | Red LED with a light pipe through the front | Visible to the worker looking down and to coworkers |
-| 7 | Carrier board | 5 V boost for the sensor, 500 mA charger with a cell thermistor input, polyfuse, USB-C, SHT4x-class humidity and temperature sensor at a vent in the bottom face | Perfboard for the first build; humidity sensor and thermistor added at TRL 3 (DBG-CAL-001, sections B and C) |
+| 5 | Vibration motor | 10 mm coin motor, stuck to the inside of the front face | Felt through clothing when noise makes a beep useless |
+| 6 | Alert LED | Red 3 mm LED in a printed clear light pipe with an inside flange, through the front face | Visible to the worker looking down and to coworkers |
+| 7 | Carrier board | Perfboard carrying the controller and a 500 mA charger module with USB-C and a cell thermistor input; a 5 V boost module for the sensor and an SHT4x-class humidity and temperature breakout at a vent in the bottom face sit on the inside of the front face; polyfuse | Perfboard for the first build; humidity sensor and thermistor added at TRL 3 (DBG-CAL-001, sections B and C) |
 | 8 | Battery | 2,000 mAh 3.7 V protected LiPo, about 50 x 34 x 11.5 mm, 38 g, with thermistor | Decided by Amish, 2026-09-25 (DBG-DDR-002, D8); was 1,500 mAh. Fills the space behind the carrier board with 0.5 mm to spare |
-| 9 | Rear shell | 3D-printed PETG with gasket | Holds the cell away from the body side |
-| 10 | Clip | Stainless spring clip with strap loop | For a shirt pocket, collar, harness or hi-vis vest |
+| 9 | Rear shell | 3D-printed PETG with a flat printed TPU gasket and two TPU sensor port seals; three tubes that press the carrier board onto the front bosses, four cell locating ribs and two clip screw bosses | Holds the cell away from the body side; closed by three M2 x 20 screws from the rear face (DBG-DDR-003) |
+| 10 | Clip | Stainless spring clip with strap loop, held by two M2 x 8 screws | For a shirt pocket, collar, harness or hi-vis vest |
 
 ![Figure 3. Exploded view with BOM numbers.](../media/exploded.png)
 
@@ -91,7 +95,7 @@ Table 2. Key numbers.
 | Shift average uncertainty after site calibration | ±21 to ±29 % (quarry); ±22 to ±30 % (quartz-rich stone with the 4.2 L/min, two-shift reference) | Root sum of squares, assumed terms [F2, F3] | R3 at risk |
 | Log size | 11.5 kB per 12 h shift; about 182 shifts in 2 MB | 16-byte record each minute [H1] | R12 met |
 | Inlet to nose and mouth | 242 mm | Model, collar or upper-strap mount [I1] | R8 met |
-| Mass | 119.8 g | Shells from model volume, parts from datasheets [J2] | R9 met, 0.2 g margin |
+| Mass | 119.9 g | Shells, gasket and seals from model volume, parts from datasheets [J2] | R9 met, 0.1 g margin |
 | Size | 64 x 52 x 30 mm; 33 mm deep with the clip | Model | R9 met |
 | Parts cost | $91.00 | bom/bom.csv [L1] | R15 met ($91 budget) |
 
@@ -135,4 +139,4 @@ Table 2. Key numbers.
 - Inlet: does the screened downward inlet change sampling efficiency for respirable particles when the worker moves?
 - First co-design partner (DBG-DDR-001, O1) and how a site silica fraction is obtained where no laboratory is near (O2). Proposed, awaiting Amish.
 
-Concept media: [blueprint sheet](../media/concept-blueprint.pdf), [interactive 3D model](../media/viewer.html). General arrangement: [DBG-DWG-001](../cad/drawings/DBG-DWG-001.pdf). Model: `cad/src/model.py`, exports in `cad/step/` and `cad/stl/`.
+Prototype build plan: [DBG-BLD-001](05-build-plan.md); design decisions: [DBG-DEC-001](06-design-decisions.md). Concept media: [blueprint sheet](../media/concept-blueprint.pdf), [interactive 3D model](../media/viewer.html). General arrangement: [DBG-DWG-001](../cad/drawings/DBG-DWG-001.pdf). Model: `cad/src/model.py`, exports in `cad/step/` and `cad/stl/`.

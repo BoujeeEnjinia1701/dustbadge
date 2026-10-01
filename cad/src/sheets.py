@@ -1,4 +1,4 @@
-"""DustBadge general arrangement sheet DBG-DWG-001, Rev P2 (TRL 3).
+"""DustBadge general arrangement sheet DBG-DWG-001, Rev P4 (TRL 3, constructable design, DBG-DDR-003).
 
 Run from the repo root:  python cad/src/sheets.py
 Writes cad/drawings/DBG-DWG-001.svg, .pdf and .png from the parametric model in
@@ -15,6 +15,7 @@ from drawing import Sheet, _viewbox, _t, M, TB_Y, INK, MUTED  # noqa: E402
 from model import PARAMS as P, assembly, derived, masses  # noqa: E402
 
 DATE = "2026-09-25"
+DATE_P4 = "2026-09-30"
 
 
 def safe_project_views(part, workdir, line_weight=0.35):
@@ -95,12 +96,13 @@ def main():
     asm = assembly()
     views = safe_project_views(asm, work)
     bb = asm.bounding_box()
-    s = Sheet(project="DustBadge", title="General arrangement", dwg_no="DBG-DWG-001", rev="P3",
-              author="Amish Chadha", date=DATE, scale=None, theme="technical",
+    s = Sheet(project="DustBadge", title="General arrangement", dwg_no="DBG-DWG-001", rev="P4",
+              author="Amish Chadha", date=DATE_P4, scale=None, theme="technical",
               material="PETG shells; bought-in parts per bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
               revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
                          ("P2", "2,000 mAh cell, 11.5 thick; sun use rule (DBG-DDR-002)", DATE, "AC"),
-                         ("P3", "Layout and labels tidied", DATE, "AC")])
+                         ("P3", "Layout and labels tidied", DATE, "AC"),
+                         ("P4", "Design for construction: screws, gasket, seals, ribs (DBG-DDR-003)", DATE_P4, "AC")])
     s.add_ortho(views)
     k = s.scale
     c = ortho_cells(s, views)
@@ -138,15 +140,15 @@ def main():
     L += leader(Yr(P["sensor_y"]), Zr(-H / 2), Yr(bb.max.Y) + 6, Zr(-H / 2) - 6, "AIR IN (DOWN)")
 
     s._layers += L
-    s.add_svg(views["iso"], 276, 32, 140, 100, label="Isometric view", sublabel="Not to scale")
+    s.add_svg(views["iso"], 276, 42, 140, 92, label="Isometric view", sublabel="Not to scale")
     m = sum(masses(P).values())
     s.add_notes("Main dimensions and interfaces (mm)", [
-        f"Shells {W:.0f} x {H:.0f} x {Dp:.0f}; {bb.size.Y:.0f} deep with clip; wall {P['wall']:.0f}; joint {-P['split_y']:.0f} from rear",
+        f"Shells {W:.0f} x {H:.0f} x {Dp:.0f}; {bb.size.Y:.0f} deep with clip; wall {P['wall']:.0f}; gasket {P['gasket_t']:.0f} at {-P['split_y']:.0f} from rear",
         f"Sensor SPS30 class {P['sensor'][0]:.0f} x {P['sensor'][2]:.0f} x {P['sensor'][1]:.0f}, ports down onto two slots",
         f"Slots {P['slot'][0]:.0f} x {P['slot'][1]:.0f}: inlet (screened) at X {D['inlet_x']:.0f}, outlet at X {D['outlet_x']:.0f}",
         f"USB-C opening at X {P['usb_x']:.0f}; humidity vent at X {P['rh_vent_x']:.0f}; all in the bottom face",
         f"Cell {P['cell'][0]:.0f} x {P['cell'][2]:.0f} x {P['cell'][1]:.1f}, {P['cell_mah']:,.0f} mAh, protected, with thermistor",
-        f"Three M2 bosses; carrier board {P['pcb'][0]:.0f} x {P['pcb'][2]:.0f} rests on them",
+        f"Board {P['pcb'][0]:.0f} x {P['pcb'][2]:.0f} clamped by three M2 x 20 screws; TPU gasket and port seals",
         f"Mass {m:.1f} g (DBG-CAL-001); inlet {D['inlet_to_face_mm']:.0f} from nose and mouth when worn",
         "Not intrinsically safe; not for gassy mines or explosive atmospheres",
         "Wear shaded when ambient is above 40 °C in full sun",

@@ -29,8 +29,17 @@ def ex(t, dz=0.0, dx=0.0):
 
 EXPLODE = {"front": ex(175), "screen": ex(175, -25, -20), "sensor": ex(105, 0, -12), "module": ex(105, 20, 22),
            "motor": ex(105, -15, 22), "led": ex(240, 40, 95), "pcb": ex(50), "cell": ex(0), "rear": ex(-50),
-           "clip": ex(-100)}
-parts = [Part(name, shape, color, bom, EXPLODE[k]) for k, (name, shape, color, bom) in build_parts().items()]
+           "clip": ex(-100), "seals": ex(140, -20, -20), "lamp": ex(205, 40, 95), "charger": ex(80, -12, 30),
+           "boost": ex(150, 30, 45), "rh": ex(150, -22, 45), "gasket": ex(-25), "screws": ex(-75),
+           "clip_screws": ex(-130)}
+# Parts that share a BOM line share one name, so the exploded view's key stays one line each
+NAMES = {"led": "Alert LED and light pipe", "lamp": "Alert LED and light pipe",
+         "pcb": "Carrier board and its modules", "charger": "Carrier board and its modules",
+         "boost": "Carrier board and its modules", "rh": "Carrier board and its modules",
+         "rear": "Rear shell, TPU gasket and port seals", "gasket": "Rear shell, TPU gasket and port seals",
+         "seals": "Rear shell, TPU gasket and port seals",
+         "screws": "M2 screws (3 shell, 2 clip)", "clip_screws": "M2 screws (3 shell, 2 clip)"}
+parts = [Part(NAMES.get(k, name), shape, color, bom, EXPLODE[k]) for k, (name, shape, color, bom) in build_parts().items()]
 
 # Context: upper torso, neck and head of the wearer (grey, not part of the design)
 torso = Pos(0, 70, 110) * Box(300, 140, 220)
@@ -68,7 +77,7 @@ render_all(
 from build123d import Box as _Box, Pos as _Pos
 from concept import _render
 from model import derived
-shells = (1, 9)   # shell labels would land on the parts inside them, so the note names them
+shells = (1, 9, 11)   # shell (and screw) labels would land on the parts inside them, so the note names them
 x_cut = derived()["inlet_x"]
 keep = _Pos(x_cut - 500, 0, 0) * _Box(1000, 1000, 1000)
 section = []

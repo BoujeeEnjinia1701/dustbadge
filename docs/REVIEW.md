@@ -226,3 +226,53 @@ Appearance only: no tolerances, no fabrication detail, no PCB layout. `trl` and 
 - Kit 1.5.0 synced: STANDARDS v1.5 (sections 12 to 15: product renders, storefront images and image quality, public release, authorship and signing), `.kit/cards.py`, `.kit/image_qc.py`, `.kit/release_gate.py`, issue templates, and the `/render-product` and `/release` commands. `CLAUDE.md` now matches `.kit/CLAUDE.md`.
 - Every `media/render-*.png` recaptioned from its original render with the new layout: the title, concept label and repository sit in a band above the render and the view note in a band below it, each line wrapped to the image width, so no text overlaps other text or the render or runs off the image. `media/card.png` and `media/social-preview.png` regenerated with the same rules.
 - `python .kit/image_qc.py` and `python .kit/release_gate.py` pass. trl stays 3.
+
+## Session 2026-09-30: kit 1.7.0, design for construction and the illustrated build plan
+
+Under Amish's 2026-09-30 instruction ("If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations"), the model was checked for how every part is made and fixed, made buildable, and the illustrated build plan written. Kit 1.7.0 installed; `CLAUDE.md` now matches `.kit/CLAUDE.md`. `trl` stays 3; `design_state: constructable`.
+
+### Design changes made for construction (DBG-DDR-003, Draft, open for Amish's review)
+
+1. **Shell closure:** three 4.5 mm tubes in the rear shell and three M2 x 20 thread-forming screws from the rear face (4.2 mm counterbores) clamp the rear shell, gasket and board onto the front bosses, which now reach the board (they stopped 0.2 mm short).
+2. **Gasket:** a flat printed TPU frame, 1 mm squeezed; the rear shell is 1 mm shallower (13 mm) so the badge stays 30 mm deep.
+3. **Sensor port seals:** two printed TPU seals (0.7 mm inlet, 1.0 mm outlet) join the sensor's ports to the floor slots; before, the fan could draw air from inside the badge.
+4. **Inlet screen:** a 16 x 11 x 0.3 mm mesh square on the inner floor, held by the inlet seal (was a 1.2 mm screen loose in the slot; BOM line 2 was 30 x 8 mm).
+5. **Sensor retention:** two 1.2 mm stop ribs in the front shell, 0.2 mm above the sensor.
+6. **Electronics placed:** charger module with USB-C on the board's right strip; boost module, humidity breakout and vibration motor taped inside the front face; USB-C opening moved 16 to 18.1 mm right and enlarged to 9.6 x 3.8 mm; humidity vent moved from under the sensor (8 mm right) to 18.5 mm right, 3 mm behind the front face; controller moved 0.2 mm to clear the wall.
+7. **Carrier board:** 56 x 44 to 59 x 47 mm with 1.5 mm corner cuts, so the screw holes no longer break its edges; a notch for the cell lead.
+8. **Cell retention:** four locating ribs on the rear shell.
+9. **Clip fixing:** two M2 x 8 screws through the clip's base leaf into two bosses above the cell.
+10. **Light pipe:** printed clear PETG with an inside flange and a pocket for the 3 mm LED on leads.
+
+The model now runs 43 constructability checks (`python cad/src/model.py --check`); all pass.
+
+### Results and knock-ons
+
+- Mass 119.8 to **119.9 g**; R9 margin 0.2 to **0.1 g** (gasket and seals now from the model volume in TPU). Cost unchanged at **$91.00** against the $91 budget; BOM specifications of lines 2, 6, 7, 9, 10 and 11 updated, no price changed. Requirement status unchanged: 1 not met (R14, out of scope), 2 at risk (R3, R11), 1 not verifiable at TRL 3 (R10), 7 met on paper, 4 met by design.
+- Documents: DBG-CAL-001 v0.4, DBG-PRC-001 v0.6, DBG-REQ-001 v0.6, new DBG-DDR-003 v0.1, new DBG-BLD-001 v0.1 (`docs/05-build-plan.md`), new DBG-DEC-001 v0.1 (`docs/06-design-decisions.md`). DBG-DWG-001 Rev P3 to **P4**; making sketches DBG-DWG-101 to 108 added.
+- Pictures: `cad/src/build_plan_media.py` writes the overview, 8 making sketches, 6 joint close-ups, 9 step pictures, the bottom-face layout and the wiring diagram. STEP, STL, `media/model.glb` and the concept media were regenerated from the model; the exploded view's key now names one part per BOM line.
+- `README.md`: build plan link and a "Building the prototype" section. `project.yaml`: `design_state: constructable`, the DDR, build plan, register and overview picture added to `trl_evidence`.
+
+### Proposed, awaiting Amish (all in DBG-DEC-001)
+
+- Review of the design-for-construction changes (DBG-DDR-003).
+- A1 cell swelling allowance (0.7 mm, about 6 %); A2 on and off control (no switch in the concept); A3 the 0.1 g mass margin.
+- O1 co-design partner and O2 site silica fraction, still open.
+- Product render differences 1, 2, 4 and 5 of 2026-09-26 (front window, visible fan, grip ribs, lanyard). Items 3 (rear screws) and 6 (gasket band) are now part of the design through DBG-DDR-003.
+
+### Stale images (made on Amish's Mac, not regenerated here)
+
+`media/render-hero.png`, `media/render-exploded.png`, `media/render-worn.png`, `media/card.png` and `media/social-preview.png` show the concept: the USB-C opening and humidity vent have moved, the clip now has two screws and the gasket is a flat 1 mm band. They need regenerating with `/render-product` on the Mac. `cad/src/product_model.py` still runs against the new model.
+
+### Safety
+
+The lithium cell now has a located, swappable position with a 0.7 mm swelling allowance (open decision 2), a polarity check and charge-stop checks before first charge (build plan section 6). The badge still has no switch (open decision 3). Not intrinsically safe; the readings remain research estimates.
+
+### Kit notes
+
+- The making sketches round dimensions to whole millimetres, so the 0.3 mm screen shows "0" and the 1.6 mm board "2"; the sketch notes and the build plan give the true sizes. The light pipe flange was made 6 mm (not 6.5 mm) so its sketch reads true. A finer dimension format in `.kit/drawing.py` would help small parts.
+- `build123d.scale` keeps a located box at its original position, so scaled pictures misplace simple parts; `cad/src/build_plan_media.py` scales with an OCP transform instead.
+
+### Recommended next step
+
+Amish reviews DBG-DDR-003 and the open decisions in DBG-DEC-001. TRL 4 (buying parts and building to DBG-BLD-001) stays on hold until he says otherwise.

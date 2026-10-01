@@ -8,7 +8,7 @@ A low-cost wearable dust monitor for workers in quarries, mines, stone fabricati
 
 ![DustBadge: wearable respirable dust monitor for workers, product render](media/render-hero.png)
 
-[Exploded render](media/render-exploded.png) · [Worn render](media/render-worn.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement (PDF)](cad/drawings/DBG-DWG-001.pdf) · [Calculations](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
+[Exploded render](media/render-exploded.png) · [Worn render](media/render-worn.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement (PDF)](cad/drawings/DBG-DWG-001.pdf) · [Calculations](docs/04-calcs/01-sizing.md) · [Prototype build plan](docs/05-build-plan.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
@@ -74,6 +74,12 @@ TRL 3 calculations ([DBG-CAL-001](docs/04-calcs/01-sizing.md)), updated for the 
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
+## Building the prototype
+
+![DustBadge prototype: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
+
+The [prototype build plan](docs/05-build-plan.md) (DBG-BLD-001) shows, in pictures, how to make each of the seventeen components and put them together in nine steps; nothing has been built yet. The made parts are two printed PETG shells, a printed TPU gasket and two port seals, a printed clear light pipe, a mesh inlet screen and a perfboard carrier; the sensor, cell, controller and small modules are bought and wired at block level. Writing the plan made the design buildable: the shells now close with three screws through a gasket, the sensor's ports are sealed to the floor slots, the sensor and cell are held by ribs, the clip is screwed on and the carrier board's modules have a place (DBG-DDR-003, open for Amish's review). Every picture is drawn from the model, and the model checks that each part touches what it should and clears what it should not.
+
 ## Safety
 
 > A research and educational prototype, not certified monitoring or personal protective equipment. It does not replace regulatory sampling, dust controls or respirators, and a low reading does not mean the air is safe. It cannot measure silica directly; silica values are estimates.
@@ -86,7 +92,7 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
 | Folder | Contents |
 | --- | --- |
-| `docs/` | Problem, concept, requirements, calculations and design decisions |
+| `docs/` | Problem, concept, requirements, calculations, prototype build plan, design decisions register and decision records |
 | `cad/src/` | build123d Python source, the source of truth for all geometry |
 | `cad/step/`, `cad/stl/` | Exported models for FreeCAD, other CAD tools and printing |
 | `cad/drawings/` | 2D sketches and dimensioned drawings |

@@ -3,9 +3,9 @@ doc_id: DBG-CAL-001
 title: DustBadge sizing calculations
 project: DustBadge
 doc_type: Calculation
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-09-26'
+date: '2026-09-30'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,11 +21,15 @@ revisions:
   date: '2026-09-26'
   author: Amish Chadha
   change: Budget approved by Amish; budget $91 covers the priced BOM, so R15 is met (DBG-DDR-002 v0.2)
+- version: "0.4"
+  date: '2026-09-30'
+  author: Amish Chadha
+  change: "Design made constructable (DBG-DDR-003): shell screws, gasket, port seals, ribs and clip screws added; mass 119.9 g, margin 0.1 g; drop retention paths stated"
 ---
 
 # DustBadge sizing calculations
 
-On paper, DustBadge meets eleven of its fifteen requirements (seven by calculation, four by design), has two at risk, cannot verify one at TRL 3 and misses one. This version applies the recommendations Amish accepted on 2026-09-25 (DBG-DDR-002). The 2,000 mAh cell (was 1,500 mAh) runs 12.8 h at the sensor's maximum current and 0 °C (was 9.6 h), so R7 moves from at risk to met, at the cost of 8 g (119.8 g against 120 g) and $3. That took the parts to $91.00, $1 over the $90 budget; on 2026-09-26 Amish approved a $91 budget to cover the priced BOM (DBG-DDR-002), so R15 is met. R2 is restated to the sensor's 0 to 1 mg/m³ range with over-range minutes flagged and counted, and is met on paper. R3 keeps ±25 % with a 4.2 L/min, two-shift reference at low-dust, high-silica sites: ±21 to ±22 % with a factor per task on the same badge, but ±29 to ±30 % with one factor shared across badges, so it is at risk. R11 now carries the use rule to wear the badge shaded above 40 °C in full sun, which keeps the shell at or below 57.8 °C, under the sensor's 60 °C limit; it is at risk because the rule depends on the wearer and the sensor is outside its best-performance range in sun above about 22 °C. Intrinsic safety (R14) remains not met and out of scope. The TRL 3 calculations had already added a humidity and temperature sensor and a thermistor charger to the TRL 2 concept. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [A3], is the line of that script's output that carries it.
+On paper, DustBadge meets eleven of its fifteen requirements (seven by calculation, four by design), has two at risk, cannot verify one at TRL 3 and misses one. This version applies the recommendations Amish accepted on 2026-09-25 (DBG-DDR-002). The 2,000 mAh cell (was 1,500 mAh) runs 12.8 h at the sensor's maximum current and 0 °C (was 9.6 h), so R7 moves from at risk to met, at the cost of 8 g and $3. The design for construction (DBG-DDR-003, v0.4 of this note) adds the shell and clip screws, the gasket, the port seals and the locating ribs, which brings the badge to 119.9 g against 120 g. That took the parts to $91.00, $1 over the $90 budget; on 2026-09-26 Amish approved a $91 budget to cover the priced BOM (DBG-DDR-002), so R15 is met. R2 is restated to the sensor's 0 to 1 mg/m³ range with over-range minutes flagged and counted, and is met on paper. R3 keeps ±25 % with a 4.2 L/min, two-shift reference at low-dust, high-silica sites: ±21 to ±22 % with a factor per task on the same badge, but ±29 to ±30 % with one factor shared across badges, so it is at risk. R11 now carries the use rule to wear the badge shaded above 40 °C in full sun, which keeps the shell at or below 57.8 °C, under the sensor's 60 °C limit; it is at risk because the rule depends on the wearer and the sensor is outside its best-performance range in sun above about 22 °C. Intrinsic safety (R14) remains not met and out of scope. The TRL 3 calculations had already added a humidity and temperature sensor and a thermistor charger to the TRL 2 concept. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [A3], is the line of that script's output that carries it.
 
 > **Safety:** These are first-principles estimates for a paper proof of concept. They do not show that a worker's air is safe, and they are not a substitute for co-located filter sampling, chamber checks or electrical safety checks on the lithium cell. See DBG-PRC-001, Safety.
 
@@ -131,11 +135,11 @@ With the badge worn 210 mm below and 70 mm to the side of the nose and mouth, th
 
 ## J. Size and mass (R9)
 
-The printed shells weigh 16.5 g and 15.1 g from the model volumes; the sensor (26.3 g) and the 2,000 mAh cell (38 g) are more than half the badge [J1]. The total is 119.8 g, 0.2 g under the 120 g target (was 111.8 g with the 1,500 mAh cell), and the envelope is unchanged at 64 x 52 x 33 mm including the clip against 75 x 55 x 35 mm [J2, J3]. R9 is met on paper, with almost no margin.
+The printed shells weigh 16.5 g and 15.4 g from the model volumes, with the bosses, stop ribs and locating ribs added for construction (DBG-DDR-003); the gasket and the two port seals, now also taken from the model volume in TPU, weigh 0.8 g (1.0 g was assumed before). The sensor (26.3 g) and the 2,000 mAh cell (38 g) are more than half the badge [J1]. The total is 119.9 g, 0.1 g under the 120 g target (119.8 g before the design for construction; 111.8 g with the 1,500 mAh cell), and the envelope is unchanged at 64 x 52 x 33 mm including the clip against 75 x 55 x 35 mm [J2, J3]. R9 is met on paper, with almost no margin.
 
 ## K. Drop and ingress (R10)
 
-A 1.5 m drop reaches 5.42 m/s with 1.76 J. If the shell corner crushes 1 to 2 mm, the mean deceleration is 750 to 1,500 g, so the sensor needs 194 to 387 N of retention and the heavier cell 280 to 559 N (was 221 to 441 N) [K1]. The model holds the sensor between the front shell floor and the carrier board, which rests on three screw bosses; whether PETG bosses and a foam-backed cell survive these loads, and whether the gasketed joint reaches IP54 for the electronics, cannot be shown without a test. R10 is not verifiable at TRL 3.
+A 1.5 m drop reaches 5.42 m/s with 1.76 J. If the shell corner crushes 1 to 2 mm, the mean deceleration is 750 to 1,500 g, so the sensor needs 194 to 387 N of retention and the heavier cell 280 to 559 N (was 221 to 441 N) [K1]. The model now gives each a load path (DBG-DDR-003): the sensor sits on its two port seals, under two stop ribs in the front shell, with the carrier board behind it; the board is clamped between the three front bosses and three tubes in the rear shell by M2 screws; the cell sits between the board and the rear shell, located by four ribs; whether PETG bosses and a foam-backed cell survive these loads, and whether the gasketed joint reaches IP54 for the electronics, cannot be shown without a test. R10 is not verifiable at TRL 3.
 
 ## L. Cost (R15)
 
@@ -155,7 +159,7 @@ The BOM has 12 lines totaling $91.00 against `budget_usd` of $91, with no margin
 | R6 | Warn before a limit is reached | Five scenarios behave as intended; one early warning (S5) | Projected TWA alerts at 25 and 50 µg/m³ | Met on paper |
 | R7 | Last a full shift | 17.7 h typical at 25 °C; 12.8 h at maximum current and 0 °C | 12 h continuous | Met on paper (was at risk) |
 | R8 | Wearable in the breathing zone | Inlet 242 mm from nose and mouth | 300 mm or less | Met on paper |
-| R9 | Light and small | 119.8 g; 64 x 52 x 33 mm | 120 g; 75 x 55 x 35 mm | Met on paper, 0.2 g margin |
+| R9 | Light and small | 119.9 g; 64 x 52 x 33 mm | 120 g; 75 x 55 x 35 mm | Met on paper, 0.1 g margin |
 | R12 | Keep a shift log | 11.5 kB per shift; 182 shifts; 6 s transfer | 30 shifts; BLE export | Met on paper |
 | R15 | Low cost and buildable | $91.00; perfboard carrier | $91; no custom PCB | Met on paper (not met by $1 in v0.2; budget raised to $91) |
 | R1 | Measure the respirable fraction | PM4 as proxy; size cut offset in both directions (section D) | PM4 as ISO 7708 proxy | Met by design |

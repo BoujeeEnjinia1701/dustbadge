@@ -3,9 +3,9 @@ doc_id: DBG-REQ-001
 title: DustBadge requirements
 project: DustBadge
 doc_type: Requirements
-version: "0.6"
+version: "0.7"
 status: Draft
-date: '2026-09-30'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -33,11 +33,15 @@ revisions:
   date: '2026-09-30'
   author: Amish Chadha
   change: "Design made constructable (DBG-DDR-003); R9 mass 119.9 g, 0.1 g margin; no status changed"
+- version: "0.7"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # DustBadge requirements
 
-These are the requirements for the concept, with their status from the TRL 3 calculations in DBG-CAL-001 v0.2. On 2026-09-25 Amish accepted the review recommendations (DBG-DDR-002): R2 is restated to the sensor's 1 mg/m³ range with an over-range flag, R3 keeps ±25 % but requires a larger reference sample at low-dust, high-silica sites, R11 adds a use rule for full sun, and the cell grows to 2,000 mAh. On 2026-09-26 Amish approved a $91 budget to cover the priced BOM (DBG-DDR-002, O3), so R15 is met. On paper one requirement is not met (R14 intrinsic safety, out of scope), two are at risk (R3 accuracy and R11 site conditions), one cannot be verified at TRL 3 (R10), and eleven are met, seven by calculation and four by design.
+These are the requirements for the concept, with their status from the TRL 3 calculations in DBG-CAL-001 v0.2. On 2026-09-25 Amish accepted the review recommendations (DBG-DDR-002): R2 is restated to the sensor's 1 mg/m³ range with an over-range flag, R3 keeps ±25 % but requires a larger reference sample at low-dust, high-silica sites, R11 adds a use rule for full sun, and the cell grows to 2,000 mAh. On 2026-09-26 Amish set the value-engineering target at $91 to match the priced BOM (DBG-DDR-002, O3), so R15 is within the target. On paper one requirement is not met (R14 intrinsic safety, out of scope), two are at risk (R3 accuracy and R11 site conditions), one cannot be verified at TRL 3 (R10), and eleven are met, seven by calculation and four by design.
 
 Table 1. Requirements and concept status.
 
@@ -57,7 +61,7 @@ Table 1. Requirements and concept status.
 | R12 | Keep a shift log | At least 30 shifts of 1 min records on the badge; export over Bluetooth Low Energy to the worker's phone | Met on paper: 11.5 kB per 12 h shift, about 182 shifts in 2 MB (CAL-001, H) | Storage calculation |
 | R13 | Protect the worker's data | Stored on the badge and the worker's phone; shared with an employer only by the worker's choice | Met by design (DBG-DDR-001 D5) | Design review |
 | R14 | Safe in hazardous atmospheres | Certified intrinsically safe for gassy mines and explosive atmospheres | **Not met and out of scope** for this prototype; it must be labeled not for such use | Design review |
-| R15 | Low cost and buildable | Parts $91 or less (was $90; DBG-DDR-002 O3); no custom PCB required for the first build | Met on paper: $91.00 with the 2,000 mAh cell (CAL-001, L) | Priced BOM |
+| R15 | Low cost and buildable | Parts $91 or less (was $90; DBG-DDR-002 O3); no custom PCB required for the first build | Within the value-engineering target: $91.00 with the 2,000 mAh cell (CAL-001, L) | Priced BOM |
 
 ## Assumptions
 

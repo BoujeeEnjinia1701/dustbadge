@@ -3,9 +3,9 @@ doc_id: DBG-PRC-001
 title: DustBadge design precis
 project: DustBadge
 doc_type: Design precis
-version: "0.6"
+version: "0.7"
 status: Draft
-date: '2026-09-30'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -33,13 +33,17 @@ revisions:
   date: '2026-09-30'
   author: Amish Chadha
   change: "Design made constructable (DBG-DDR-003): fixings, gasket, seals and module positions; mass 119.9 g; build plan DBG-BLD-001 linked"
+- version: "0.7"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # DustBadge design precis
 
 ## Summary
 
-DustBadge is a chest-worn badge, 64 x 52 x 30 mm (33 mm with the clip) and about 120 g, that samples respirable dust continuously with an optical particle sensor, converts it to an estimate of respirable crystalline silica using a site calibration, keeps a running 8 h time-weighted average, and vibrates when the projected shift average is heading over the action level. The TRL 3 calculations (DBG-CAL-001 v0.2) show one off-the-shelf sensor, a Bluetooth module and a 2,000 mAh cell run a 12 h shift even at the sensor's maximum current and 0 °C (12.8 h; 17.7 h typical), for $91 in parts, within the $91 budget Amish approved on 2026-09-26 (DBG-DDR-002). It cannot identify silica or replace compliance sampling. On paper it misses the hazardous-atmosphere requirement (R14); accuracy at low dust levels (R3) and operation in hot sun (R11) are at risk. The design choices below were decided by Amish on 2026-09-25 (DBG-DDR-002).
+DustBadge is a chest-worn badge, 64 x 52 x 30 mm (33 mm with the clip) and about 120 g, that samples respirable dust continuously with an optical particle sensor, converts it to an estimate of respirable crystalline silica using a site calibration, keeps a running 8 h time-weighted average, and vibrates when the projected shift average is heading over the action level. The TRL 3 calculations (DBG-CAL-001 v0.2) show one off-the-shelf sensor, a Bluetooth module and a 2,000 mAh cell run a 12 h shift even at the sensor's maximum current and 0 °C (12.8 h; 17.7 h typical), for an estimated $91 in parts, within the $91 value-engineering target Amish set on 2026-09-26 (DBG-DDR-002). It cannot identify silica or replace compliance sampling. On paper it misses the hazardous-atmosphere requirement (R14); accuracy at low dust levels (R3) and operation in hot sun (R11) are at risk. The design choices below were decided by Amish on 2026-09-25 (DBG-DDR-002).
 
 ![Figure 1. DustBadge worn on the upper chest, within the breathing zone. Grey is the wearer, for scale.](../media/hero.png)
 
@@ -97,7 +101,7 @@ Table 2. Key numbers.
 | Inlet to nose and mouth | 242 mm | Model, collar or upper-strap mount [I1] | R8 met |
 | Mass | 119.9 g | Shells, gasket and seals from model volume, parts from datasheets [J2] | R9 met, 0.1 g margin |
 | Size | 64 x 52 x 30 mm; 33 mm deep with the clip | Model | R9 met |
-| Parts cost | $91.00 | bom/bom.csv [L1] | R15 met ($91 budget) |
+| Parts cost | $91.00 | bom/bom.csv [L1] | R15 within the value-engineering target ($91) |
 
 ![Figure 5. General arrangement DBG-DWG-001, Rev P2, from the parametric model.](../cad/drawings/DBG-DWG-001.png)
 

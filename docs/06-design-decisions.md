@@ -3,9 +3,9 @@ doc_id: DBG-DEC-001
 title: DustBadge design decisions register
 project: DustBadge
 doc_type: Design decisions register
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-30'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,6 +13,10 @@ revisions:
     date: '2026-09-30'
     author: Amish Chadha
     change: Register opened with the open decisions from the review note, the decision records and the build plan work
+  - version: "0.2"
+    date: '2026-10-01'
+    author: Amish Chadha
+    change: Budget treated as a value-engineering target
 ---
 
 # DustBadge design decisions register
@@ -34,7 +38,7 @@ All are proposed, awaiting Amish.
 | 7 | Clear front window over the sensor, shown in the product renders only | (a) renders only, decide at TRL 4; (b) adopt, adding a sealed joint that bears on R10 | (a) | None now; front shell if adopted | REVIEW 2026-09-26, item 1 |
 | 8 | Visible sensor fan in the renders (illustrative; the real sensor encloses its fan) | Keep and caption as illustrative; or remove | Keep, captioned | None | REVIEW 2026-09-26, item 2 |
 | 9 | Side grip ribs in the renders stand 0.6 mm proud (65.2 mm wide) | Accept for appearance; or recess them to keep 64 mm | Recess them if adopted | Front shell, if adopted | REVIEW 2026-09-26, item 4 |
-| 10 | Lanyard with a breakaway buckle, shown in the renders, has no BOM line | Add an optional line (about $1) at TRL 4; or leave out | Add at TRL 4, within the approved budget | None now | REVIEW 2026-09-26, item 5 |
+| 10 | Lanyard with a breakaway buckle, shown in the renders, has no BOM line | Add an optional line (about $1) at TRL 4; or leave out | Add at TRL 4; it would take the estimate about $1 over the value-engineering target | None now | REVIEW 2026-09-26, item 5 |
 
 ## To confirm when parts are bought
 
@@ -47,10 +51,18 @@ All are proposed, awaiting Amish.
 | 5 | The spring clip's base leaf is flat and wide enough for two holes 12 mm apart | The clip is held by two M2 x 8 screws | DBG-DDR-003, P9 |
 | 6 | The pilot hole for the M2 thread-forming screws in PETG (1.7 mm assumed), from the screw maker's data | Too large a hole strips; too small cracks the boss | DBG-DDR-003, P1 |
 
+## Value engineering
+
+Value-engineering target: USD 91 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 91.00 (USD 0.00 over or under the target, so on the target with no margin). The estimate rests on indicative prices.
+
+Main cost drivers: the optical particle sensor (USD 48.00, 53 % of the cost), the 2,000 mAh LiPo cell (USD 13.00; it added USD 3), the controller and BLE module (USD 10.00) and the carrier board (USD 9.00).
+
+Savings worth trying: confirming prices when parts are bought. A 1,500 mAh cell would save USD 3 but returns R7 (a full shift) to at risk. The optional lanyard (open decision 10) would take the estimate about USD 1 over the target.
+
 ## Decisions made
 
 | Date | Decision | Decided by | Record |
 | --- | --- | --- | --- |
 | 2026-09-25 | TRL 2 review items D1 to D7: SPS30-class sensor, silica shown only as a labeled estimate, US OSHA and MSHA default limits, continuous sampling, worker-owned data, surface quarries and stone fabrication first, downward screened inlet with a yellow shell and clip | Amish: "i accept all your recommendations, go with them across all repos." | DBG-DDR-001, DBG-DDR-002 |
 | 2026-09-25 | D8 to D11: 2,000 mAh cell; R3 reference rule (4.2 L/min cyclone over two shifts at low-dust, high-silica sites); sun use rule; R2 restated to 1 mg/m³ with an over-range flag | Amish, same instruction | DBG-DDR-002 |
-| 2026-09-26 | Budget set to $91 to cover the priced BOM (O3) | Amish: "i approve all the budget items." | DBG-DDR-002 v0.2 |
+| 2026-09-26 | Value-engineering target set to $91 to match the priced BOM (O3) | Amish: "i approve all the budget items." | DBG-DDR-002 v0.2 |

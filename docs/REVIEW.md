@@ -248,7 +248,7 @@ The model now runs 43 constructability checks (`python cad/src/model.py --check`
 
 ### Results and knock-ons
 
-- Mass 119.8 to **119.9 g**; R9 margin 0.2 to **0.1 g** (gasket and seals now from the model volume in TPU). Cost unchanged at **$91.00** against the $91 budget; BOM specifications of lines 2, 6, 7, 9, 10 and 11 updated, no price changed. Requirement status unchanged: 1 not met (R14, out of scope), 2 at risk (R3, R11), 1 not verifiable at TRL 3 (R10), 7 met on paper, 4 met by design.
+- Mass 119.8 to **119.9 g**; R9 margin 0.2 to **0.1 g** (gasket and seals now from the model volume in TPU). Cost unchanged at an estimated **$91.00** against the $91 value-engineering target; BOM specifications of lines 2, 6, 7, 9, 10 and 11 updated, no price changed. Requirement status unchanged: 1 not met (R14, out of scope), 2 at risk (R3, R11), 1 not verifiable at TRL 3 (R10), 7 met on paper, 4 met by design.
 - Documents: DBG-CAL-001 v0.4, DBG-PRC-001 v0.6, DBG-REQ-001 v0.6, new DBG-DDR-003 v0.1, new DBG-BLD-001 v0.1 (`docs/05-build-plan.md`), new DBG-DEC-001 v0.1 (`docs/06-design-decisions.md`). DBG-DWG-001 Rev P3 to **P4**; making sketches DBG-DWG-101 to 108 added.
 - Pictures: `cad/src/build_plan_media.py` writes the overview, 8 making sketches, 6 joint close-ups, 9 step pictures, the bottom-face layout and the wiring diagram. STEP, STL, `media/model.glb` and the concept media were regenerated from the model; the exploded view's key now names one part per BOM line.
 - `README.md`: build plan link and a "Building the prototype" section. `project.yaml`: `design_state: constructable`, the DDR, build plan, register and overview picture added to `trl_evidence`.

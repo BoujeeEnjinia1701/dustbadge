@@ -3,9 +3,9 @@ doc_id: DBG-DDR-003
 title: DustBadge design for construction
 project: DustBadge
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-30'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,6 +13,10 @@ revisions:
   date: '2026-09-30'
   author: Amish Chadha
   change: Changes that make the concept physically buildable, with the reason for each; made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review
+- version: "0.2"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # 0003: Design for construction
@@ -47,10 +51,10 @@ The changes keep what the badge does: the same 64 x 52 x 30 mm envelope (33 mm w
 
 | Item | Change | Reason |
 | --- | --- | --- |
-| Mass | 119.9 g (was 119.8 g); R9 margin 0.1 g (was 0.2 g) [DBG-CAL-001 v0.4, J2]. The gasket and seals are now taken from the model volume in TPU (0.8 g, was an assumed 1.0 g); the rear tubes are 4.5 mm and the stop ribs 1.2 mm to keep the badge under 120 g. | Bosses, ribs and seals added for construction. |
-| Cost | Unchanged at $91.00, within the $91 budget. Specifications of BOM lines 2, 6, 7, 9, 10 and 11 updated; no price changed. | The gasket and seals use line 9's TPU; the screws, foam tape and the motor driver parts fall within lines 7 and 11. |
+| Mass | 119.9 g (was 119.8 g); R9 margin 0.1 g (was 0.2 g) [DBG-CAL-001 v0.5, J2]. The gasket and seals are now taken from the model volume in TPU (0.8 g, was an assumed 1.0 g); the rear tubes are 4.5 mm and the stop ribs 1.2 mm to keep the badge under 120 g. | Bosses, ribs and seals added for construction. |
+| Cost | Unchanged at an estimated $91.00, within the $91 value-engineering target. Specifications of BOM lines 2, 6, 7, 9, 10 and 11 updated; no price changed. | The gasket and seals use line 9's TPU; the screws, foam tape and the motor driver parts fall within lines 7 and 11. |
 | Drawings | DBG-DWG-001 Rev P4; making sketches DBG-DWG-101 to 108 added. | Follows the model. |
-| Documents | DBG-CAL-001 v0.4, DBG-PRC-001 v0.6, DBG-REQ-001 v0.6. No requirement changed status. | Follows the model. |
+| Documents | DBG-CAL-001 v0.5, DBG-PRC-001 v0.7, DBG-REQ-001 v0.7. No requirement changed status. | Follows the model. |
 | Run time, heat, breathing zone | Unchanged: the electrical loads, the envelope and the inlet position are the same. | |
 
 *Table 3. Proposed, awaiting Amish.*
@@ -64,7 +68,7 @@ The changes keep what the badge does: the same 64 x 52 x 30 mm envelope (33 mm w
 ## Consequences
 
 - `design_state: constructable` in `project.yaml`. The build plan DBG-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
-- Requirement status is unchanged: one not met (R14, out of scope), two at risk (R3, R11), one not verifiable at TRL 3 (R10), seven met on paper and four met by design (DBG-CAL-001 v0.4).
+- Requirement status is unchanged: one not met (R14, out of scope), two at risk (R3, R11), one not verifiable at TRL 3 (R10), seven met on paper and four met by design (DBG-CAL-001 v0.5).
 - R10 (drop and ingress) is still not verifiable at TRL 3, but the sensor and cell now have a load path and the shell joint has a gasket, so the drop and spray tests at TRL 4 have something to test.
 - The photoreal renders (`media/render-*.png`), `media/card.png` and `media/social-preview.png` still show the concept: the USB-C opening and humidity vent have moved, the clip screws are new and the gasket is now a flat 1 mm band. They need regenerating on Amish's Mac, where Blender is. `cad/src/product_model.py` still runs against the new model.
 - The bought modules, sensor connector, cell and clip are chosen at TRL 4; their sizes must be checked then (DBG-DEC-001, items to confirm).

@@ -3,9 +3,9 @@ doc_id: DBG-BLD-001
 title: DustBadge prototype build plan
 project: DustBadge
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-30'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,6 +13,10 @@ revisions:
     date: '2026-09-30'
     author: Amish Chadha
     change: First build plan; design made constructable (DBG-DDR-003)
+  - version: "0.2"
+    date: '2026-10-01'
+    author: Amish Chadha
+    change: Budget treated as a value-engineering target; cross-references updated
 ---
 
 # DustBadge prototype build plan
@@ -386,7 +390,7 @@ Stop at each point. Carry on only when everything listed is true.
 - Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`, 43 checks); STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/DBG-DWG-101` to `DBG-DWG-108`.
 - General arrangement: `cad/drawings/DBG-DWG-001.pdf`, Rev P4.
-- Calculations: `docs/04-calcs/01-sizing.md` (DBG-CAL-001 v0.4) and `docs/04-calcs/sizing.py`; mass [J1], [J2]; drop retention [K1]; run time [A3]; cost [L1].
+- Calculations: `docs/04-calcs/01-sizing.md` (DBG-CAL-001 v0.5) and `docs/04-calcs/sizing.py`; mass [J1], [J2]; drop retention [K1]; run time [A3]; cost [L1].
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (DBG-DDR-003), with DBG-DDR-001 and DBG-DDR-002.
-- Requirements: `docs/03-requirements.md` (DBG-REQ-001 v0.6).
+- Requirements: `docs/03-requirements.md` (DBG-REQ-001 v0.7).

@@ -3,9 +3,9 @@ doc_id: DBG-PRC-001
 title: DustBadge design precis
 project: DustBadge
 doc_type: Design precis
-version: "0.8"
+version: "0.9"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -41,6 +41,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: BioMedical area (DBG-DEC-001 v0.3); safety states a research and educational prototype, not a medical device
+- version: "0.9"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: 'Decisions of 2026-10-02 carried in: firmware on and off with a low-voltage cutoff, cell swelling rule, R9 at 122 g, site silica fraction method, first partner candidate'
 ---
 
 # DustBadge design precis
@@ -103,7 +107,7 @@ Table 2. Key numbers.
 | Shift average uncertainty after site calibration | ±21 to ±29 % (quarry); ±22 to ±30 % (quartz-rich stone with the 4.2 L/min, two-shift reference) | Root sum of squares, assumed terms [F2, F3] | R3 at risk |
 | Log size | 11.5 kB per 12 h shift; about 182 shifts in 2 MB | 16-byte record each minute [H1] | R12 met |
 | Inlet to nose and mouth | 242 mm | Model, collar or upper-strap mount [I1] | R8 met |
-| Mass | 119.9 g | Shells, gasket and seals from model volume, parts from datasheets [J2] | R9 met, 0.1 g margin |
+| Mass | 119.9 g | Shells, gasket and seals from model volume, parts from datasheets [J2] | R9 met, 0.1 g margin as modelled; R9 relaxed to 122 g on 2026-10-02 for the deeper rear shell and foam pad needed before anyone wears the badge |
 | Size | 64 x 52 x 30 mm; 33 mm deep with the clip | Model | R9 met |
 | Parts cost | $91.00 | bom/bom.csv [L1] | R15 within the value-engineering target ($91) |
 
@@ -122,6 +126,9 @@ Table 2. Key numbers.
 - **Reference sample at low-dust, high-silica sites.** Where respirable dust at the action level is below about 100 µg/m³, the site factor comes from a 4.2 L/min cyclone over two shifts, so the filter holds enough mass to weigh. Decided by Amish, 2026-09-25 (DBG-DDR-002, D9).
 - **Sun use rule.** Wear the badge shaded, under a vest flap or out of direct sun, when the ambient is above 40 °C in full sun. A lighter shell is a later option, to be tested at TRL 4, which is on hold. Decided by Amish, 2026-09-25 (DBG-DDR-002, D10).
 - **Humidity flag.** The added humidity sensor flags readings above 80 % RH, the sensor's best-performance limit, and sudden rises during wet cutting or spraying.
+- **On and off in firmware.** There is no switch: the controller switches the boost off through its enable input and sleeps, waking on USB power, and a firmware low-voltage cutoff set above the cell protection threshold means the cell is never run down to the protection cut-out. Decided by Amish, 2026-10-02 (DBG-DDR-003, A2).
+- **Cell swelling allowance.** The 0.7 mm of free depth round the cell is accepted only for bench work with nobody wearing the badge. Before anyone wears it, the badge is deepened 1 mm with a foam pad behind the cell, and R9 is relaxed to 122 g. Decided by Amish, 2026-10-02 (DBG-DDR-003, A1).
+- **Site silica fraction.** By default, two or three cyclone filter samples per site go to an accredited laboratory for X-ray diffraction (as in NIOSH Method 7500), and the badge shows no silica estimate until a site fraction exists; field infrared analysis can come later where a partner has the instrument. Decided by Amish, 2026-10-02 (DBG-DDR-001, O2).
 - **Worker-owned data.** Logs stay on the badge and the worker's phone unless the worker shares them, and are never used for discipline. Decided by Amish, 2026-09-25 (DBG-DDR-001, D5).
 
 ## Dependencies on other lab projects
@@ -145,6 +152,6 @@ Table 2. Key numbers.
 - Range (R2): the sensor's response above 1 mg/m³ to mineral dust is unknown and cannot be checked on CalRig as designed.
 - Humidity and water spray (R11): the size of the bias from wet cutting and dust suppression sprays is unknown; the badge can flag high humidity.
 - Inlet: does the screened downward inlet change sampling efficiency for respirable particles when the worker moves?
-- First co-design partner (DBG-DDR-001, O1) and how a site silica fraction is obtained where no laboratory is near (O2). Proposed, awaiting Amish.
+- First co-design partner (DBG-DDR-001, O1): the first candidate to approach is a university industrial hygiene group that already samples respirable crystalline silica, for example one linked to a NIOSH Education and Research Center, with a stone fabrication shop or surface quarry as the site (decided by Amish, 2026-10-02); nothing is agreed.
 
 Prototype build plan: [DBG-BLD-001](05-build-plan.md); design decisions: [DBG-DEC-001](06-design-decisions.md). Concept media: [blueprint sheet](../media/concept-blueprint.pdf), [interactive 3D model](../media/viewer.html). General arrangement: [DBG-DWG-001](../cad/drawings/DBG-DWG-001.pdf). Model: `cad/src/model.py`, exports in `cad/step/` and `cad/stl/`.

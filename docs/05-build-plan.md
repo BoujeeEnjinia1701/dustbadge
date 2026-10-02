@@ -3,9 +3,9 @@ doc_id: DBG-BLD-001
 title: DustBadge prototype build plan
 project: DustBadge
 doc_type: Build plan
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Budget treated as a value-engineering target; cross-references updated
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: 'Safety stop S7: badge as built is for bench work only; deeper rear shell and foam pad before anyone wears it (decided by Amish, 2026-10-02)'
 ---
 
 # DustBadge prototype build plan
@@ -373,7 +377,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S4. First charge.** Attended the whole time, with the badge open on the charging spot, the cell checked by hand every 15 minutes. Stop if the cell becomes warm to the touch, swells or smells, or if the charger reads above 4.25 V. Never bypass the charge stop.
 - **S5. Before the badge is closed.** No wire is pinched under the board or across the gasket; the cell lead runs through the notch; the cell lies flat between its ribs.
 - **S6. Before the badge is worn.** It is worn only for bench and indoor trials until a TRL 4 test plan says otherwise; never while charging; never in a gassy mine or any place with flammable gas or combustible dust; shaded when the ambient is above 40 °C in full sun. Its reading is a research estimate: it never replaces a respirator, engineering controls or regulatory sampling.
-- **S7. At every charge.** Look at the cell through the open badge from time to time: retire it at the first sign of swelling, damage or heat.
+- **S7. At every charge.** Look at the cell through the open badge from time to time: retire it at the first sign of swelling, damage or heat. The badge as built here, with 0.7 mm of free depth round the cell, is for bench work with nobody wearing it; before anyone wears it, the rear shell is deepened 1 mm and a foam pad is fitted behind the cell (decided by Amish, 2026-10-02).
 
 ## 7. Tools, skills and workspace
 

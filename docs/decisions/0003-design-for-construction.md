@@ -3,9 +3,9 @@ doc_id: DBG-DDR-003
 title: DustBadge design for construction
 project: DustBadge
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: 'Accepted by Amish on 2026-10-02 with the drop-test addition; A1 (as changed in review), A2 and A3 decided; record stays Draft'
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-09-30
-- **Status:** Draft. The changes in Table 1 were made under Amish's 2026-09-30 instruction to make the design physically buildable; they are open for his review. The questions in Table 3 change the safety case or what the product does and are proposed, awaiting Amish.
+- **Status:** accepted. Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." This covers every change in Tables 1 and 2, with one addition: the TRL 4 drop test also checks that the boost module, humidity board and motor stay on their foam tape. The questions in Table 3 (A1 to A3) are decided as recommended in review and recorded in the design decisions register (DBG-DEC-001); A1 was changed in review, so the badge is deepened before anyone wears it. The record stays Draft.
 
 ## Context
 
@@ -57,13 +61,13 @@ The changes keep what the badge does: the same 64 x 52 x 30 mm envelope (33 mm w
 | Documents | DBG-CAL-001 v0.5, DBG-PRC-001 v0.7, DBG-REQ-001 v0.7. No requirement changed status. | Follows the model. |
 | Run time, heat, breathing zone | Unchanged: the electrical loads, the envelope and the inlet position are the same. | |
 
-*Table 3. Proposed, awaiting Amish.*
+*Table 3. Questions on the safety case and what the product does; decided by Amish on 2026-10-02.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | Cell swelling allowance. The cell has 0.7 mm of free depth (0.2 mm in front, 0.5 mm behind), about 6 % of its 11.5 mm; pouch cells can swell more as they age. This is part of the lithium-cell safety case. | (a) accept for the prototype, inspect the cell at each charge and retire it at the first visible swelling; (b) deepen the badge by 1 mm and add a foam pad behind the cell (about 1.5 g more, so R9 is no longer met). | (a) for the prototype; revisit at TRL 4 with the bought cell's datasheet. |
-| A2 | On and off. The concept has no switch, so the sensor runs until the cell's protection cuts out unless firmware turns it off. | (a) firmware only: the controller switches the boost off through its enable input and sleeps, and wakes on USB power; (b) a reed switch inside with a magnet outside (no new opening); (c) a sealed push button (a new opening in the shell). | (a): no change to the shell; the enable line is already wired. |
-| A3 | The R9 mass margin is 0.1 g on catalogue masses. | (a) accept, weigh the prototype at TRL 4; (b) look for mass now (for example a 1.8 mm rear wall). | (a). |
+| A1 | Cell swelling allowance. The cell has 0.7 mm of free depth (0.2 mm in front, 0.5 mm behind), about 6 % of its 11.5 mm; pouch cells can swell more as they age. This is part of the lithium-cell safety case. | (a) accept for the prototype, inspect the cell at each charge and retire it at the first visible swelling; (b) deepen the badge by 1 mm and add a foam pad behind the cell (about 1.5 g more, so R9 is no longer met). | (a) for the prototype; revisit at TRL 4 with the bought cell's datasheet. **Decided by Amish, 2026-10-02, as changed in review:** (a) only for bench work with nobody wearing the badge; before anyone wears it, (b), with R9 relaxed to 122 g. Return to (a) only if the bought cell's datasheet states swelling under about 6 %. |
+| A2 | On and off. The concept has no switch, so the sensor runs until the cell's protection cuts out unless firmware turns it off. | (a) firmware only: the controller switches the boost off through its enable input and sleeps, and wakes on USB power; (b) a reed switch inside with a magnet outside (no new opening); (c) a sealed push button (a new opening in the shell). | (a): no change to the shell; the enable line is already wired. **Decided by Amish, 2026-10-02:** (a), with a firmware low-voltage cutoff set above the cell protection threshold so the cell is never run down to the protection cut-out. |
+| A3 | The R9 mass margin is 0.1 g on catalogue masses. | (a) accept, weigh the prototype at TRL 4; (b) look for mass now (for example a 1.8 mm rear wall). | (a). **Decided by Amish, 2026-10-02:** (a); with the deeper shell of A1 the R9 limit is 122 g. |
 
 ## Consequences
 

@@ -3,9 +3,9 @@ doc_id: DBG-DEC-001
 title: DustBadge design decisions register
 project: DustBadge
 doc_type: Design decisions register
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Dr. Geeti Chadha added as a contributor and the project moved to the BioMedical (healthcare) area (decided by Amish)
+  - version: "0.4"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: 'Amish approved the recommendations for all ten open decisions (2026-10-02); DBG-DDR-003 accepted; moved to decisions made'
 ---
 
 # DustBadge design decisions register
@@ -29,20 +33,7 @@ Every design decision still to be made, and every decision made, in one place. E
 
 ## Open decisions
 
-All are proposed, awaiting Amish.
-
-| # | Decision needed | Options | Recommendation | Affects in the build | Source |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Review the design-for-construction changes P1 to P10 (shell screws and tubes, gasket, port seals, screen, stop ribs, module placement, board size, cell ribs, clip screws, light pipe) | Accept; or change any of them | Accept: they keep what the badge does, its size and its cost | The whole build plan | DBG-DDR-003, Table 1 |
-| 2 | Cell swelling allowance: 0.7 mm of free depth (about 6 % of the cell's thickness) in the lithium-cell safety case | (a) accept for the prototype, inspect at each charge and retire at the first swelling; (b) deepen the badge 1 mm and add a foam pad (about 1.5 g more, R9 no longer met) | (a), revisited at TRL 4 with the bought cell's datasheet | Safety stops S1 and S7; rear shell depth | DBG-DDR-003, A1 |
-| 3 | On and off: the concept has no switch | (a) firmware only: the boost switched off through its enable input, the controller asleep, waking on USB power; (b) a reed switch inside with a magnet outside; (c) a sealed push button (a new opening) | (a): no change to the shell | Wiring (the enable line is already wired) | DBG-DDR-003, A2 |
-| 4 | Mass margin for R9: 0.1 g on catalogue masses | (a) accept, weigh the prototype at TRL 4; (b) look for mass now, for example a 1.8 mm rear wall | (a) | First check "mass and size" | DBG-DDR-003, A3; DBG-CAL-001 [J2] |
-| 5 | First co-design partner (worker organization, NGO or university hygiene group) | Partner to be named | None given | Not part of the TRL 3 build; needed for field trials | DBG-DDR-001, O1 |
-| 6 | How a site silica fraction is obtained where no laboratory is near | Partner laboratory, field infrared method, or other | None given | Not part of the TRL 3 build; needed before silica estimates are shown | DBG-DDR-001, O2 |
-| 7 | Clear front window over the sensor, shown in the product renders only | (a) renders only, decide at TRL 4; (b) adopt, adding a sealed joint that bears on R10 | (a) | None now; front shell if adopted | REVIEW 2026-09-26, item 1 |
-| 8 | Visible sensor fan in the renders (illustrative; the real sensor encloses its fan) | Keep and caption as illustrative; or remove | Keep, captioned | None | REVIEW 2026-09-26, item 2 |
-| 9 | Side grip ribs in the renders stand 0.6 mm proud (65.2 mm wide) | Accept for appearance; or recess them to keep 64 mm | Recess them if adopted | Front shell, if adopted | REVIEW 2026-09-26, item 4 |
-| 10 | Lanyard with a breakaway buckle, shown in the renders, has no BOM line | Add an optional line (about $1) at TRL 4; or leave out | Add at TRL 4; it would take the estimate about $1 over the value-engineering target | None now | REVIEW 2026-09-26, item 5 |
+None. All open decisions were decided on 2026-10-02.
 
 ## To confirm when parts are bought
 
@@ -61,7 +52,7 @@ Value-engineering target: USD 91 (a hypothetical control target, not a limit). E
 
 Main cost drivers: the optical particle sensor (USD 48.00, 53 % of the cost), the 2,000 mAh LiPo cell (USD 13.00; it added USD 3), the controller and BLE module (USD 10.00) and the carrier board (USD 9.00).
 
-Savings worth trying: confirming prices when parts are bought. A 1,500 mAh cell would save USD 3 but returns R7 (a full shift) to at risk. The optional lanyard (open decision 10) would take the estimate about USD 1 over the target.
+Savings worth trying: confirming prices when parts are bought. A 1,500 mAh cell would save USD 3 but returns R7 (a full shift) to at risk. The optional breakaway lanyard (decided on 2026-10-02 for TRL 4) would take the estimate about USD 1 over the target, and the foam pad and deeper rear shell decided for any worn badge would add a little more.
 
 ## Decisions made
 
@@ -71,3 +62,13 @@ Savings worth trying: confirming prices when parts are bought. A 1,500 mAh cell 
 | 2026-09-25 | D8 to D11: 2,000 mAh cell; R3 reference rule (4.2 L/min cyclone over two shifts at low-dust, high-silica sites); sun use rule; R2 restated to 1 mg/m³ with an over-range flag | Amish, same instruction | DBG-DDR-002 |
 | 2026-09-26 | Value-engineering target set to $91 to match the priced BOM (O3) | Amish: "i approve all the budget items." | DBG-DDR-002 v0.2 |
 | 2026-10-01 | Dr. Geeti Chadha added as a contributor (CONTRIBUTORS.md, README Credits) and the project moved to the BioMedical (healthcare) area, with soft, non-clinical wording: a research and educational prototype, not a medical device | Amish: "yes add Dr. Geeti Chadha to breathebox and dustbadge and make those both healthcare projects" | `project.yaml`, `CONTRIBUTORS.md`, `README.md`, DBG-PRB-001 v0.7, DBG-PRC-001 v0.8 |
+| 2026-10-02 | Design for construction accepted: P1 to P10 as made; the TRL 4 drop test also checks that the boost module, humidity board and motor stay on their foam tape | Amish: "i approve your recommendations for all 555 open decisions." | DBG-DDR-003, Table 1 |
+| 2026-10-02 | Cell swelling: the 0.7 mm allowance (a) is accepted only for bench work with nobody wearing the badge; before anyone wears it, (b): the badge is deepened 1 mm with a foam pad behind the cell and R9 is relaxed to 122 g. Return to (a) only if the bought cell's datasheet states swelling under about 6 % | Amish: "i approve your recommendations for all 555 open decisions." | DBG-DDR-003, A1 |
+| 2026-10-02 | On and off: firmware only (the boost switched off through its enable input, the controller asleep, waking on USB power), with a firmware low-voltage cutoff set above the cell protection threshold so the cell is never run down to the protection cut-out | Amish: "i approve your recommendations for all 555 open decisions." | DBG-DDR-003, A2 |
+| 2026-10-02 | R9 mass margin: accepted, the prototype is weighed at TRL 4; with the deeper shell of the swelling decision the R9 limit is 122 g | Amish: "i approve your recommendations for all 555 open decisions." | DBG-DDR-003, A3; DBG-CAL-001 [J2] |
+| 2026-10-02 | First co-design partner: a university industrial hygiene group that already samples respirable crystalline silica, for example one linked to a NIOSH Education and Research Center, working with a stone fabrication shop or surface quarry as the site. This is the first candidate type to approach, not an agreed partner | Amish: "i approve your recommendations for all 555 open decisions." | DBG-DDR-001, O1 |
+| 2026-10-02 | Site silica fraction: by default two or three cyclone filter samples per site go to an accredited laboratory (X-ray diffraction, as in NIOSH Method 7500), and no silica estimate is shown until a site fraction exists; field infrared analysis is considered later where a partner has the instrument | Amish: "i approve your recommendations for all 555 open decisions." | DBG-DDR-001, O2 |
+| 2026-10-02 | Clear front window: renders only; decided at TRL 4 | Amish: "i approve your recommendations for all 555 open decisions." | `docs/REVIEW.md`, 2026-09-26, item 1 |
+| 2026-10-02 | Sensor fan in the renders: kept, with a caption saying it is illustrative | Amish: "i approve your recommendations for all 555 open decisions." | `docs/REVIEW.md`, 2026-09-26, item 2 |
+| 2026-10-02 | Side grip ribs: appearance only; if adopted at TRL 4 they are recessed so the badge stays 64 mm wide | Amish: "i approve your recommendations for all 555 open decisions." | `docs/REVIEW.md`, 2026-09-26, item 4 |
+| 2026-10-02 | Lanyard: an optional lanyard line is added at TRL 4, specified as breakaway only | Amish: "i approve your recommendations for all 555 open decisions." | `docs/REVIEW.md`, 2026-09-26, item 5 |

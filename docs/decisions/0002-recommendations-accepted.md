@@ -3,9 +3,9 @@ doc_id: DBG-DDR-002
 title: DustBadge recommendations accepted
 project: DustBadge
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-26'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-09-26'
   author: Amish Chadha
   change: "Budget set to $91 to cover the priced BOM: decided by Amish, 2026-09-26 (O3 closed)"
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: 'O1 and O2 decided by Amish on 2026-10-02'
 ---
 
 # 0002: Recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted. Every item below marked "Decided by Amish, 2026-09-25: go with recommendation" is accepted; items without a recommendation remain open, except O3 (budget), decided by Amish on 2026-09-26.
+- **Status:** accepted. Every item below marked "Decided by Amish, 2026-09-25: go with recommendation" is accepted; items without a recommendation remained open, except O3 (budget), decided by Amish on 2026-09-26; O1 and O2 were decided by Amish on 2026-10-02 ("i approve your recommendations for all 555 open decisions.").
 
 ## Context
 
@@ -50,12 +54,12 @@ The options for each item are those listed in `docs/REVIEW.md` (sessions 2026-09
 | D10 | Sun exposure (R11) | The use rule now (wear the badge shaded when the ambient is above 40 °C in full sun); a lighter shell tested at a later TRL | Use rule added to R11 (DBG-REQ-001 v0.4), the precis safety section, the README and the DBG-DWG-001 notes. DBG-CAL-001 v0.2 [C3]: shell at most 57.8 °C (was up to 62.8 °C), 2.2 K under the sensor's 60 °C limit; R11 not met to at risk. The lighter shell test is TRL 4, on hold |
 | D11 | Range (R2) | Accept the 1 mg/m³ range with the over-range flag for the first sectors in D6 | R2 restated from 0 to 5 mg/m³ to 0 to 1 mg/m³ with minutes above the range flagged, logged at the limit and counted (DBG-REQ-001 v0.4); R2 not met to met on paper. The flag was already in the alert logic |
 
-*Table 2. Items still open.*
+*Table 2. Items left open on 2026-09-25, decided by Amish on 2026-10-02.*
 
 | # | Item | Status |
 | --- | --- | --- |
-| O1 | First co-design partner (worker organization, NGO or university hygiene group). No recommendation was made. | Proposed, awaiting Amish |
-| O2 | How a site silica fraction is obtained where no laboratory is near. DBG-PRB-001 proposed one filter sample per site and task analyzed by a partner laboratory, but the item was not in the review list and carried no recommendation. | Proposed, awaiting Amish |
+| O1 | First co-design partner (worker organization, NGO or university hygiene group). No recommendation was made. | Decided by Amish, 2026-10-02: a university industrial hygiene group that already samples respirable crystalline silica, for example one linked to a NIOSH Education and Research Center, with a stone fabrication shop or surface quarry as the site (first candidate type to approach) |
+| O2 | How a site silica fraction is obtained where no laboratory is near. DBG-PRB-001 proposed one filter sample per site and task analyzed by a partner laboratory, but the item was not in the review list and carried no recommendation. | Decided by Amish, 2026-10-02: two or three cyclone filter samples per site to an accredited laboratory (X-ray diffraction, as in NIOSH Method 7500); no silica estimate shown until a site fraction exists; field infrared analysis later where a partner has the instrument |
 | O3 | Budget figure for the larger cell. The parts now cost $91.00 against `budget_usd` of $90. The TRL 3 note left "the budget question for Amish" without a recommended figure, so `budget_usd` stays at $90. | Decided by Amish, 2026-09-26: budget set to $91 (see below) |
 
 ### Budget approved, 2026-09-26

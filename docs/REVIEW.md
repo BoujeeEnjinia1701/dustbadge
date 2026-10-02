@@ -306,3 +306,50 @@ No clinical claims were found that needed softening: the documents already call 
 ### Recommended next step
 
 Regenerate the card and social preview on the Mac, then continue with the open items in DBG-DEC-001.
+
+## Session 2026-10-02: open decisions decided by Amish
+
+Authority: Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." The recommendations approved are those written for the open decisions in the design decisions register. No model, BOM quantity or price, or picture was changed; where a decision needs one, it is listed below as a follow-up. `trl` and `trl_target` stay at 3. No commit or push.
+
+### Decisions recorded
+
+10, all moved to "Decisions made" in `docs/06-design-decisions.md`, dated 2026-10-02:
+
+1. Design for construction (DBG-DDR-003) accepted: P1 to P10, with the TRL 4 drop test also checking that the boost module, humidity board and motor stay on their foam tape.
+2. Cell swelling: the 0.7 mm allowance only for bench work with nobody wearing the badge; before anyone wears it, the badge is deepened 1 mm with a foam pad and R9 is relaxed to 122 g.
+3. On and off: firmware only, with a low-voltage cutoff above the cell protection threshold.
+4. R9 mass margin: accepted, weighed at TRL 4; limit 122 g with the deeper shell.
+5. First co-design partner: first candidate type a university industrial hygiene group sampling respirable crystalline silica (for example one linked to a NIOSH Education and Research Center), with a stone fabrication shop or surface quarry as the site.
+6. Site silica fraction: two or three cyclone filter samples per site to an accredited laboratory (X-ray diffraction, NIOSH Method 7500); no silica estimate until a site fraction exists.
+7. Clear front window: renders only; decided at TRL 4.
+8. Sensor fan in the renders: kept, captioned as illustrative.
+9. Side grip ribs: appearance only; recessed to keep 64 mm if adopted at TRL 4.
+10. Lanyard: optional line at TRL 4, breakaway only.
+
+### Documents changed
+
+- `docs/06-design-decisions.md` (DBG-DEC-001 v0.4)
+- `docs/decisions/0003-design-for-construction.md` (DBG-DDR-003 v0.3): accepted; A1 to A3 recorded; status stays Draft
+- `docs/decisions/0001-trl2-review-decisions.md` (DBG-DDR-001 v0.3): O1 and O2 decided
+- `docs/decisions/0002-recommendations-accepted.md` (DBG-DDR-002 v0.3): O1 and O2 decided
+- `docs/02-concept.md` (DBG-PRC-001 v0.9): firmware on and off, swelling rule, silica fraction method, partner candidate, R9
+- `docs/03-requirements.md` (DBG-REQ-001 v0.8): R9 relaxed to 122 g; silica fraction assumption
+- `docs/04-calcs/01-sizing.md` (DBG-CAL-001 v0.6): R9 target in the requirement table
+- `docs/05-build-plan.md` (DBG-BLD-001 v0.3): safety stop S7: bench work only until the deeper shell and foam pad are fitted
+
+### Follow-up actions to carry approved decisions into the design
+
+1. Decision 1 (docs): Add to the TRL 4 drop test (when a test plan is written) a check that the boost module, humidity board and motor stay on their foam tape; record it in the build plan's first checks if Amish wants it there now.
+2. Decision 2 (model): Model the worn version: rear shell 1 mm deeper with a foam pad behind the cell, in `cad/src/model.py`, with the constructability checks re-run.
+3. Decision 2 (drawings): Regenerate DBG-DWG-001 and the rear shell making sketch for the deeper shell.
+4. Decision 2 (bom): Add the foam pad to the BOM with a price.
+5. Decision 2 (calcs): Add the deeper shell and foam pad to the mass estimate (about 1.5 g) and re-judge R9 against 122 g and R15 against the value-engineering target in DBG-CAL-001.
+6. Decision 3 (calcs): Write the low-voltage cutoff, set above the cell protection threshold, into the firmware sketch and its threshold into DBG-CAL-001.
+7. Decision 8 (pictures): Caption the sensor fan as illustrative in the photoreal renders (`media/render-*.png`) when they are regenerated on Amish's Mac.
+8. Decision 10 (bom): At TRL 4, add an optional breakaway-only lanyard line to the BOM (about USD 1).
+
+### Points found in the review
+
+- The USD 91 value-engineering target was set on 2026-09-26 to equal the priced BOM, so 'on target' carries no information; any addition (the lanyard, a foam pad) goes over it.
+- Items 2 and 4 are linked: the swelling allowance and the R9 mass margin cannot both be decided as recommended in the register, since (b) on item 2 breaks R9.
+- Decided on 2026-10-02 together as linked: decision 2 takes option (b) before anyone wears the badge, and decision 4 moves the R9 limit to 122 g with it.

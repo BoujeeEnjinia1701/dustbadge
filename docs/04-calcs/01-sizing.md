@@ -3,9 +3,9 @@ doc_id: DBG-CAL-001
 title: DustBadge sizing calculations
 project: DustBadge
 doc_type: Calculation
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: 'R9 target 122 g (decided by Amish, 2026-10-02) in the requirement table'
 ---
 
 # DustBadge sizing calculations
@@ -163,7 +167,7 @@ The BOM has 12 lines totaling an estimated $91.00 against the value-engineering 
 | R6 | Warn before a limit is reached | Five scenarios behave as intended; one early warning (S5) | Projected TWA alerts at 25 and 50 µg/m³ | Met on paper |
 | R7 | Last a full shift | 17.7 h typical at 25 °C; 12.8 h at maximum current and 0 °C | 12 h continuous | Met on paper (was at risk) |
 | R8 | Wearable in the breathing zone | Inlet 242 mm from nose and mouth | 300 mm or less | Met on paper |
-| R9 | Light and small | 119.9 g; 64 x 52 x 33 mm | 120 g; 75 x 55 x 35 mm | Met on paper, 0.1 g margin |
+| R9 | Light and small | 119.9 g as modelled; 64 x 52 x 33 mm | 122 g (relaxed from 120 g by Amish, 2026-10-02); 75 x 55 x 35 mm | Met on paper as modelled; the deeper shell and foam pad are not yet in the mass estimate |
 | R12 | Keep a shift log | 11.5 kB per shift; 182 shifts; 6 s transfer | 30 shifts; BLE export | Met on paper |
 | R15 | Low cost and buildable | $91.00; perfboard carrier | $91; no custom PCB | Within the value-engineering target (over it by $1 in v0.2; target moved to $91) |
 | R1 | Measure the respirable fraction | PM4 as proxy; size cut offset in both directions (section D) | PM4 as ISO 7708 proxy | Met by design |

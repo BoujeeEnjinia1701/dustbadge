@@ -3,9 +3,9 @@ doc_id: DBG-DDR-001
 title: DustBadge TRL 2 review decisions
 project: DustBadge
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: "Recommendations accepted by Amish (DDR-002): D1 to D7 decided; O1 and O2 stay open"
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: 'O1 and O2 decided by Amish on 2026-10-02'
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** items D1 to D7 decided by Amish on 2026-09-25 ("i accept all your recommendations, go with them across all repos"), recorded in DBG-DDR-002; items O1 and O2 remain proposed, awaiting Amish.
+- **Status:** items D1 to D7 decided by Amish on 2026-09-25 ("i accept all your recommendations, go with them across all repos"), recorded in DBG-DDR-002; items O1 and O2 decided by Amish on 2026-10-02 ("i approve your recommendations for all 555 open decisions."), recorded in DBG-DEC-001.
 
 ## Context
 
@@ -46,12 +50,12 @@ The options for each item are those listed in `docs/REVIEW.md` (session 2026-09-
 | D6 | First sector | Surface quarries and stone fabrication first; underground coal and explosive atmospheres excluded. The partner is not chosen (O1). | Decided by Amish, 2026-09-25: go with recommendation |
 | D7 | Case details | Downward screened inlet, high-visibility yellow front shell, spring clip with strap loop. Used in the TRL 3 model. | Decided by Amish, 2026-09-25: go with recommendation |
 
-*Table 2. Items that remain open.*
+*Table 2. Items that remained open, decided by Amish on 2026-10-02.*
 
 | # | Item | Status |
 | --- | --- | --- |
-| O1 | First co-design partner (worker organization, NGO or university hygiene group). The TRL 2 note left the choice to Amish and made no recommendation. | Proposed, awaiting Amish |
-| O2 | How a site silica fraction is obtained where no laboratory is near. DBG-PRB-001 v0.2 proposed one filter sample per site and task analyzed by a partner laboratory, but the item was not in the review note's list, so it is not adopted here. DBG-CAL-001 section F adds that at low dust levels the sample needs a higher flow or two shifts. | Proposed, awaiting Amish |
+| O1 | First co-design partner (worker organization, NGO or university hygiene group). The TRL 2 note left the choice to Amish and made no recommendation. | Decided by Amish, 2026-10-02: a university industrial hygiene group that already samples respirable crystalline silica, for example one linked to a NIOSH Education and Research Center, with a stone fabrication shop or surface quarry as the site (first candidate type to approach) |
+| O2 | How a site silica fraction is obtained where no laboratory is near. DBG-PRB-001 v0.2 proposed one filter sample per site and task analyzed by a partner laboratory, but the item was not in the review note's list, so it is not adopted here. DBG-CAL-001 section F adds that at low dust levels the sample needs a higher flow or two shifts. | Decided by Amish, 2026-10-02: two or three cyclone filter samples per site to an accredited laboratory (X-ray diffraction, as in NIOSH Method 7500); no silica estimate shown until a site fraction exists; field infrared analysis later where a partner has the instrument |
 
 New items raised by the TRL 3 calculations (cell size for R7, the R3 reference sample and target, sun exposure for R11, and the R2 range) were listed in `docs/REVIEW.md` as "Proposed, awaiting Amish"; Amish decided them on 2026-09-25 and they are recorded in DBG-DDR-002 (D8 to D11).
 

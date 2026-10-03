@@ -1,4 +1,4 @@
-"""DustBadge sizing calculations, DBG-CAL-001 v0.2 (TRL 3, revised for DBG-DDR-002).
+"""DustBadge sizing calculations, DBG-CAL-001 v0.7 (TRL 3, revised for DBG-DDR-002 and the decisions of 2026-10-02).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md. Each line carries a tag such as
@@ -57,7 +57,7 @@ CHARGE_MA = 500.0
 # Exposure limits (US OSHA and MSHA defaults, decision D3)
 AL, PEL = 25.0, 50.0       # ug/m3 RCS, 8 h TWA
 
-print("DustBadge sizing, DBG-CAL-001 v0.2")
+print("DustBadge sizing, DBG-CAL-001 v0.7")
 print(f"Geometry from cad/src/model.py: envelope {P['W']:.0f} x {P['D']:.0f} x {P['H']:.0f} mm, sensor {P['sensor']} mm")
 
 # ------------------------------------------------------------------ A. Power and run time (R7)
@@ -79,9 +79,18 @@ need_mah = need_wh / (CELL_V * USABLE * COLD) * 1000
 tag("A4", f"12 h at the maximum current and 0 degC needs {need_wh:.2f} Wh usable, a cell of about {need_mah:.0f} mAh")
 need_mah_25 = need_wh / (CELL_V * USABLE) * 1000
 tag("A5", f"12 h at the maximum current and 25 degC needs about {need_mah_25:.0f} mAh")
-space_y = -P["wall"] - (P["cell_y"] + P["cell"][1] / 2)
-tag("A6", f"Cell {CELL_MAH:,.0f} mAh, {P['cell'][1]:.1f} mm thick; space behind it to the rear wall {space_y:.1f} mm; "
+space_y = P["rear_extra"] - P["wall"] - D["cell_back"]
+tag("A6", f"Cell {CELL_MAH:,.0f} mAh, {P['cell'][1]:.1f} mm thick; space behind it to the rear wall {space_y:.1f} mm, of which the foam pad takes {P['pad'][1]:.1f} mm (worn version); "
           f"worst-case need {need_mah:.0f} mAh, margin {CELL_MAH - need_mah:.0f} mAh ({CELL_MAH / need_mah - 1:.0%})")
+
+# Low-voltage cutoff (decision of 2026-10-02, DBG-DDR-003 A2): firmware switches the boost off and sleeps
+V_PROT = 2.75             # V, typical over-discharge cut-out of a protected cell (assumed; take the bought cell's datasheet value at TRL 4)
+V_CUT = 3.30              # V, firmware low-voltage cutoff at the cell terminal under load
+V_WAKE = 3.50             # V, the controller will not restart the boost below this (hysteresis; also when USB power is removed)
+tag("A7", f"Low-voltage cutoff {V_CUT:.2f} V at the cell, {V_CUT - V_PROT:.2f} V above the assumed protection cut-out of {V_PROT:.2f} V; "
+          f"boost restarts only above {V_WAKE:.2f} V; the cutoff leaves the {USABLE:.0%} usable fraction as it was, "
+          f"an assumption to confirm against the bought cell's discharge curve, "
+          f"so run times in A3 are unchanged")
 
 # ------------------------------------------------------------------ B. Charging
 t_cc = 0.8 * CELL_MAH / CHARGE_MA
@@ -232,9 +241,11 @@ m = masses(P)
 tot_m = sum(m.values())
 ov = D["overall"]
 tag("J1", "Mass: " + ", ".join(f"{k} {v:.1f} g" for k, v in m.items()))
-tag("J2", f"Total mass {tot_m:.1f} g (target 120 g, margin {120 - tot_m:.1f} g); envelope {ov[0]:.0f} x {ov[2]:.0f} x {ov[1]:.0f} mm "
+R9_LIMIT = 122.0          # g, relaxed from 120 g on 2026-10-02 for the 1 mm deeper rear shell and foam pad (worn version)
+tag("J2", f"Total mass {tot_m:.1f} g (limit {R9_LIMIT:.0f} g, margin {R9_LIMIT - tot_m:.1f} g; the former limit of 120 g would be missed by {tot_m - 120:.1f} g); envelope {ov[0]:.0f} x {ov[2]:.0f} x {ov[1]:.0f} mm "
           f"including the clip (target 75 x 55 x 35 mm)")
-tag("J3", f"The {CELL_MAH:,.0f} mAh cell ({P['m_cell']:.0f} g) adds {P['m_cell'] - 30.0:.0f} g over the 1,500 mAh cell of CAL-001 v0.1 (30 g); margin to 120 g {120 - tot_m:.1f} g")
+tag("J3", f"The {CELL_MAH:,.0f} mAh cell ({P['m_cell']:.0f} g) adds {P['m_cell'] - 30.0:.0f} g over the 1,500 mAh cell of CAL-001 v0.1 (30 g); "
+          f"the worn version adds the foam pad ({m['foam pad']:.1f} g) and the extra rear shell wall and rib material; margin to {R9_LIMIT:.0f} g {R9_LIMIT - tot_m:.1f} g")
 
 # ------------------------------------------------------------------ K. Drop (R10)
 g = 9.81
@@ -252,3 +263,7 @@ sensor_cost = next(float(r["unit_cost_usd"]) for r in rows if r["item"].startswi
 m_txt = f"margin ${budget - cost:.2f}" if cost <= budget else f"over budget by ${cost - budget:.2f}"
 tag("L1", f"BOM {len(rows)} lines, total ${cost:.2f} against budget_usd ${budget:.0f}; {m_txt}; "
           f"particle sensor {sensor_cost / cost:.0%} of the total")
+VE_TARGET = 91.0          # USD, value-engineering target set 2026-09-26 (budget_usd, unchanged)
+diff = cost - VE_TARGET
+tag("L2", f"Value-engineering target: USD {VE_TARGET:.0f}. Estimated cost of the constructable design: USD {cost:.2f} "
+          f"(USD {abs(diff):.2f} {'over' if diff > 0 else 'under'} the target)")

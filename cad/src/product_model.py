@@ -30,14 +30,14 @@ TITLE = "DustBadge: wearable respirable dust monitor for workers"
 RENDER_VIEWS = [
     {"name": "hero", "groups": ["shell", "internal", "accessory"], "explode": False, "el": 30, "az": -40,
      "note": "Product render from the front right and above (about 30 deg elevation); window over the "
-             "particle sensor at left, red alert light at top right, clip and lanyard behind"},
+             "particle sensor at left, red alert light at top right, clip and lanyard behind; the sensor fan is illustrative"},
     {"name": "exploded", "groups": ["shell", "internal", "accessory"], "explode": True, "el": 28, "az": -55,
      "note": "Exploded view from the front right and above (about 28 deg elevation): window, front shell, "
              "sensor fan, optical particle sensor, controller, carrier board, cell, rear shell, spring clip "
-             "and lanyard"},
+             "and lanyard; the sensor fan is illustrative"},
     {"name": "worn", "groups": ["shell", "internal", "context"], "explode": False, "el": 14, "az": -32,
      "note": "Worn view from the front right, slightly above (about 14 deg elevation): badge clipped to a "
-             "harness strap on a fabric chest panel, inlet facing down"},
+             "harness strap on a fabric chest panel, inlet facing down; the sensor fan is illustrative"},
 ]
 
 # Colours (restrained product palette; hi-vis yellow front shell per DBG-DDR-001 D7; kit accent)
@@ -62,6 +62,7 @@ C_PANEL = "#3B4A5C"
 C_STRAP = "#2A2E34"
 C_TAPE = "#D5D8DC"
 C_STITCH = "#8A94A0"
+C_PAD = "#E8A33D"
 
 # Appearance-only detail sizes (mm)
 FIL_FRONT = 3.0        # front face perimeter
@@ -121,6 +122,12 @@ def _face_loop_at(shape, y):
     return []
 
 
+def _rear(shape):
+    """Move a part that is drawn against the rear face at Y = 0 to the worn version's rear face
+    (the rear shell is deeper by rear_extra, so the rear face is at Y = rear_extra)."""
+    return Pos(0, PARAMS["rear_extra"], 0) * shape
+
+
 # ---------------------------------------------------------------- shells
 def _front_shell(P, m):
     W, H, D, t = P["W"], P["H"], P["D"], P["wall"]
@@ -149,8 +156,8 @@ def _rear_shell(P, m):
     r = _fillet_try(r, _outer_loop(r, False), [FIL_REAR, 1.6, 1.0])
     r = _fillet_try(r, _face_loop_at(r, P["split_y"]), [FIL_PART, 0.4])
     for (x, z) in REAR_SCREWS:
-        r -= _ycyl(x, -0.6, z, 2.2, 1.0)          # screw head counterbore in the rear face
-        r -= _ycyl(x, -P["wall"] - 1, z, 1.1, P["wall"] + 2)
+        r -= _ycyl(x, P["rear_extra"] - 0.6, z, 2.2, 1.0)          # screw head counterbore in the rear face
+        r -= _ycyl(x, P["rear_extra"] - P["wall"] - 1, z, 1.1, P["wall"] + 2)
     return r
 
 
@@ -376,8 +383,8 @@ def product_parts(P=PARAMS):
     add("Inlet dust screen (stainless mesh)", m["screen"][1], C_MESH, "metal", 2, "shell", (0, -104, -16))
     add("TPU gasket", _gasket(P), C_GASKET, "rubber", 9, "shell", (0, 34, 0))
     add("Rear shell (PETG)", _rear_shell(P, m), C_REAR, "plastic", 9, "shell", (0, 48, 0))
-    add("M2 rear screws", _rear_screws(P), C_STEEL, "metal", 11, "shell", (0, 70, 0))
-    add("Stainless spring clip", _clip(P), C_STEEL, "metal", 10, "shell", (0, 90, 0))
+    add("M2 rear screws", _rear(_rear_screws(P)), C_STEEL, "metal", 11, "shell", (0, 70, 0))
+    add("Stainless spring clip", _rear(_clip(P)), C_STEEL, "metal", 10, "shell", (0, 90, 0))
 
     # ---- internal: fan, sensor, controller, motor, board, cell
     add("Sensor fan", _fan(P), C_FAN, "plastic", 3, "internal", (0, -60, 38))
@@ -395,15 +402,16 @@ def product_parts(P=PARAMS):
     cell, clabel = _cell(P, m)
     add("LiPo cell, 2,000 mAh (pouch)", cell, C_POUCH, "metal", 8, "internal", (0, 16, 0))
     add("Cell label", clabel, C_CELL_LABEL, "painted", 8, "internal", (0, 16, 0))
+    add("Foam pad behind the cell", m["pad"][1], C_PAD, "plastic", 13, "internal", (0, 32, 0))
 
     # ---- accessory: lanyard (no BOM line; appearance only)
-    web, crimp, buckle = _lanyard(P)
+    web, crimp, buckle = (_rear(x) for x in _lanyard(P))
     add("Webbing lanyard", web, C_WEB, "fabric", None, "accessory", (0, 90, 0))
     add("Lanyard crimp", crimp, C_STEEL, "metal", None, "accessory", (0, 90, 0))
     add("Breakaway buckle", buckle, C_ACCENT, "plastic", None, "accessory", (0, 90, 0))
 
     # ---- context: fabric chest panel and harness strap (worn view)
-    panel, strap, tape, stitch = _chest_panel(P)
+    panel, strap, tape, stitch = (_rear(x) for x in _chest_panel(P))
     add("Chest panel (workwear fabric)", panel, C_PANEL, "fabric", None, "context", (0, 0, 0))
     add("Harness strap (webbing)", strap, C_STRAP, "fabric", None, "context", (0, 0, 0))
     add("Reflective tape", tape, C_TAPE, "painted", None, "context", (0, 0, 0))

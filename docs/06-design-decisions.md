@@ -3,7 +3,7 @@ doc_id: DBG-DEC-001
 title: DustBadge design decisions register
 project: DustBadge
 doc_type: Design decisions register
-version: "0.4"
+version: "0.5"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -25,6 +25,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: 'Amish approved the recommendations for all ten open decisions (2026-10-02); DBG-DDR-003 accepted; moved to decisions made'
+  - version: "0.5"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: 'Worn version carried into the design: foam pad on the BOM (USD 91.50, USD 0.50 over the target); value engineering section restated; target change proposed'
 ---
 
 # DustBadge design decisions register
@@ -33,13 +37,15 @@ Every design decision still to be made, and every decision made, in one place. E
 
 ## Open decisions
 
-None. All open decisions were decided on 2026-10-02.
+| # | Decision | Options | Recommendation |
+| --- | --- | --- | --- |
+| 1 | Value-engineering target. The foam pad of the worn version (USD 0.50, BOM line 13) takes the estimated cost to USD 91.50, USD 0.50 over the USD 91 target, so R15 is not met. `budget_usd` is unchanged at 91. | (a) raise the target to USD 92; (b) keep USD 91 and look for USD 0.50 of savings when parts are bought; (c) keep USD 91 and accept R15 as not met. | (a), so that the target covers the worn version; the optional lanyard (about USD 1) would still sit outside it. **Proposed, awaiting Amish.** |
 
 ## To confirm when parts are bought
 
 | # | What to confirm | Why it matters | Source |
 | --- | --- | --- | --- |
-| 1 | The cell, including its protection board, is no larger than 50 x 34 x 11.5 mm, its lead leaves at one short side, and its plug polarity matches the charger | The cell ribs, the 0.7 mm swelling allowance and the board notch are sized for it | DBG-DDR-003, P8 |
+| 1 | The cell, including its protection board, is no larger than 50 x 34 x 11.5 mm, its lead leaves at one short side, and its plug polarity matches the charger | The cell ribs, the swelling allowance (0.7 mm in the bench version, 1.7 mm with the foam pad of the worn version) and the board notch are sized for it | DBG-DDR-003, P8 |
 | 2 | The charger module is no larger than 11 x 19 mm with its USB-C on a short edge, and its temperature window is 0 to 45 °C | It must fit beside the sensor with its USB-C in the opening, and the charge stop is part of the safety case | DBG-DDR-003, P6 |
 | 3 | The boost module (11.4 x 9 mm or less, with an enable input) and the humidity breakout (10 x 10 mm or less, sensor at one edge) | They are taped into a strip 17 mm wide beside the sensor; the humidity sensor must sit over its vent | DBG-DDR-003, P6 |
 | 4 | Where the particle sensor's cable leaves it, and the cable length | The model leaves room above and beside the sensor between the stop ribs; a connector on another face would need the ribs moved | DBG-DDR-003, P5 |
@@ -48,11 +54,11 @@ None. All open decisions were decided on 2026-10-02.
 
 ## Value engineering
 
-Value-engineering target: USD 91 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 91.00 (USD 0.00 over or under the target, so on the target with no margin). The estimate rests on indicative prices.
+Value-engineering target: USD 91 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 91.50 (USD 0.50 over the target). The estimate rests on indicative prices.
 
-Main cost drivers: the optical particle sensor (USD 48.00, 53 % of the cost), the 2,000 mAh LiPo cell (USD 13.00; it added USD 3), the controller and BLE module (USD 10.00) and the carrier board (USD 9.00).
+Main cost drivers: the optical particle sensor (USD 48.00, 52 % of the cost), the 2,000 mAh LiPo cell (USD 13.00; it added USD 3), the controller and BLE module (USD 10.00) and the carrier board (USD 9.00).
 
-Savings worth trying: confirming prices when parts are bought. A 1,500 mAh cell would save USD 3 but returns R7 (a full shift) to at risk. The optional breakaway lanyard (decided on 2026-10-02 for TRL 4) would take the estimate about USD 1 over the target, and the foam pad and deeper rear shell decided for any worn badge would add a little more.
+Savings worth trying: confirming prices when parts are bought. A 1,500 mAh cell would save USD 3 but returns R7 (a full shift) to at risk. The optional breakaway lanyard (decided on 2026-10-02 for TRL 4) would take the estimate about USD 1 over the target, and the foam pad of the deeper worn version (USD 0.50) is already in the estimate and is what takes it over the target.
 
 ## Decisions made
 

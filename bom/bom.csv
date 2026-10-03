@@ -11,3 +11,4 @@ item,qty,spec,supplier,unit_cost_usd,make_buy,notes
 10 Spring clip and strap loop,1,"Stainless spring clip, about 40 mm, base leaf drilled for two M2 screws 12 mm apart",Online retailer,2.00,buy,Indicative price
 11 Hardware and consumables,1,"Three M2 x 20 and two M2 x 8 thread-forming pan-head screws, wire, heat shrink, double-sided foam tape, adhesive",Self,3.00,buy,Indicative price; screws modeled from DBG-DDR-003
 12 Phone app for shift log,1,Open-source web Bluetooth page or app (software),Self,0.00,make,Software; no parts cost
+13 Foam pad behind the cell,1,"Closed-cell polyethylene foam, 1 mm, adhesive backed, cut to 40 x 24 mm and stuck to the inside of the rear wall behind the cell",Online retailer,0.50,buy,Indicative price: a 1 mm adhesive-backed sheet sold for about USD 6 to 8 gives many 40 x 24 mm pads; USD 0.50 allows for a part-used sheet; added 2026-10-02 for the worn version (DBG-DDR-003 A1)

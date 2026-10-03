@@ -3,7 +3,7 @@ doc_id: DBG-BLD-001
 title: DustBadge prototype build plan
 project: DustBadge
 doc_type: Build plan
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -21,11 +21,15 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: 'Safety stop S7: badge as built is for bench work only; deeper rear shell and foam pad before anyone wears it (decided by Amish, 2026-10-02)'
+  - version: "0.4"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: 'Worn version: rear shell 1 mm deeper (64 x 52 x 31 mm), foam pad behind the cell (BOM line 13), pictures regenerated; bench-only note removed from S7'
 ---
 
 # DustBadge prototype build plan
 
-**Plan, not yet built.** How to build the first proof-of-concept prototype, component by component. Building and testing to it is TRL 4 work. Decisions still to be made are kept in the design decisions register ([docs/06-design-decisions.md](06-design-decisions.md)), not here.
+**Plan, not yet built.** How to build the first proof-of-concept prototype, component by component. Building and testing to it is TRL 4 work. Decisions are kept in the design decisions register ([docs/06-design-decisions.md](06-design-decisions.md)), not here.
 
 ## 1. What you are building
 
@@ -33,26 +37,27 @@ revisions:
 
 *Figure 1. Every component pulled apart and numbered in build order: the front half above, the rear half below.*
 
-The prototype is one DustBadge: a hi-vis yellow printed front shell and a dark printed rear shell, 64 x 52 x 30 mm, closed by three small screws from the back, with a spring clip on the back for a collar, pocket or harness strap. Inside, a bought particle sensor sits on two soft seals over two slots in the bottom face, so its fan draws air up through a mesh screen; behind it a perfboard carries the controller and a charger, and behind that a 2,000 mAh lithium polymer cell sits in the rear shell. A coin motor, a 5 V boost module and a humidity sensor are taped to the inside of the front face, and a red LED shines through a light pipe. Figure 1 shows the 17 components in the order you make or fit them. Six are printed (the two shells, the gasket, two port seals and the light pipe), the screen is cut from mesh, the perfboard is cut and drilled and the bought clip may need two holes; everything else is bought and wired. The work is 3D printing in PETG and TPU, cutting and drilling perfboard, small soldering, and fitting with screws and tape. The parts cost about $91 from the bill of materials.
+The prototype is one DustBadge: a hi-vis yellow printed front shell and a dark printed rear shell, 64 x 52 x 31 mm, closed by three small screws from the back, with a spring clip on the back for a collar, pocket or harness strap. Inside, a bought particle sensor sits on two soft seals over two slots in the bottom face, so its fan draws air up through a mesh screen; behind it a perfboard carries the controller and a charger, and behind that a 2,000 mAh lithium polymer cell sits in the rear shell. A coin motor, a 5 V boost module and a humidity sensor are taped to the inside of the front face, and a red LED shines through a light pipe. Figure 1 shows the 18 components in the order you make or fit them. Six are printed (the two shells, the gasket, two port seals and the light pipe), the screen is cut from mesh, the foam pad is cut from a foam sheet, the perfboard is cut and drilled and the bought clip may need two holes; everything else is bought and wired. The work is 3D printing in PETG and TPU, cutting and drilling perfboard, small soldering, and fitting with screws and tape. The parts cost about $91.50 from the bill of materials.
 
 > **Safety:** The badge holds a 2,000 mAh lithium polymer cell and is worn against the body. Keep the cell out of the badge until the stop points of section 6 say otherwise, never charge it while worn, below 0 °C or above 45 °C, and never leave a first build charging unattended. The badge is not intrinsically safe: do not take it into a gassy mine or any place with flammable gas or combustible dust. Its readings are a research estimate, not a safety measurement. Soldering and printing give off fumes; work in a ventilated space.
 
 ## 2. What changed to make it buildable
 
-The concept showed what the badge does; some of its parts could not be made, fixed or sealed as drawn. Each change below keeps what the badge does and its size, and all of them are recorded in decision record DBG-DDR-003, open for Amish's review.
+The concept showed what the badge does; some of its parts could not be made, fixed or sealed as drawn. Each change below keeps what the badge does and its size, and all of them are recorded in decision record DBG-DDR-003, accepted by Amish on 2026-10-02.
 
 *Table 1. Changes from the concept.*
 
 | Component | The concept had | The buildable design has | Why |
 | --- | --- | --- | --- |
 | Shell closure | Bosses in the front shell only, with a 14 mm gap behind the board and no screws | Three tubes in the rear shell and three M2 x 20 screws from the rear face that clamp the rear shell, gasket and board onto the front bosses (Figure 15) | The badge closes, and the board is held, with one set of screws |
-| Gasket | Listed, but no room for it | A flat printed TPU frame 1 mm thick between the rims; the rear shell is 1 mm shallower (Figure 18) | Seals the joint; the badge stays 30 mm deep |
+| Gasket | Listed, but no room for it | A flat printed TPU frame 1 mm thick between the rims; the rear shell is 1 mm shallower (Figure 18) | Seals the joint |
 | Sensor air path | Sensor ports 1 mm above the slots, open to the inside | Two printed TPU seals between the ports and the slots (Figure 7) | The fan draws only outside air |
 | Inlet screen | A 1.2 mm screen sitting loose in the slot | A 16 x 11 mm mesh square on the inner floor, held by the inlet seal (Figure 7) | Held and sealed without glue in the air path |
 | Sensor and cell | Nothing holding the sensor up or the cell sideways | Two stop ribs over the sensor; four ribs round the cell (Figures 11 and 14) | Each has a load path for a drop |
 | Electronics | Boost, charger and humidity sensor not placed; the humidity vent opened under the sensor | Charger with USB-C on the board; boost, humidity sensor and motor taped inside the front face; USB-C opening and vent moved (Figures 3 and 12) | The only free space is beside the sensor; the vent now opens under the humidity sensor |
 | Carrier board | 56 x 44 mm, screw holes breaking its edges | 59 x 47 mm with cut corners and a notch for the cell lead (Figure 9) | Material round every hole |
 | Clip | No fixing | Two M2 x 8 screws into bosses above the cell (Figure 17) | The only place above the cell clear of the shell screws |
+| Cell room | 0.7 mm of free depth round the cell | The rear shell is 1 mm deeper and a 1 mm foam pad is stuck behind the cell (Figures 13 and 14); the badge is 31 mm deep, 34 mm with the clip | Room for the cell to swell as it ages; this is the version to wear |
 | Light pipe | A loose rod with no LED behind it | A printed clear pipe with an inside flange and a pocket for the LED (Figure 5) | Held in, and lit where it needs to be |
 
 ## 3. Making the components
@@ -218,14 +223,15 @@ Check that the charger's temperature window really is 0 to 45 °C in its datashe
 
 *Figure 13. Rear shell making sketch (DBG-DWG-102), front view looking into its open side.*
 
-**What it is and what it is made from.** The dark back half of the badge, against the wearer, 64 x 52 x 13 mm, with three tubes for the shell screws, two bosses for the clip screws and four ribs that locate the cell. PETG, dark grey, printed at 0.2 mm layers with four walls.
+**What it is and what it is made from.** The dark back half of the badge, against the wearer, 64 x 52 x 14 mm, with three tubes for the shell screws, two bosses for the clip screws and four ribs that locate the cell. PETG, dark grey, printed at 0.2 mm layers with four walls.
 
 **How to make it.**
 
 1. Print it rear face down. No supports are needed.
-2. Check the three tubes: 4.5 across with a 2.4 mm hole through, reaching 14.2 from the rear face, each counterbored 4.2 across and 1.4 deep from the rear face for a screw head.
+2. Check the three tubes: 4.5 across with a 2.4 mm hole through, reaching 15.2 from the rear face, each counterbored 4.2 across and 1.4 deep from the rear face for a screw head.
 3. Open the two clip bosses (6 each side of centre, 21 up) to 1.7 mm, 7 deep from the rear face.
-4. Check the four cell ribs: 1.2 thick and 3 tall, 0.2 from the cell all round.
+4. Check the four cell ribs: 1.2 thick and 4 tall, 0.2 from the cell all round.
+5. Cut the foam pad from 1 mm closed-cell foam sheet with an adhesive back, 40 x 24 mm, and stick it to the inside of the back wall, centred between the ribs. It sits 0.5 mm clear of the cell and takes up the cell's swelling.
 
 **How it fits the parts next to it.**
 
@@ -233,13 +239,13 @@ Check that the charger's temperature window really is 0 to 45 °C in its datashe
 
 *Figure 14. The cell between its four ribs, seen from the open side, with the shell screws in their tubes.*
 
-The cell sits between the ribs, 0.5 mm off the inside of the rear wall. The tubes press on the back of the board. The rim, 13 from the rear face, sits on the gasket.
+The cell sits between the ribs, with the foam pad on the rear wall behind it and 0.5 mm clear of it. The tubes press on the back of the board. The rim, 14 from the rear face, sits on the gasket.
 
 ![Figure 15. Joint 5: a shell screw](05-build-plan/joint-05.png)
 
 *Figure 15. A shell screw, cut through its centre: head in the counterbore, the tube pressing the board onto the front boss, the gasket squeezed between the rims.*
 
-**Check before moving on.** The cell drops between the ribs and lifts out without force.
+**Check before moving on.** The cell drops between the ribs and lifts out without force, and the pad is flat and does not touch the screw tubes or the clip bosses.
 
 ### 3.7 Spring clip, drilled
 
@@ -286,6 +292,7 @@ Buy to specification, not brand. Line numbers are those of the bill of materials
 - **Controller (line 4) and carrier board modules (line 7).** As Table 2.
 - **Vibration motor (line 5).** 10 mm coin motor, 3 V, about 3 mm thick, with an adhesive back and leads.
 - **LED (line 6).** Red 3 mm LED.
+- **Foam pad (line 13).** Closed-cell polyethylene foam sheet, 1 mm thick, with an adhesive back; a 40 x 24 mm piece is cut for each badge.
 - **Cell (line 8).** 2,000 mAh 3.7 V protected lithium polymer cell, no larger than 50 x 34 x 11.5 mm including its protection board, with a 10 kΩ NTC lead, from a maker that publishes a datasheet.
 - **Clip (line 10).** As section 3.7.
 - **Fixings and consumables (line 11).** Three M2 x 20 and two M2 x 8 thread-forming pan-head screws for plastics; thin double-sided foam tape; 0.2 mm² and 0.08 mm² wire; heat shrink; clear adhesive.
@@ -336,11 +343,11 @@ Solder the leads from the front-face parts and the LED to the board and plug in 
 
 Base leaf flat on the rear face, centred; two M2 x 8 screws into the bosses, snug. Thread-forming screws strip PETG if overtightened: stop when the head seats.
 
-### Step 8: cell into the rear shell
+### Step 8: foam pad and cell into the rear shell
 
 ![Step 8](05-build-plan/step-08.png)
 
-**Hold point:** safety stops S1 to S4 in section 6. Lay the cell between the four ribs with its lead at the right, pass the lead through the notch in the board and plug it into the charger module.
+**Hold point:** safety stops S1 to S4 in section 6. Stick the foam pad to the inside of the back wall, centred. Lay the cell between the four ribs with its lead at the right, pass the lead through the notch in the board and plug it into the charger module.
 
 ### Step 9: close the badge
 
@@ -364,7 +371,7 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 | Humidity reading | R11 | Breathe gently at the bottom face | The humidity reading rises within 30 s |
 | Shell joint | R10 | Feeler gauge round the joint after closing | No gap over 0.2 mm anywhere |
 | Run time | R7 | Full charge, continuous sampling at room temperature | 12 h or more |
-| Mass and size | R9 | Weigh on a 0.1 g scale; measure with calipers | 120 g or less (119.9 g estimated); 64 x 52 x 33 mm with the clip |
+| Mass and size | R9 | Weigh on a 0.1 g scale; measure with calipers | 122 g or less (120.7 g estimated); 64 x 52 x 34 mm with the clip, 35 mm with the light pipe |
 | Worn position | R8 | Clip to a collar or harness strap | The inlet faces down and is within 300 mm of the nose and mouth |
 
 ## 6. Safety stops
@@ -377,7 +384,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S4. First charge.** Attended the whole time, with the badge open on the charging spot, the cell checked by hand every 15 minutes. Stop if the cell becomes warm to the touch, swells or smells, or if the charger reads above 4.25 V. Never bypass the charge stop.
 - **S5. Before the badge is closed.** No wire is pinched under the board or across the gasket; the cell lead runs through the notch; the cell lies flat between its ribs.
 - **S6. Before the badge is worn.** It is worn only for bench and indoor trials until a TRL 4 test plan says otherwise; never while charging; never in a gassy mine or any place with flammable gas or combustible dust; shaded when the ambient is above 40 °C in full sun. Its reading is a research estimate: it never replaces a respirator, engineering controls or regulatory sampling.
-- **S7. At every charge.** Look at the cell through the open badge from time to time: retire it at the first sign of swelling, damage or heat. The badge as built here, with 0.7 mm of free depth round the cell, is for bench work with nobody wearing it; before anyone wears it, the rear shell is deepened 1 mm and a foam pad is fitted behind the cell (decided by Amish, 2026-10-02).
+- **S7. At every charge.** Look at the cell through the open badge from time to time: retire it at the first sign of swelling, damage or heat. This is the worn version: the rear shell is 1 mm deeper and a foam pad sits behind the cell, so the cell has 0.2 mm in front, 0.5 mm clear behind the pad and the soft pad to swell into (decided by Amish, 2026-10-02). Do not build the shallower bench version for anyone to wear.
 
 ## 7. Tools, skills and workspace
 
@@ -391,10 +398,10 @@ Stop at each point. Carry on only when everything listed is true.
 
 ## 8. Where the numbers come from
 
-- Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`, 43 checks); STEP and STL exports in `cad/step/` and `cad/stl/`.
+- Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`, 47 checks); STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/DBG-DWG-101` to `DBG-DWG-108`.
-- General arrangement: `cad/drawings/DBG-DWG-001.pdf`, Rev P4.
-- Calculations: `docs/04-calcs/01-sizing.md` (DBG-CAL-001 v0.5) and `docs/04-calcs/sizing.py`; mass [J1], [J2]; drop retention [K1]; run time [A3]; cost [L1].
+- General arrangement: `cad/drawings/DBG-DWG-001.pdf`, Rev P5.
+- Calculations: `docs/04-calcs/01-sizing.md` (DBG-CAL-001 v0.7) and `docs/04-calcs/sizing.py`; mass [J1], [J2]; drop retention [K1]; run time [A3]; cost [L1, L2]; low-voltage cutoff [A7].
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (DBG-DDR-003), with DBG-DDR-001 and DBG-DDR-002.
-- Requirements: `docs/03-requirements.md` (DBG-REQ-001 v0.7).
+- Requirements: `docs/03-requirements.md` (DBG-REQ-001 v0.9).

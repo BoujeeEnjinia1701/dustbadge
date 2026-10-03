@@ -3,7 +3,7 @@ doc_id: DBG-REQ-001
 title: DustBadge requirements
 project: DustBadge
 doc_type: Requirements
-version: "0.8"
+version: "0.9"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -41,11 +41,15 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: 'R9 relaxed to 122 g by Amish on 2026-10-02; site silica fraction assumption restated'
+- version: "0.9"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: 'R15 not met by USD 0.50 after the foam pad of the worn version; R9 met at 120.7 g against 122 g'
 ---
 
 # DustBadge requirements
 
-These are the requirements for the concept, with their status from the TRL 3 calculations in DBG-CAL-001 v0.2. On 2026-09-25 Amish accepted the review recommendations (DBG-DDR-002): R2 is restated to the sensor's 1 mg/m³ range with an over-range flag, R3 keeps ±25 % but requires a larger reference sample at low-dust, high-silica sites, R11 adds a use rule for full sun, and the cell grows to 2,000 mAh. On 2026-09-26 Amish set the value-engineering target at $91 to match the priced BOM (DBG-DDR-002, O3), so R15 is within the target. On paper one requirement is not met (R14 intrinsic safety, out of scope), two are at risk (R3 accuracy and R11 site conditions), one cannot be verified at TRL 3 (R10), and eleven are met, seven by calculation and four by design.
+These are the requirements for the concept, with their status from the TRL 3 calculations in DBG-CAL-001 v0.7. On 2026-09-25 Amish accepted the review recommendations (DBG-DDR-002): R2 is restated to the sensor's 1 mg/m³ range with an over-range flag, R3 keeps ±25 % but requires a larger reference sample at low-dust, high-silica sites, R11 adds a use rule for full sun, and the cell grows to 2,000 mAh. On 2026-09-26 Amish set the value-engineering target at $91 to match the priced BOM (DBG-DDR-002, O3), so R15 was within the target. On 2026-10-02 the foam pad of the worn version took the parts cost to $91.50, so R15 is no longer met (by $0.50). On paper two requirements are not met (R14 intrinsic safety, out of scope, and R15 cost), two are at risk (R3 accuracy and R11 site conditions), one cannot be verified at TRL 3 (R10), and ten are met, six by calculation and four by design.
 
 Table 1. Requirements and concept status.
 
@@ -59,13 +63,13 @@ Table 1. Requirements and concept status.
 | R6 | Warn before a limit is reached | Vibration and LED when the projected 8 h RCS TWA exceeds the action level (default 25 µg/m³) and a repeated alert at the limit (default 50 µg/m³); both configurable | Met by design and on paper: five scenarios alert as intended, one early warning after a single heavy cut (CAL-001, G). Defaults per DBG-DDR-001 D3 | Firmware sketch review |
 | R7 | Last a full shift | 12 h of continuous sampling per charge | Met on paper with the 2,000 mAh cell (DBG-DDR-002 D8): 17.7 h at the typical 55 mA and 25 °C; 12.8 h at the 65 mA maximum and 0 °C (CAL-001, A) | Power budget calculation |
 | R8 | Wearable in the breathing zone | Inlet worn within 30 cm of the nose and mouth; clip or harness loop | Met on paper: inlet 242 mm from the nose and mouth at a collar or upper-strap mount; a mount more than 269 mm below them fails (CAL-001, I) | Massing model |
-| R9 | Light and small | Mass 122 g or less (relaxed from 120 g by Amish, 2026-10-02, for the 1 mm deeper rear shell and foam pad needed before anyone wears the badge); no larger than 75 x 55 x 35 mm | Met on paper: 119.9 g as modelled, a 0.1 g margin against the former 120 g with the 2,000 mAh cell and the fixings added for construction (DBG-DDR-003); 64 x 52 x 33 mm with the clip (CAL-001, J) | Massing model, then weighing |
+| R9 | Light and small | Mass 122 g or less (relaxed from 120 g by Amish, 2026-10-02, for the 1 mm deeper rear shell and foam pad needed before anyone wears the badge); no larger than 75 x 55 x 35 mm | Met on paper: 120.7 g with the worn version (rear shell 1 mm deeper, foam pad), a 1.3 g margin against 122 g; 64 x 52 x 34 mm with the clip (CAL-001, J) | Massing model, then weighing |
 | R10 | Survive the site | Electronics splash and dust protected (IP54 target except the sensor air path); inlet facing down; survives a 1.5 m drop onto concrete | Not verifiable at TRL 3: 750 to 1,500 g deceleration on a 1.5 m drop; gasketed joint untested (CAL-001, K) | Design review; later drop and spray tests |
 | R11 | Work in site conditions | 0 to 45 °C, 10 to 90 % RH non-condensing; readings flagged when humidity or spray may bias them. Use rule: worn shaded when the ambient is above 40 °C in full sun (DBG-DDR-002 D10) | **At risk.** Under the use rule the shell stays at or below 57.8 °C, 2.2 K under the sensor's 60 °C limit; without it, about 63 °C in full sun at 45 °C. Sensor best performance only to 40 °C and 80 % RH; humidity flag possible with the RH sensor (CAL-001, C) | Literature and datasheet review |
 | R12 | Keep a shift log | At least 30 shifts of 1 min records on the badge; export over Bluetooth Low Energy to the worker's phone | Met on paper: 11.5 kB per 12 h shift, about 182 shifts in 2 MB (CAL-001, H) | Storage calculation |
 | R13 | Protect the worker's data | Stored on the badge and the worker's phone; shared with an employer only by the worker's choice | Met by design (DBG-DDR-001 D5) | Design review |
 | R14 | Safe in hazardous atmospheres | Certified intrinsically safe for gassy mines and explosive atmospheres | **Not met and out of scope** for this prototype; it must be labeled not for such use | Design review |
-| R15 | Low cost and buildable | Parts $91 or less (was $90; DBG-DDR-002 O3); no custom PCB required for the first build | Within the value-engineering target: $91.00 with the 2,000 mAh cell (CAL-001, L) | Priced BOM |
+| R15 | Low cost and buildable | Parts $91 or less (was $90; DBG-DDR-002 O3); no custom PCB required for the first build | Not met: $91.50, $0.50 over the $91 target, because of the foam pad of the worn version (CAL-001, L) | Priced BOM |
 
 ## Assumptions
 

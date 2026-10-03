@@ -32,7 +32,7 @@ K = 4.0                                   # picture scale factor (see the module
 COL = {"front": "#EAB308", "led": "#DC2626", "lamp": "#991B1B", "motor": "#6B7280", "boost": "#22C55E",
        "rh": "#0EA5E9", "screen": "#475569", "seals": "#1F2937", "sensor": "#0F766E", "pcb": "#15803D",
        "module": "#1D4ED8", "charger": "#16A34A", "clip": "#0369A1", "clip_screws": "#111827",
-       "rear": "#374151", "cell": "#C2410C", "gasket": "#111827", "screws": "#111827"}
+       "rear": "#374151", "pad": "#F59E0B", "cell": "#C2410C", "gasket": "#111827", "screws": "#111827"}
 
 
 def _fuse(shapes):
@@ -78,6 +78,7 @@ ORDER = [  # key in the overview, name, model parts, explode (mm); front half ab
     ("rear", "Rear shell", ["rear"], (0, -30, -95)),
     ("clip", "Spring clip", ["clip"], (0, 0, -95)),
     ("clip_screws", "Clip screws M2 x 8 (2)", ["clip_screws"], (0, 18, -95)),
+    ("pad", "Foam pad behind the cell", ["pad"], (0, -48, -95)),
     ("cell", "Cell, 2,000 mAh", ["cell"], (0, -62, -95)),
     ("gasket", "Gasket", ["gasket"], (0, -86, -95)),
     ("screws", "Shell screws M2 x 20 (3)", ["screws"], (0, 40, -95)),
@@ -123,21 +124,22 @@ def sheets():
         **base))
     # 102 rear shell
     out.append(bv.component_sheet(
-        Part("Rear shell", C["rear"][1], COL["rear"]), [ghost("Front shell", ["front"]), ghost("Cell", ["cell"]), ghost("Clip", ["clip"])],
+        Part("Rear shell", C["rear"][1], COL["rear"]), [ghost("Front shell", ["front"]), ghost("Cell", ["cell"]), ghost("Foam pad", ["pad"]), ghost("Clip", ["clip"])],
         dwg_no="DBG-DWG-102", title="DustBadge rear shell: making sketch",
         material="PETG, dark grey, 3D printed, 0.2 mm layers, 4 walls",
         inset_view=(20, 120),
         notes=["Print rear face down; no supports needed.",
-               "64 x 52 x 13 mm, walls 2 mm, outside edges round 4 mm.",
-               "Three tubes 4.5 dia, from the rear wall to 14.2 from the rear face,",
+               "64 x 52 x 14 mm, walls 2 mm, outside edges round 4 mm.",
+               "Three tubes 4.5 dia, from the rear wall to 15.2 from the rear face,",
                "  at the same places as the front bosses (seen from the front:",
                "  27 left and 27 right 21 up, 27 right 21 down); hole 2.4 through.",
                "Counterbore each from the rear face 4.2 dia, 1.4 deep (screw heads).",
                "Two clip bosses 5 dia, 5.5 long inside, 6 each side of centre,",
                "  21 up; pilot hole 1.7 mm, 7 deep from the rear face.",
-               "Four cell ribs 1.2 thick, 3 tall, 0.2 off the cell: two at the",
+               "Four cell ribs 1.2 thick, 4 tall, 0.2 off the cell: two at the",
                "  sides (12 long), two at top and bottom (5 long).",
-               "The rim is 13 from the rear face; the gasket sits on it.",
+               "Foam pad 40 x 24 x 1, stuck inside the back wall, centred.",
+               "The rim is 14 from the rear face; the gasket sits on it.",
                "Check: the cell drops between the ribs and lifts out freely."],
         **base))
     # 103 gasket
@@ -249,7 +251,7 @@ def joints():
         elev=6, azim=-6, size=(8, 5.5)))
     # 02 the stack, cut through a stop rib: front wall, rib, sensor, board, cell, rear wall
     rx = P["rib_x"][0]
-    w = (rx - 30, rx, -32, 1, -H / 2 - 1, H / 2 + 1)
+    w = (rx - 30, rx, -32, D["rear_y"] + 1, -H / 2 - 1, H / 2 + 1)
     out.append(bv.joint([
         part("Front shell with stop rib", None, COL["front"], shape=win(C["front"][1], *w)),
         part("Particle sensor", None, COL["sensor"], shape=win(C["sensor"][1], *w)),
@@ -259,7 +261,7 @@ def joints():
         part("Gasket", None, COL["gasket"], shape=win(C["gasket"][1], *w)),
         part("Rear shell", None, COL["rear"], shape=win(C["rear"][1], *w))],
         OUT / "joint-03.png", "Joint 3: how the sensor and cell are held (cut through the left stop rib)",
-        subtitle="Sensor between the seals and the rib, with the board behind it; cell between the board and the rear shell",
+        subtitle="Sensor between the seals and the rib, with the board behind it; cell between the board and the rear shell, with the foam pad behind it (not in this cut)",
         elev=8, azim=-12, size=(8, 6.5)))
     # 03 a shell screw, cut through its axis
     x0, z0 = P["bosses"][1]
@@ -288,7 +290,7 @@ def joints():
     out.append(bv.joint([
         part("Rear shell (inside)", ["rear"]),
         part("Cell", ["cell"]),
-        part("Shell screws in their tubes", None, "#B45309", shape=C["screws"][1] & bx(-40, 40, -14.2, 0, -30, 30))],
+        part("Shell screws in their tubes", None, "#B45309", shape=C["screws"][1] & bx(-40, 40, -15.2, D["rear_y"], -30, 30))],
         OUT / "joint-04.png", "Joint 4: the cell in the rear shell, seen from the open side",
         subtitle="Four ribs keep the cell 0.2 mm from them; the board, fitted next, stops it coming forward",
         elev=20, azim=-75, size=(8, 6)))
@@ -350,13 +352,13 @@ def steps():
        "spring clip onto the rear shell",
        "Base leaf flat on the rear face, centred; two M2 x 8 screws into the bosses, snug (do not strip the plastic)",
        label_done=False, elev=20, azim=60)
-    st(8, [rs, part("Clip", ["clip", "clip_screws"])], [part("Cell, 2,000 mAh", ["cell"], explode=(0, -16, 0))],
-       "cell into the rear shell",
-       "Between the four ribs, lead at the right; plug its lead into the charger module through the board's notch",
+    st(8, [rs, part("Clip", ["clip", "clip_screws"])], [part("Foam pad", ["pad"], explode=(0, -8, 0)), part("Cell, 2,000 mAh", ["cell"], explode=(0, -22, 0))],
+       "foam pad and cell into the rear shell",
+       "Pad on the inside of the back wall first; then the cell between the four ribs, lead at the right",
        label_done=False, elev=22, azim=-70)
     front_done = l4 + [part("Carrier board", ["pcb", "module", "charger"])]
     st(9, front_done, [part("Gasket", ["gasket"], explode=(0, 14, 0)),
-                       part("Rear shell with the cell and clip", ["rear", "cell", "clip", "clip_screws"], explode=(0, 34, 0)),
+                       part("Rear shell with the pad, cell and clip", ["rear", "pad", "cell", "clip", "clip_screws"], explode=(0, 34, 0)),
                        part("Shell screws M2 x 20", ["screws"], explode=(0, 58, 0))],
        "close the badge",
        "Gasket on the front rim; rear shell on; three M2 x 20 screws from the rear face, tightened evenly, snug",
@@ -372,17 +374,18 @@ def layouts():
     from matplotlib.patches import Rectangle, FancyBboxPatch
     INK, MUT, AC = "#111827", "#4B5563", "#0F766E"
     W, Dp = P["W"], P["D"]
+    Dt = Dp + P["rear_extra"]                       # total shell depth, 31 mm
     fd = Dp + P["split_y"]                          # front shell depth, 16 mm
     fig = plt.figure(figsize=(11, 6.4), dpi=150)
     ax = fig.add_axes([0.03, 0.08, 0.94, 0.74]); ax.set_aspect("equal"); ax.set_axis_off()
     # seen from below, front face at the bottom of the page; x to the right as seen from the front,
     # y = depth back from the front face
     ax.add_patch(Rectangle((-W / 2, 0), W, fd, fc="#FEF9C3", ec=INK, lw=1.2))
-    ax.add_patch(Rectangle((-W / 2, fd), W, Dp - fd, fc="#E5E7EB", ec=MUT, lw=0.8, ls="--"))
-    ax.text(0, fd + (Dp - fd) / 2, "gasket and rear shell (no openings)", ha="center", va="center", fontsize=8, color=MUT)
+    ax.add_patch(Rectangle((-W / 2, fd), W, Dt - fd, fc="#E5E7EB", ec=MUT, lw=0.8, ls="--"))
+    ax.text(0, fd + (Dt - fd) / 2, "gasket and rear shell (no openings)", ha="center", va="center", fontsize=8, color=MUT)
     ax.text(-W / 2 - 1.5, fd / 2, "front shell\n16 deep", ha="right", va="center", fontsize=8, color=MUT)
     ax.text(-W / 2 - 1.5, -0.5, "front face", ha="right", va="center", fontsize=8, color=MUT)
-    ax.plot([0, 0], [-2, Dp + 2], color=MUT, lw=0.6, ls=(0, (8, 3, 2, 3)))
+    ax.plot([0, 0], [-2, Dt + 2], color=MUT, lw=0.6, ls=(0, (8, 3, 2, 3)))
     ops = []
     for xx, name in ((D["inlet_x"], "Inlet slot (screened inside)"), (D["outlet_x"], "Outlet slot")):
         ops.append((name, xx, P["sensor_y"] + Dp, P["slot"][0], P["slot"][1], "below"))
@@ -401,7 +404,7 @@ def layouts():
         else:
             ax.annotate(txt, xy=(xc + w_ / 2, yc), xytext=(W / 2 + 6, yc + (4 if yc > 6 else -4)), ha="left", va="center",
                         fontsize=7.6, color=INK, linespacing=1.25, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
-    ax.set_xlim(-W / 2 - 16, W / 2 + 40); ax.set_ylim(-17, Dp + 3)
+    ax.set_xlim(-W / 2 - 16, W / 2 + 40); ax.set_ylim(-17, Dt + 3)
     fig.text(0.03, 0.965, "Front shell bottom face: the openings", fontsize=13, fontweight="bold", color=INK, va="top")
     fig.text(0.03, 0.915, "Seen from below, front face at the bottom of the page. Sizes in mm; sideways from the centre line (left and right as seen from the front),\n"
              "depth back from the front face. All are printed in, nothing is drilled. The screen and the seals sit on the inside over the two slots.",

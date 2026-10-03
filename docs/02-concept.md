@@ -3,7 +3,7 @@ doc_id: DBG-PRC-001
 title: DustBadge design precis
 project: DustBadge
 doc_type: Design precis
-version: "0.9"
+version: "0.10"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -45,13 +45,17 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: 'Decisions of 2026-10-02 carried in: firmware on and off with a low-voltage cutoff, cell swelling rule, R9 at 122 g, site silica fraction method, first partner candidate'
+- version: "0.10"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: 'Worn version modelled (rear shell 1 mm deeper, foam pad): 120.7 g, 31 mm deep, USD 91.50; R15 over the target by USD 0.50; low-voltage cutoff 3.30 V'
 ---
 
 # DustBadge design precis
 
 ## Summary
 
-DustBadge is a chest-worn badge, 64 x 52 x 30 mm (33 mm with the clip) and about 120 g, that samples respirable dust continuously with an optical particle sensor, converts it to an estimate of respirable crystalline silica using a site calibration, keeps a running 8 h time-weighted average, and vibrates when the projected shift average is heading over the action level. The TRL 3 calculations (DBG-CAL-001 v0.2) show one off-the-shelf sensor, a Bluetooth module and a 2,000 mAh cell run a 12 h shift even at the sensor's maximum current and 0 °C (12.8 h; 17.7 h typical), for an estimated $91 in parts, within the $91 value-engineering target Amish set on 2026-09-26 (DBG-DDR-002). It cannot identify silica or replace compliance sampling. On paper it misses the hazardous-atmosphere requirement (R14); accuracy at low dust levels (R3) and operation in hot sun (R11) are at risk. The design choices below were decided by Amish on 2026-09-25 (DBG-DDR-002).
+DustBadge is a chest-worn badge, 64 x 52 x 31 mm (34 mm with the clip) and about 121 g, that samples respirable dust continuously with an optical particle sensor, converts it to an estimate of respirable crystalline silica using a site calibration, keeps a running 8 h time-weighted average, and vibrates when the projected shift average is heading over the action level. The TRL 3 calculations (DBG-CAL-001 v0.7) show one off-the-shelf sensor, a Bluetooth module and a 2,000 mAh cell run a 12 h shift even at the sensor's maximum current and 0 °C (12.8 h; 17.7 h typical), for an estimated $91.50 in parts, $0.50 over the $91 value-engineering target Amish set on 2026-09-26 (DBG-DDR-002); the overage is the foam pad of the worn version. It cannot identify silica or replace compliance sampling. On paper it misses the hazardous-atmosphere requirement (R14) and, by $0.50, the cost requirement (R15); accuracy at low dust levels (R3) and operation in hot sun (R11) are at risk. The design choices below were decided by Amish on 2026-09-25 (DBG-DDR-002).
 
 ![Figure 1. DustBadge worn on the upper chest, within the breathing zone. Grey is the wearer, for scale.](../media/hero.png)
 
@@ -79,7 +83,7 @@ Table 1. Main components, numbered to match the exploded view and bom/bom.csv.
 | 5 | Vibration motor | 10 mm coin motor, stuck to the inside of the front face | Felt through clothing when noise makes a beep useless |
 | 6 | Alert LED | Red 3 mm LED in a printed clear light pipe with an inside flange, through the front face | Visible to the worker looking down and to coworkers |
 | 7 | Carrier board | Perfboard carrying the controller and a 500 mA charger module with USB-C and a cell thermistor input; a 5 V boost module for the sensor and an SHT4x-class humidity and temperature breakout at a vent in the bottom face sit on the inside of the front face; polyfuse | Perfboard for the first build; humidity sensor and thermistor added at TRL 3 (DBG-CAL-001, sections B and C) |
-| 8 | Battery | 2,000 mAh 3.7 V protected LiPo, about 50 x 34 x 11.5 mm, 38 g, with thermistor | Decided by Amish, 2026-09-25 (DBG-DDR-002, D8); was 1,500 mAh. Fills the space behind the carrier board with 0.5 mm to spare |
+| 8 | Battery | 2,000 mAh 3.7 V protected LiPo, about 50 x 34 x 11.5 mm, 38 g, with thermistor | Decided by Amish, 2026-09-25 (DBG-DDR-002, D8); was 1,500 mAh. Fills the space behind the carrier board; in the worn version 1.5 mm behind it, of which a 1 mm foam pad takes 1.0 mm (BOM line 13) |
 | 9 | Rear shell | 3D-printed PETG with a flat printed TPU gasket and two TPU sensor port seals; three tubes that press the carrier board onto the front bosses, four cell locating ribs and two clip screw bosses | Holds the cell away from the body side; closed by three M2 x 20 screws from the rear face (DBG-DDR-003) |
 | 10 | Clip | Stainless spring clip with strap loop, held by two M2 x 8 screws | For a shirt pocket, collar, harness or hi-vis vest |
 
@@ -107,11 +111,11 @@ Table 2. Key numbers.
 | Shift average uncertainty after site calibration | ±21 to ±29 % (quarry); ±22 to ±30 % (quartz-rich stone with the 4.2 L/min, two-shift reference) | Root sum of squares, assumed terms [F2, F3] | R3 at risk |
 | Log size | 11.5 kB per 12 h shift; about 182 shifts in 2 MB | 16-byte record each minute [H1] | R12 met |
 | Inlet to nose and mouth | 242 mm | Model, collar or upper-strap mount [I1] | R8 met |
-| Mass | 119.9 g | Shells, gasket and seals from model volume, parts from datasheets [J2] | R9 met, 0.1 g margin as modelled; R9 relaxed to 122 g on 2026-10-02 for the deeper rear shell and foam pad needed before anyone wears the badge |
-| Size | 64 x 52 x 30 mm; 33 mm deep with the clip | Model | R9 met |
-| Parts cost | $91.00 | bom/bom.csv [L1] | R15 within the value-engineering target ($91) |
+| Mass | 120.7 g | Shells, gasket and seals from model volume, parts from datasheets [J2] | R9 met against 122 g (relaxed from 120 g on 2026-10-02), 1.3 g margin with the deeper rear shell and foam pad needed before anyone wears the badge |
+| Size | 64 x 52 x 31 mm; 34 mm deep with the clip | Model | R9 met |
+| Parts cost | $91.50 | bom/bom.csv [L1, L2] | R15 not met: $0.50 over the value-engineering target ($91) |
 
-![Figure 5. General arrangement DBG-DWG-001, Rev P2, from the parametric model.](../cad/drawings/DBG-DWG-001.png)
+![Figure 5. General arrangement DBG-DWG-001, Rev P3, from the parametric model.](../cad/drawings/DBG-DWG-001.png)
 
 ## Key design choices
 
@@ -126,8 +130,8 @@ Table 2. Key numbers.
 - **Reference sample at low-dust, high-silica sites.** Where respirable dust at the action level is below about 100 µg/m³, the site factor comes from a 4.2 L/min cyclone over two shifts, so the filter holds enough mass to weigh. Decided by Amish, 2026-09-25 (DBG-DDR-002, D9).
 - **Sun use rule.** Wear the badge shaded, under a vest flap or out of direct sun, when the ambient is above 40 °C in full sun. A lighter shell is a later option, to be tested at TRL 4, which is on hold. Decided by Amish, 2026-09-25 (DBG-DDR-002, D10).
 - **Humidity flag.** The added humidity sensor flags readings above 80 % RH, the sensor's best-performance limit, and sudden rises during wet cutting or spraying.
-- **On and off in firmware.** There is no switch: the controller switches the boost off through its enable input and sleeps, waking on USB power, and a firmware low-voltage cutoff set above the cell protection threshold means the cell is never run down to the protection cut-out. Decided by Amish, 2026-10-02 (DBG-DDR-003, A2).
-- **Cell swelling allowance.** The 0.7 mm of free depth round the cell is accepted only for bench work with nobody wearing the badge. Before anyone wears it, the badge is deepened 1 mm with a foam pad behind the cell, and R9 is relaxed to 122 g. Decided by Amish, 2026-10-02 (DBG-DDR-003, A1).
+- **On and off in firmware.** There is no switch: the controller switches the boost off through its enable input and sleeps, waking on USB power, and a firmware low-voltage cutoff set above the cell protection threshold (3.30 V at the cell under load, against an assumed 2.75 V cut-out; DBG-CAL-001 [A7]) means the cell is never run down to the protection cut-out. Decided by Amish, 2026-10-02 (DBG-DDR-003, A2).
+- **Cell swelling allowance.** The 0.7 mm of free depth round the cell is accepted only for bench work with nobody wearing the badge. Before anyone wears it, the badge is deepened 1 mm with a foam pad behind the cell, and R9 is relaxed to 122 g. The model and the drawings now show this worn version. Decided by Amish, 2026-10-02 (DBG-DDR-003, A1).
 - **Site silica fraction.** By default, two or three cyclone filter samples per site go to an accredited laboratory for X-ray diffraction (as in NIOSH Method 7500), and the badge shows no silica estimate until a site fraction exists; field infrared analysis can come later where a partner has the instrument. Decided by Amish, 2026-10-02 (DBG-DDR-001, O2).
 - **Worker-owned data.** Logs stay on the badge and the worker's phone unless the worker shares them, and are never used for discipline. Decided by Amish, 2026-09-25 (DBG-DDR-001, D5).
 

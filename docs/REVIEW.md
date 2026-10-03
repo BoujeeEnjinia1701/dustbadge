@@ -353,3 +353,44 @@ Authority: Amish, 2026-10-02: "i approve your recommendations for all 555 open d
 - The USD 91 value-engineering target was set on 2026-09-26 to equal the priced BOM, so 'on target' carries no information; any addition (the lanyard, a foam pad) goes over it.
 - Items 2 and 4 are linked: the swelling allowance and the R9 mass margin cannot both be decided as recommended in the register, since (b) on item 2 breaks R9.
 - Decided on 2026-10-02 together as linked: decision 2 takes option (b) before anyone wears the badge, and decision 4 moves the R9 limit to 122 g with it.
+
+## Session 2026-10-02: approved follow-ups carried out
+
+Authority: Amish, 2026-10-02, approved every follow-up action from the open-decision sign-off. `trl` and `trl_target` stay at 3; `budget_usd` is unchanged at 91. No commit or push.
+
+### Follow-ups
+
+1. Decision 1, drop test check on the foam-taped parts: not done, TRL 4 test plan work (no test plans at TRL 3). Not added to the build plan's first checks either, pending Amish.
+2. Decision 2, model: done. `cad/src/model.py` now models the worn version: rear shell 1 mm deeper (rear face 1 mm further back, tubes, bosses and cell ribs lengthened to suit), a 40 x 24 x 1 mm foam pad on the rear wall, 0.5 mm clear of the cell. Constructability checks: 47 of 47 pass (4 new for the pad). STEP and STL regenerated.
+3. Decision 2, drawings: done. DBG-DWG-001 now Rev P5; DBG-DWG-102 (rear shell making sketch), overview, joint pictures, steps 8 and 9, bottom-face picture and the concept media regenerated.
+4. Decision 2, BOM: done. Line 13, foam pad, USD 0.50 (basis in the BOM note: a 1 mm adhesive-backed sheet at about USD 6 to 8 gives many pads; allowance for a part-used sheet). Total USD 91.50.
+5. Decision 2, calcs: done. Mass 120.7 g (the worn version adds 0.8 g, not the 1.5 g first estimated), margin 1.3 g to the 122 g limit, so R9 stays met. R15 re-judged: not met.
+6. Decision 3, low-voltage cutoff: threshold done in DBG-CAL-001 and `sizing.py` [A7]: 3.30 V at the cell under load, restart above 3.50 V, against an assumed 2.75 V protection cut-out. The firmware sketch part is not done: the repo has no firmware (TRL 3 cap), so the figure is recorded for the sketch to use later.
+7. Decision 8, caption the fan as illustrative: done in the render scenes (all three view notes in `cad/src/product_model.py` now say so); the captions are applied when the renders are made on Amish's Mac.
+8. Decision 10, optional breakaway lanyard line: not done, TRL 4 (about USD 1; not in the estimate).
+
+### Requirement status changes
+
+- R15 (cost): met on paper to **not met**, by USD 0.50 (USD 91.50 against the USD 91 target). Value-engineering target: USD 91. Estimated cost of the constructable design: USD 91.50 (USD 0.50 over the target).
+- R9 (mass and size): stays met; 120.7 g against 122 g, 64 x 52 x 34 mm with the clip (35.0 mm with the light pipe, exactly the limit).
+- No other status changed.
+
+### Documents changed and new versions
+
+DBG-CAL-001 v0.7; DBG-REQ-001 v0.9; DBG-PRC-001 v0.10; DBG-PRB-001 v0.8; DBG-BLD-001 v0.4 (worn version, pad making and step 8, no bench-only wording); DBG-DEC-001 v0.5 (value engineering restated; one decision proposed, awaiting Amish: raise the target to USD 92, or keep USD 91). Also `README.md`, `bom/bom.csv`, `bom/bom-notes.md`, `cad/src/model.py`, `sheets.py`, `build_plan_media.py`, `concept_media.py`, `product_model.py`, `docs/04-calcs/sizing.py`.
+
+### Render scenes
+
+`cad/src/product_model.py` updated to the worn version (rear-side parts moved with the deeper shell, foam pad added). Scenes exported to `/home/claude/renders/dustbadge` for the views hero, exploded and worn, with `dustbadge__jobs.json`. Photoreal images, `card.png` and `social-preview.png` are to be made on Amish's Mac.
+
+### Cross-repo actions
+
+None for other repos.
+
+### Decisions proposed and awaiting Amish
+
+- Value-engineering target: raise to USD 92 (recommended), or keep USD 91 and find USD 0.50, or accept R15 not met.
+
+## 2026-10-02: photoreal renders redone on the constructable design
+
+Rendered with Blender Cycles on Amish's Mac from the updated appearance model; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Views: hero, exploded, worn. image_qc passes. Appearance deviations are those logged above as proposed, awaiting Amish.

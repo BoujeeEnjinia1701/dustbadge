@@ -1,5 +1,7 @@
 """DustBadge parametric model (build123d), TRL 3, constructable design.
 Revised 2026-09-25 for DBG-DDR-002 (2,000 mAh cell, 11.5 mm thick).
+Revised 2026-10-02 for the worn version (DBG-DDR-003, A1, decided 2026-10-02): rear shell 1 mm deeper
+(rear face at Y = rear_extra) and a foam pad behind the cell.
 Revised 2026-09-30 for DBG-DDR-003 (design for construction): shell screws and rear bosses,
 TPU gasket, sensor port seals and stop ribs, screen under the inlet seal, cell locating ribs,
 clip screws, the carrier board's modules placed and the light pipe given a flange and an LED.
@@ -27,6 +29,7 @@ PARAMS = {
     # envelope and shells (1 front, 9 rear)
     "W": 64.0, "H": 52.0, "D": 30.0,        # width X, height Z, depth Y (shells only, clip excluded)
     "wall": 2.0,
+    "rear_extra": 1.0,                       # rear shell deeper by this much: rear face at Y = rear_extra (worn version)
     "split_y": -14.0,                        # Y of the front shell's rim (the gasket sits on it)
     "gasket_t": 1.0,                         # flat TPU gasket between the rims, squeezed thickness
     "corner_r": 4.0,                         # vertical edge radius
@@ -61,7 +64,8 @@ PARAMS = {
     "rh": (10.0, 2.0, 10.0), "rh_vent_x": 18.5,          # humidity breakout on the floor; vent under it
     # 8 cell, 2,000 mAh protected LiPo (DBG-DDR-002 D8; was 1,500 mAh, 10 mm thick)
     "cell": (50.0, 11.5, 34.0), "cell_y": -8.25, "cell_mah": 2000.0,
-    "cell_rib": (1.2, 3.0),                  # locating ribs on the rear shell: thickness, height
+    "cell_rib": (1.2, 4.0),                  # locating ribs on the rear shell: thickness, height
+    "pad": (40.0, 1.0, 24.0), "pad_gap": 0.5,   # foam pad behind the cell (X, Y, Z), stuck to the rear wall; clear gap to the cell
     # 10 spring clip with strap loop, on the rear face
     "clip": (22.0, 3.0, 40.0), "clip_z": 4.0,
     "clip_holes": ((-6.0, 21.0), (6.0, 21.0)),   # X, Z of the two M2 x 8 clip screws
@@ -72,7 +76,7 @@ PARAMS = {
     "mount_forward": 10.0,                   # inlet forward of the face plane (badge proud of the chest)
     # masses of bought-in parts (g), for R9; shells, gasket and seals from volume
     "m_sensor": 26.3, "m_cell": 38.0, "m_module": 3.0, "m_board": 9.0, "m_motor": 1.0,
-    "m_led": 0.5, "m_screen": 0.4, "m_clip": 6.0, "m_hardware": 3.0,
+    "m_led": 0.5, "m_screen": 0.4, "m_clip": 6.0, "m_hardware": 3.0, "m_pad": 0.2,
     "rho_petg": 1.27, "rho_tpu": 1.21,       # g/cm3
 }
 
@@ -89,14 +93,17 @@ def derived(p=PARAMS):
     floor = -H / 2 + p["wall"]                        # inner floor
     s_bot = floor + p["screen"][2] + p["seal_t"][0]   # sensor rests on the inlet seal over the screen
     return {
-        "overall": (W, D + p["clip"][1], H),            # X, Y incl. clip, Z
+        "overall": (W, D + p["rear_extra"] + p["clip"][1], H),            # X, Y incl. clip, Z
         "floor": floor,
         "sensor_bottom": s_bot, "sensor_top": s_bot + sz, "sensor_zc": s_bot + sz / 2,
         "inlet_x": inlet_x, "outlet_x": outlet_x,
         "inlet_to_face_mm": dist,
         "front_depth": D + p["split_y"],
         "rear_y0": p["split_y"] + p["gasket_t"],        # rim of the rear shell
-        "rear_depth": -(p["split_y"] + p["gasket_t"]),
+        "rear_depth": p["rear_extra"] - (p["split_y"] + p["gasket_t"]),
+        "rear_y": p["rear_extra"],                      # rear face
+        "cell_back": p["cell_y"] + p["cell"][1] / 2,
+        "pad_front": p["rear_extra"] - p["wall"] - p["pad"][1],
         "pcb_front": p["pcb_y"] - p["pcb"][1] / 2, "pcb_back": p["pcb_y"] + p["pcb"][1] / 2,
         "surface_m2": 2 * (W * H + W * D + H * D) * 1e-6,
         "front_area_m2": W * H * 1e-6,
@@ -261,17 +268,18 @@ def build_parts(p=PARAMS):
 
     # 9 rear shell: from the gasket to Y = 0, closed at the back, with bosses and ribs
     ry0 = d["rear_y0"]
-    rd = -ry0
-    outer = rounded_box(0, ry0 / 2, 0, W, rd, H, r)
-    inner = rounded_box(0, (ry0 - t) / 2 - 0.5, 0, W - 2 * t, rd - t + 1, H - 2 * t, max(r - t, 0.5))
+    Y0 = p["rear_extra"]                               # rear face
+    rd = Y0 - ry0
+    outer = rounded_box(0, (ry0 + Y0) / 2, 0, W, rd, H, r)
+    inner = rounded_box(0, (ry0 + Y0 - t) / 2 - 0.5, 0, W - 2 * t, rd - t + 1, H - 2 * t, max(r - t, 0.5))
     rear = outer - inner
     for hx, hz in p["bosses"]:                         # tubes that press the board onto the front bosses
-        rear = rear + ycyl2(hx, hz, -t + 0.01, pb, p["rear_boss_d"] / 2)
+        rear = rear + ycyl2(hx, hz, Y0 - t + 0.01, pb, p["rear_boss_d"] / 2)
     for hx, hz in p["clip_holes"]:                     # bosses for the clip screws
-        rear = rear + ycyl2(hx, hz, -t + 0.01, -7.5, p["boss_d"] / 2)
+        rear = rear + ycyl2(hx, hz, Y0 - t + 0.01, Y0 - 7.5, p["boss_d"] / 2)
     cw, chh = p["cell_rib"]
     ccx, ccy, ccz = p["cell"]
-    yr0, yr1 = -t + 0.01, -t - chh
+    yr0, yr1 = Y0 - t + 0.01, Y0 - t - chh
     for sgn in (-1, 1):                                # cell locating ribs, 0.2 mm off the cell
         x0 = sgn * (ccx / 2 + 0.2)
         rear = rear + bx(x0, x0 + sgn * cw, yr0, yr1, -6, 6)
@@ -279,23 +287,27 @@ def build_parts(p=PARAMS):
         rear = rear + bx(-2.5, 2.5, yr0, yr1, z0, z0 + sgn * cw)
     cbd, cbh = p["cbore"]
     for hx, hz in p["bosses"]:
-        rear = rear - ycyl2(hx, hz, 1, pb - 1, 1.2) - ycyl2(hx, hz, 1, -cbh, cbd / 2)
+        rear = rear - ycyl2(hx, hz, Y0 + 1, pb - 1, 1.2) - ycyl2(hx, hz, Y0 + 1, Y0 - cbh, cbd / 2)
     for hx, hz in p["clip_holes"]:
-        rear = rear - ycyl2(hx, hz, 1, -7.0, 1.0)
+        rear = rear - ycyl2(hx, hz, Y0 + 1, Y0 - 7.0, 1.0)
     parts["rear"] = ("Rear shell", rear, "#374151", 9)
 
+    # foam pad (BOM line 13): stuck to the inside of the rear wall behind the cell, clear of it by pad_gap
+    pw, pt, ph = p["pad"]
+    parts["pad"] = ("Foam pad behind the cell", bx(-pw / 2, pw / 2, Y0 - t - pt, Y0 - t, -ph / 2, ph / 2), "#F59E0B", 13)
+
     # shell screws: M2 x 20, heads in the counterbores, into the front bosses
-    parts["screws"] = ("Shell screws M2 x 20 (3)", fuse([_screw(hx, hz, -cbh, p["screw_len"]) for hx, hz in p["bosses"]]),
+    parts["screws"] = ("Shell screws M2 x 20 (3)", fuse([_screw(hx, hz, Y0 - cbh, p["screw_len"]) for hx, hz in p["bosses"]]),
                        "#111827", 11)
 
     # 10 spring clip with strap loop, and its two screws
     cx_, cy_, cz_ = p["clip"]
-    clip = box(0, cy_ / 2, p["clip_z"], cx_, cy_, cz_) - box(0, cy_ / 2, p["clip_z"] - cz_ / 2 + 7, cx_ - 8, cy_ + 2, 6)
+    clip = box(0, Y0 + cy_ / 2, p["clip_z"], cx_, cy_, cz_) - box(0, Y0 + cy_ / 2, p["clip_z"] - cz_ / 2 + 7, cx_ - 8, cy_ + 2, 6)
     lf = p["clip_leaf"]
     for hx, hz in p["clip_holes"]:
-        clip = clip - ycyl2(hx, hz, -1, cy_ + 1, 1.1) - ycyl2(hx, hz, lf, cy_ + 1, 2.2)
+        clip = clip - ycyl2(hx, hz, Y0 - 1, Y0 + cy_ + 1, 1.1) - ycyl2(hx, hz, Y0 + lf, Y0 + cy_ + 1, 2.2)
     parts["clip"] = ("Spring clip and strap loop", clip, "#9CA3AF", 10)
-    parts["clip_screws"] = ("Clip screws M2 x 8 (2)", fuse([_screw(hx, hz, lf, 8.0) for hx, hz in p["clip_holes"]]),
+    parts["clip_screws"] = ("Clip screws M2 x 8 (2)", fuse([_screw(hx, hz, Y0 + lf, 8.0) for hx, hz in p["clip_holes"]]),
                             "#111827", 11)
     return parts
 
@@ -309,7 +321,7 @@ def masses(p=PARAMS, parts=None):
          "rear shell (PETG)": parts["rear"][1].volume * rho,
          "particle sensor": p["m_sensor"], "cell": p["m_cell"], "controller module": p["m_module"],
          "carrier board and modules": p["m_board"], "motor": p["m_motor"], "LED and light pipe": p["m_led"],
-         "screen": p["m_screen"], "clip": p["m_clip"], "screws, wire, adhesive": p["m_hardware"],
+         "screen": p["m_screen"], "foam pad": p["m_pad"], "clip": p["m_clip"], "screws, wire, adhesive": p["m_hardware"],
          "gasket and port seals (TPU)": (parts["gasket"][1].volume + parts["seals"][1].volume) * rt}
     return m
 
@@ -372,6 +384,10 @@ def checks(p=PARAMS):
     chk("Light pipe and LED clear of the modules", S("led") + S("lamp"), S("module") + S("boost"), 1.0)
     chk("Cell clear of the carrier board", S("cell"), S("pcb"), 0.15)
     chk("Cell clear of the rear shell (ribs and back)", S("cell"), S("rear"), 0.15)
+    chk("Foam pad stuck to the rear wall behind the cell", S("pad"), S("rear"), "touch")
+    chk("Foam pad clear of the cell (swelling room 0.5 mm before it presses)", S("pad"), S("cell"), 0.5)
+    chk("Foam pad clear of the shell screws and clip screws", S("pad"), S("screws") + S("clip_screws"), 1.0)
+    chk("Foam pad clear of the carrier board", S("pad"), S("pcb"), 2.0)
     chk("Cell clear of the clip screws", S("cell"), S("clip_screws"), 1.0)
     chk("Clip on the rear face", S("clip"), S("rear"), "touch")
     chk("Clip screws seated on the clip leaf", S("clip_screws"), S("clip"), "touch")

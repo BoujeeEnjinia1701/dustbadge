@@ -5,7 +5,7 @@ Massing-plus detail only; not for fabrication.
 
 Coordinates in mm. The badge is worn on the upper chest, clipped to a harness
 strap or collar, facing the viewer along -Y. Badge local frame: X across the
-badge, Z up, the rear face (toward the wearer) at Y = 0 and the front at Y = -30.
+badge, Z up, the rear face (toward the wearer) at Y = 1 and the front at Y = -30 (worn version, 31 mm deep).
 """
 import sys
 from pathlib import Path
@@ -31,7 +31,7 @@ EXPLODE = {"front": ex(175), "screen": ex(175, -25, -20), "sensor": ex(105, 0, -
            "motor": ex(105, -15, 22), "led": ex(240, 40, 95), "pcb": ex(50), "cell": ex(0), "rear": ex(-50),
            "clip": ex(-100), "seals": ex(140, -20, -20), "lamp": ex(205, 40, 95), "charger": ex(80, -12, 30),
            "boost": ex(150, 30, 45), "rh": ex(150, -22, 45), "gasket": ex(-25), "screws": ex(-75),
-           "clip_screws": ex(-130)}
+           "clip_screws": ex(-130), "pad": ex(-12)}
 # Parts that share a BOM line share one name, so the exploded view's key stays one line each
 NAMES = {"led": "Alert LED and light pipe", "lamp": "Alert LED and light pipe",
          "pcb": "Carrier board and its modules", "charger": "Carrier board and its modules",
@@ -57,9 +57,9 @@ render_all(
                  "RCS estimate = dust x site silica fraction",
                  "Alerts at projected 8 h TWA over action level",
                  "17.7 h per charge typical, 12.8 h worst case (DBG-CAL-001)",
-                 "64 x 52 x 30 mm (33 with clip), 120 g (DBG-CAL-001)",
+                 "64 x 52 x 31 mm (34 with clip), 121 g (DBG-CAL-001)",
                  "Inlet 242 mm from nose and mouth",
-                 "$91 in parts, budget $91 (indicative prices)"],
+                 "$91.50 in parts, target $91 (indicative prices)"],
     scale_figure=False, context=context, cut=False,
     flow={"title": "data flow (estimated values)", "unit": "",
           "stages": [("Dust at collar", "PM4, 1 s readings"),
